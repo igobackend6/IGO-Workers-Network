@@ -1,0 +1,22 @@
+{
+  "short_name": "IGO Worker",
+  "name": "IGO Worker Network",
+  "description": "A portal for registering, tracking, and deploying informal labour workers across India.",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=192&auto=format&fit=crop",
+      "type": "image/jpeg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=512&auto=format&fit=crop",
+      "type": "image/jpeg",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#0B1528",
+  "theme_color": "#1E293B",
+  "display": "standalone",
+  "orientation": "any"
+}

@@ -1,0 +1,190 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- Global Helper Functions ---
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Role check helper
+    function getRole() {
+      return get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.role;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'igobackend2@gmail.com' ||
+        (exists(/databases/$(database)/documents/roles/$(request.auth.uid)) && getRole() == 'admin')
+      );
+    }
+
+    function isHR() {
+      return isSignedIn() && (
+        (exists(/databases/$(database)/documents/roles/$(request.auth.uid)) && getRole() == 'hr') ||
+        (request.auth.token.email != null && (request.auth.token.email.endsWith('@igogroup.com') || request.auth.token.email == 'igobackend2@gmail.com'))
+      );
+    }
+
+    function isSupervisor() {
+      return isSignedIn() && (
+        exists(/databases/$(database)/documents/supervisors/$(request.auth.uid)) ||
+        (exists(/databases/$(database)/documents/roles/$(request.auth.uid)) && getRole() == 'supervisor')
+      );
+    }
+
+    function getSupervisor(uid) {
+      return get(/databases/$(database)/documents/supervisors/$(uid)).data;
+    }
+
+    function getSupervisorId() {
+      return exists(/databases/$(database)/documents/roles/$(request.auth.uid)) && 
+             get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.keys().hasAll(['supervisorId']) ?
+             get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.supervisorId : request.auth.uid;
+    }
+
+    // --- Validators ---
+
+    function isValidSupervisor(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.name is string && data.name.size() <= 100
+        && data.phone is string && data.phone.size() <= 20
+        && data.assignedState is string && data.assignedState.size() <= 100
+        && data.assignedDistrict is string && data.assignedDistrict.size() <= 100
+        && data.workerCount is int
+        && data.lastActiveAt is string;
+    }
+
+    function isValidWorker(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.name is string && data.name.size() <= 100
+        && data.phone is string && data.phone.size() <= 20
+        && data.age is int && data.age >= 18 && data.age <= 100
+        && data.homeState is string && data.homeState.size() <= 100
+        && data.homeDistrict is string && data.homeDistrict.size() <= 100
+        && data.skill is string && data.skill.size() <= 100
+        && data.idProofType is string && data.idProofType.size() <= 50
+        && data.idProofPhotoUrl is string && data.idProofPhotoUrl.size() <= 1000
+        && data.profilePhotoUrl is string && data.profilePhotoUrl.size() <= 1000
+        && data.availability is string && (data.availability == 'available' || data.availability == 'deployed' || data.availability == 'unavailable')
+        && data.supervisorId is string && data.supervisorId.size() <= 128
+        && data.createdAt is string
+        && data.lastUpdatedAt is string
+        && data.status is string && (data.status == 'active' || data.status == 'archived');
+    }
+
+    function isValidProject(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.name is string && data.name.size() <= 100
+        && data.locationState is string && data.locationState.size() <= 100
+        && data.locationDistrict is string && data.locationDistrict.size() <= 100
+        && data.status is string && (data.status == 'active' || data.status == 'completed' || data.status == 'on-hold')
+        && data.requiredSkills is list && data.requiredSkills.size() <= 10;
+    }
+
+    function isValidDeployment(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.workerId is string && data.workerId.size() <= 128
+        && data.projectId is string && data.projectId.size() <= 128
+        && data.requestedBy is string && data.requestedBy.size() <= 100
+        && data.status is string && (data.status == 'requested' || data.status == 'confirmed' || data.status == 'active' || data.status == 'completed' || data.status == 'cancelled')
+        && data.startDate is string
+        && data.endDate is string;
+    }
+
+    function isValidVerificationLog(data) {
+      return data.id is string && data.id.size() <= 128
+        && data.workerId is string && data.workerId.size() <= 128
+        && data.checkedBy is string && data.checkedBy.size() <= 128
+        && data.checkedAt is string
+        && data.result is string && data.result.size() <= 50
+        && data.notes is string && data.notes.size() <= 1000;
+    }
+
+    // --- Rules for collections ---
+
+    match /roles/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    match /supervisors/{supervisorId} {
+      allow read: if isSignedIn();
+      allow create: if (isSignedIn() && request.auth.uid == supervisorId && isValidSupervisor(incoming())) || isAdmin();
+      allow update: if (isSignedIn() && request.auth.uid == supervisorId && isValidSupervisor(incoming())) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    match /workers/{workerId} {
+      // Area Supervisor can only read worker documents where supervisorId == uid and homeArea matches their assignedArea
+      // HR/Project team role can read all workers
+      allow read: if isAdmin() || isHR() || (
+        isSupervisor() 
+        && resource.data.supervisorId == getSupervisorId() 
+        && resource.data.homeState == getSupervisor(getSupervisorId()).assignedState 
+        && resource.data.homeDistrict == getSupervisor(getSupervisorId()).assignedDistrict
+      );
+
+      // Create: Supervisor must set supervisorId to self, status to active, and area must match assigned state/district. Or Admin/HR.
+      allow create: if (
+        (isSupervisor() 
+        && incoming().supervisorId == getSupervisorId() 
+        && incoming().status == 'active' 
+        && incoming().homeState == getSupervisor(getSupervisorId()).assignedState 
+        && incoming().homeDistrict == getSupervisor(getSupervisorId()).assignedDistrict)
+        || isAdmin() 
+        || isHR()
+      ) && isValidWorker(incoming());
+
+      // Update: Supervisor must match, area must match, and the record must be valid. Or Admin/HR.
+      allow update: if (
+        (isSupervisor() 
+        && existing().supervisorId == getSupervisorId() 
+        && incoming().supervisorId == getSupervisorId() 
+        && incoming().homeState == getSupervisor(getSupervisorId()).assignedState 
+        && incoming().homeDistrict == getSupervisor(getSupervisorId()).assignedDistrict)
+        || isAdmin() 
+        || isHR()
+      ) && isValidWorker(incoming());
+
+      // Hard deletes are blocked. Must use soft-delete by setting status = 'archived'.
+      allow delete: if false;
+    }
+
+    match /projects/{projectId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin() || isHR();
+    }
+
+    match /deployments/{deploymentId} {
+      allow read: if isSignedIn();
+      // HR/Project team can create or update deployments
+      // Supervisor can update deployment status (confirm / cancel)
+      allow create: if (isHR() || isAdmin()) && isValidDeployment(incoming());
+      allow update: if (isHR() || isAdmin() || isSupervisor()) && isValidDeployment(incoming());
+      allow delete: if isAdmin();
+    }
+
+    match /verificationLog/{logId} {
+      allow read: if isAdmin() || isHR();
+      allow write: if isAdmin();
+    }
+  }
+}

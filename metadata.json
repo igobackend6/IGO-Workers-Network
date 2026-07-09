@@ -1,0 +1,6 @@
+{
+  "name": "IGO Worker Network",
+  "description": "A portal for registering, tracking, and deploying informal labour workers across IGO Group's pan-India construction and agri-infrastructure projects.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

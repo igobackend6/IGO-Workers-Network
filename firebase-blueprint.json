@@ -1,0 +1,156 @@
+{
+  "entities": {
+    "worker": {
+      "title": "Worker",
+      "description": "An informal labour worker registered on the platform",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "age": { "type": "integer" },
+        "homeState": { "type": "string" },
+        "homeDistrict": { "type": "string" },
+        "skill": { "type": "string" },
+        "idProofType": { "type": "string" },
+        "idProofPhotoUrl": { "type": "string" },
+        "profilePhotoUrl": { "type": "string" },
+        "availability": { "type": "string" },
+        "supervisorId": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "lastUpdatedAt": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": [
+        "id",
+        "name",
+        "phone",
+        "age",
+        "homeState",
+        "homeDistrict",
+        "skill",
+        "idProofType",
+        "idProofPhotoUrl",
+        "profilePhotoUrl",
+        "availability",
+        "supervisorId",
+        "createdAt",
+        "lastUpdatedAt",
+        "status"
+      ]
+    },
+    "supervisor": {
+      "title": "Supervisor",
+      "description": "An Area Supervisor managing recruitment in their assigned region",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "assignedState": { "type": "string" },
+        "assignedDistrict": { "type": "string" },
+        "workerCount": { "type": "integer" },
+        "lastActiveAt": { "type": "string" }
+      },
+      "required": [
+        "id",
+        "name",
+        "phone",
+        "assignedState",
+        "assignedDistrict",
+        "workerCount",
+        "lastActiveAt"
+      ]
+    },
+    "project": {
+      "title": "Project",
+      "description": "A construction or agri-infrastructure project of IGO Group",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "locationState": { "type": "string" },
+        "locationDistrict": { "type": "string" },
+        "status": { "type": "string" },
+        "requiredSkills": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "locationState",
+        "locationDistrict",
+        "status",
+        "requiredSkills"
+      ]
+    },
+    "deployment": {
+      "title": "Deployment",
+      "description": "Worker deployment assignment record for a project",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "workerId": { "type": "string" },
+        "projectId": { "type": "string" },
+        "requestedBy": { "type": "string" },
+        "status": { "type": "string" },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" }
+      },
+      "required": [
+        "id",
+        "workerId",
+        "projectId",
+        "requestedBy",
+        "status",
+        "startDate",
+        "endDate"
+      ]
+    },
+    "verificationLog": {
+      "title": "VerificationLog",
+      "description": "A safety, verification or compliance check record for a worker",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "workerId": { "type": "string" },
+        "checkedBy": { "type": "string" },
+        "checkedAt": { "type": "string" },
+        "result": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": [
+        "id",
+        "workerId",
+        "checkedBy",
+        "checkedAt",
+        "result",
+        "notes"
+      ]
+    }
+  },
+  "firestore": {
+    "workers/{workerId}": {
+      "schema": { "$ref": "#/entities/worker" },
+      "description": "Collection of informal labour workers"
+    },
+    "supervisors/{supervisorId}": {
+      "schema": { "$ref": "#/entities/supervisor" },
+      "description": "Collection of supervisors"
+    },
+    "projects/{projectId}": {
+      "schema": { "$ref": "#/entities/project" },
+      "description": "Collection of IGO pan-India projects"
+    },
+    "deployments/{deploymentId}": {
+      "schema": { "$ref": "#/entities/deployment" },
+      "description": "Collection of deployment tracking records"
+    },
+    "verificationLog/{logId}": {
+      "schema": { "$ref": "#/entities/verificationLog" },
+      "description": "Collection of verification check logs"
+    }
+  }
+}
