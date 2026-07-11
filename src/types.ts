@@ -39,6 +39,14 @@ export interface Supervisor {
   assignedDistrict: string;
   workerCount: number;
   lastActiveAt: string;
+  profilePhotoUrl?: string;
+  idProofType?: string;
+  idProofPhotoUrl?: string;
+}
+
+export interface RequiredSkill {
+  skill: string;
+  count: number;
 }
 
 export interface Project {
@@ -47,7 +55,8 @@ export interface Project {
   locationState: string;
   locationDistrict: string;
   status: 'active' | 'completed' | 'on-hold';
-  requiredSkills: string[];
+  requiredSkills: RequiredSkill[];
+  assignedSupervisorId?: string;
 }
 
 export interface Deployment {

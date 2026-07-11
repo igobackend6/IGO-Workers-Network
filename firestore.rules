@@ -30,17 +30,15 @@ service cloud.firestore {
     }
 
     function isAdmin() {
-      return isSignedIn() && (
-        request.auth.token.email == 'igobackend2@gmail.com' ||
-        (exists(/databases/$(database)/documents/roles/$(request.auth.uid)) && getRole() == 'admin')
-      );
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/roles/$(request.auth.uid))
+        && getRole() == 'admin';
     }
 
     function isHR() {
-      return isSignedIn() && (
-        (exists(/databases/$(database)/documents/roles/$(request.auth.uid)) && getRole() == 'hr') ||
-        (request.auth.token.email != null && (request.auth.token.email.endsWith('@igogroup.com') || request.auth.token.email == 'igobackend2@gmail.com'))
-      );
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/roles/$(request.auth.uid))
+        && getRole() == 'hr';
     }
 
     function isSupervisor() {
@@ -50,12 +48,8 @@ service cloud.firestore {
       );
     }
 
-    function getSupervisor(uid) {
-      return get(/databases/$(database)/documents/supervisors/$(uid)).data;
-    }
-
     function getSupervisorId() {
-      return exists(/databases/$(database)/documents/roles/$(request.auth.uid)) && 
+      return exists(/databases/$(database)/documents/roles/$(request.auth.uid)) &&
              get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.keys().hasAll(['supervisorId']) ?
              get(/databases/$(database)/documents/roles/$(request.auth.uid)).data.supervisorId : request.auth.uid;
     }
@@ -69,7 +63,10 @@ service cloud.firestore {
         && data.assignedState is string && data.assignedState.size() <= 100
         && data.assignedDistrict is string && data.assignedDistrict.size() <= 100
         && data.workerCount is int
-        && data.lastActiveAt is string;
+        && data.lastActiveAt is string
+        && (!('profilePhotoUrl' in data) || (data.profilePhotoUrl is string && data.profilePhotoUrl.size() <= 500000))
+        && (!('idProofType' in data) || (data.idProofType is string && data.idProofType.size() <= 50))
+        && (!('idProofPhotoUrl' in data) || (data.idProofPhotoUrl is string && data.idProofPhotoUrl.size() <= 500000));
     }
 
     function isValidWorker(data) {
@@ -81,8 +78,8 @@ service cloud.firestore {
         && data.homeDistrict is string && data.homeDistrict.size() <= 100
         && data.skill is string && data.skill.size() <= 100
         && data.idProofType is string && data.idProofType.size() <= 50
-        && data.idProofPhotoUrl is string && data.idProofPhotoUrl.size() <= 1000
-        && data.profilePhotoUrl is string && data.profilePhotoUrl.size() <= 1000
+        && data.idProofPhotoUrl is string && data.idProofPhotoUrl.size() <= 500000
+        && data.profilePhotoUrl is string && data.profilePhotoUrl.size() <= 500000
         && data.availability is string && (data.availability == 'available' || data.availability == 'deployed' || data.availability == 'unavailable')
         && data.supervisorId is string && data.supervisorId.size() <= 128
         && data.createdAt is string
@@ -97,6 +94,8 @@ service cloud.firestore {
         && data.locationDistrict is string && data.locationDistrict.size() <= 100
         && data.status is string && (data.status == 'active' || data.status == 'completed' || data.status == 'on-hold')
         && data.requiredSkills is list && data.requiredSkills.size() <= 10;
+        // Each entry is a { skill: string, count: number } map; not deeply validated here,
+        // consistent with this rule's existing shallow-validation depth for this collection.
     }
 
     function isValidDeployment(data) {
@@ -127,40 +126,40 @@ service cloud.firestore {
 
     match /supervisors/{supervisorId} {
       allow read: if isSignedIn();
-      allow create: if (isSignedIn() && request.auth.uid == supervisorId && isValidSupervisor(incoming())) || isAdmin();
-      allow update: if (isSignedIn() && request.auth.uid == supervisorId && isValidSupervisor(incoming())) || isAdmin();
+      allow create: if (
+        (isSignedIn() && request.auth.uid == supervisorId) || isAdmin() || isHR()
+      ) && isValidSupervisor(incoming());
+      allow update: if (
+        (isSignedIn() && request.auth.uid == supervisorId) || isAdmin() || isHR()
+      ) && isValidSupervisor(incoming());
       allow delete: if isAdmin();
     }
 
     match /workers/{workerId} {
-      // Area Supervisor can only read worker documents where supervisorId == uid and homeArea matches their assignedArea
+      // Area Supervisor can only read worker documents they themselves registered
+      // (a worker's homeState/homeDistrict is their own native origin, independent of
+      // the supervisor's own operating area, since migrant labor is the whole point).
       // HR/Project team role can read all workers
       allow read: if isAdmin() || isHR() || (
-        isSupervisor() 
-        && resource.data.supervisorId == getSupervisorId() 
-        && resource.data.homeState == getSupervisor(getSupervisorId()).assignedState 
-        && resource.data.homeDistrict == getSupervisor(getSupervisorId()).assignedDistrict
+        isSupervisor()
+        && resource.data.supervisorId == getSupervisorId()
       );
 
-      // Create: Supervisor must set supervisorId to self, status to active, and area must match assigned state/district. Or Admin/HR.
+      // Create: Supervisor must set supervisorId to self and status to active. Or Admin/HR.
       allow create: if (
-        (isSupervisor() 
-        && incoming().supervisorId == getSupervisorId() 
-        && incoming().status == 'active' 
-        && incoming().homeState == getSupervisor(getSupervisorId()).assignedState 
-        && incoming().homeDistrict == getSupervisor(getSupervisorId()).assignedDistrict)
-        || isAdmin() 
+        (isSupervisor()
+        && incoming().supervisorId == getSupervisorId()
+        && incoming().status == 'active')
+        || isAdmin()
         || isHR()
       ) && isValidWorker(incoming());
 
-      // Update: Supervisor must match, area must match, and the record must be valid. Or Admin/HR.
+      // Update: Supervisor must own the record, and the record must be valid. Or Admin/HR.
       allow update: if (
-        (isSupervisor() 
-        && existing().supervisorId == getSupervisorId() 
-        && incoming().supervisorId == getSupervisorId() 
-        && incoming().homeState == getSupervisor(getSupervisorId()).assignedState 
-        && incoming().homeDistrict == getSupervisor(getSupervisorId()).assignedDistrict)
-        || isAdmin() 
+        (isSupervisor()
+        && existing().supervisorId == getSupervisorId()
+        && incoming().supervisorId == getSupervisorId())
+        || isAdmin()
         || isHR()
       ) && isValidWorker(incoming());
 
