@@ -27,8 +27,6 @@ export interface Worker {
   createdAt: string;
   lastUpdatedAt: string;
   status: 'active' | 'archived';
-  pendingSync?: boolean;
-  errorSync?: boolean;
 }
 
 export interface Supervisor {

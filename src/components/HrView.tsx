@@ -4,11 +4,12 @@ import { Worker, Project, Deployment, Supervisor, UserProfile, RequiredSkill } f
 import { db, handleFirestoreError, OperationType, collection, onSnapshot, doc, setDoc } from '../firebase';
 import { getTranslation } from '../translations';
 import { STATES_AND_DISTRICTS, SKILL_CATEGORIES, ID_PROOF_TYPES } from '../data';
-import { compressImage } from '../utils';
+import { compressImage, readImageFile } from '../utils';
+import CameraCaptureModal from './CameraCaptureModal';
 import {
   Search, Filter, Calendar, MapPin, Briefcase, Phone,
   User, CheckCircle, ArrowRight, Table, Grid, Plus, Check, X, AlertCircle,
-  UserCog, Camera, FileText
+  UserCog, Camera, FileText, Upload
 } from 'lucide-react';
 
 interface HrViewProps {
@@ -61,8 +62,9 @@ export default function HrView({ user, lang }: HrViewProps) {
   const [supIdProofPhoto, setSupIdProofPhoto] = useState('');
   const [supFormError, setSupFormError] = useState('');
   const [supSubmitting, setSupSubmitting] = useState(false);
-  const supProfileInputRef = useRef<HTMLInputElement>(null);
-  const supIdInputRef = useRef<HTMLInputElement>(null);
+  const [supCameraTarget, setSupCameraTarget] = useState<'profile' | 'id' | null>(null);
+  const supProfileFileInputRef = useRef<HTMLInputElement>(null);
+  const supIdFileInputRef = useRef<HTMLInputElement>(null);
 
   // 1. Subscribe to Collections in Real Time
   useEffect(() => {
@@ -214,21 +216,31 @@ export default function HrView({ user, lang }: HrViewProps) {
   };
 
   // 4. Handle Add Supervisor photo captures & compression
-  const handleSupervisorPhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'profile' | 'id') => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  const handleSupervisorCameraCapture = async (dataUrl: string) => {
+    const compressed = await compressImage(dataUrl);
+    if (supCameraTarget === 'profile') {
+      setSupProfilePhoto(compressed);
+    } else if (supCameraTarget === 'id') {
+      setSupIdProofPhoto(compressed);
+    }
+    setSupCameraTarget(null);
+  };
 
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const base64 = reader.result as string;
-      const compressed = await compressImage(base64);
+  const handleSupervisorFileSelect = async (e: React.ChangeEvent<HTMLInputElement>, type: 'profile' | 'id') => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    try {
+      const dataUrl = await readImageFile(file);
+      const compressed = await compressImage(dataUrl);
       if (type === 'profile') {
         setSupProfilePhoto(compressed);
       } else {
         setSupIdProofPhoto(compressed);
       }
-    };
-    reader.readAsDataURL(file);
+    } catch (err: any) {
+      alert(err.message || (lang === 'en' ? 'Only PNG and JPEG images are allowed.' : 'PNG மற்றும் JPEG படங்கள் மட்டுமே அனுமதிக்கப்படும்.'));
+    }
   };
 
   // 5. Submit new Supervisor registration
@@ -345,7 +357,7 @@ export default function HrView({ user, lang }: HrViewProps) {
         </div>
       </motion.div>
 
-      <AnimatePresence mode="wait">
+      <>
       {/* --- WORKERS POOL VIEW --- */}
       {viewMode === 'workers' && (
         <motion.div
@@ -471,7 +483,7 @@ export default function HrView({ user, lang }: HrViewProps) {
 
           {/* Read-Only Profile & Deployment Request Column */}
           <div className="space-y-4">
-            <AnimatePresence mode="wait">
+            <>
             {selectedWorker ? (
               <motion.div
                 key={selectedWorker.id}
@@ -633,7 +645,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                 <p className="text-xs font-bold leading-relaxed">Select any worker from the pool to view details, supervisor contact info, and submit deployment requests.</p>
               </motion.div>
             )}
-            </AnimatePresence>
+            </>
           </div>
         </motion.div>
       )}
@@ -711,7 +723,7 @@ export default function HrView({ user, lang }: HrViewProps) {
 
           {/* Add Supervisor Form / Selected Supervisor Detail */}
           <div className="space-y-4">
-            <AnimatePresence mode="wait">
+            <>
               {isAddingSupervisor ? (
                 <motion.div
                   key="add-supervisor-form"
@@ -747,21 +759,31 @@ export default function HrView({ user, lang }: HrViewProps) {
                             <Camera className="w-6 h-6 text-slate-300" />
                           )}
                         </div>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          ref={supProfileInputRef}
-                          className="hidden"
-                          onChange={(e) => handleSupervisorPhotoUpload(e, 'profile')}
-                        />
-                        <button
-                          type="button"
-                          className="py-2 px-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-bold text-slate-200 flex items-center justify-center gap-1 shadow cursor-pointer"
-                          onClick={() => supProfileInputRef.current?.click()}
-                        >
-                          <Camera className="w-3.5 h-3.5" />
-                          Upload Photo
-                        </button>
+                        <div className="flex flex-col gap-2 flex-1">
+                          <button
+                            type="button"
+                            className="py-2 px-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-bold text-slate-200 flex items-center justify-center gap-1 shadow cursor-pointer"
+                            onClick={() => setSupCameraTarget('profile')}
+                          >
+                            <Camera className="w-3.5 h-3.5" />
+                            Use Camera
+                          </button>
+                          <input
+                            type="file"
+                            accept="image/png,image/jpeg"
+                            ref={supProfileFileInputRef}
+                            className="hidden"
+                            onChange={(e) => handleSupervisorFileSelect(e, 'profile')}
+                          />
+                          <button
+                            type="button"
+                            className="py-2 px-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs font-bold text-slate-300 flex items-center justify-center gap-1 shadow cursor-pointer"
+                            onClick={() => supProfileFileInputRef.current?.click()}
+                          >
+                            <Upload className="w-3.5 h-3.5" />
+                            Upload from Device
+                          </button>
+                        </div>
                       </div>
                     </div>
 
@@ -846,21 +868,29 @@ export default function HrView({ user, lang }: HrViewProps) {
                             ))}
                           </select>
                         </div>
-                        <div className="text-right">
-                          <input
-                            type="file"
-                            accept="image/*"
-                            ref={supIdInputRef}
-                            className="hidden"
-                            onChange={(e) => handleSupervisorPhotoUpload(e, 'id')}
-                          />
+                        <div className="text-right space-y-1.5">
                           <button
                             type="button"
                             className="w-full py-2.5 px-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-[10px] font-black uppercase tracking-wider text-white flex items-center justify-center gap-1 shadow cursor-pointer"
-                            onClick={() => supIdInputRef.current?.click()}
+                            onClick={() => setSupCameraTarget('id')}
                           >
                             <Camera className="w-3.5 h-3.5" />
-                            ID Photo Upload
+                            ID Photo Capture
+                          </button>
+                          <input
+                            type="file"
+                            accept="image/png,image/jpeg"
+                            ref={supIdFileInputRef}
+                            className="hidden"
+                            onChange={(e) => handleSupervisorFileSelect(e, 'id')}
+                          />
+                          <button
+                            type="button"
+                            className="w-full py-2.5 px-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-[10px] font-black uppercase tracking-wider text-slate-300 flex items-center justify-center gap-1 shadow cursor-pointer"
+                            onClick={() => supIdFileInputRef.current?.click()}
+                          >
+                            <Upload className="w-3.5 h-3.5" />
+                            Upload from Device
                           </button>
                         </div>
                       </div>
@@ -933,6 +963,43 @@ export default function HrView({ user, lang }: HrViewProps) {
                       </span>
                     </div>
                   </div>
+
+                  {/* Assigned Projects */}
+                  {(() => {
+                    const assignedProjects = projects.filter(p => p.assignedSupervisorId === selectedSupervisor.id);
+                    return (
+                      <div className="space-y-2">
+                        <span className="text-[9px] text-slate-400 uppercase tracking-wider block font-black">
+                          Assigned Projects ({assignedProjects.length})
+                        </span>
+                        {assignedProjects.length === 0 ? (
+                          <p className="text-xs font-bold text-slate-400">No projects assigned to this supervisor yet.</p>
+                        ) : (
+                          <div className="space-y-2">
+                            {assignedProjects.map(proj => (
+                              <div key={proj.id} className="p-3 bg-white/[0.03] rounded-xl border-2 border-white/10">
+                                <div className="flex items-center justify-between">
+                                  <h4 className="text-xs font-extrabold text-white leading-tight">{proj.name}</h4>
+                                  <span className="text-[9px] bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 px-2 py-0.5 rounded-full font-black uppercase tracking-wider shrink-0">{proj.status}</span>
+                                </div>
+                                <p className="text-[10px] text-slate-500 font-bold flex items-center gap-1 mt-1">
+                                  <MapPin className="w-3 h-3 text-slate-400" />
+                                  {proj.locationDistrict}, {proj.locationState}
+                                </p>
+                                <div className="flex flex-wrap gap-1 mt-2">
+                                  {proj.requiredSkills.map(({ skill, count }) => (
+                                    <span key={skill} className="px-1.5 py-0.5 bg-white/5 border border-white/10 text-[9px] text-slate-300 font-bold uppercase tracking-wider rounded-md">
+                                      {skill} <span className="text-indigo-400">×{count}</span>
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </motion.div>
               ) : (
                 <motion.div
@@ -947,7 +1014,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                   <p className="text-xs font-bold leading-relaxed">Select a supervisor from the list to view details, or add a new one.</p>
                 </motion.div>
               )}
-            </AnimatePresence>
+            </>
           </div>
         </motion.div>
       )}
@@ -1246,7 +1313,16 @@ export default function HrView({ user, lang }: HrViewProps) {
           </div>
         </motion.div>
       )}
-      </AnimatePresence>
+      </>
+
+      {supCameraTarget && (
+        <CameraCaptureModal
+          lang={lang}
+          facingMode={supCameraTarget === 'id' ? 'environment' : 'user'}
+          onCapture={handleSupervisorCameraCapture}
+          onClose={() => setSupCameraTarget(null)}
+        />
+      )}
     </div>
   );
 }

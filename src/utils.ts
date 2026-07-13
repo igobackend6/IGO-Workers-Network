@@ -46,3 +46,23 @@ export function compressImage(base64Str: string, maxWidth = 450, maxHeight = 450
     };
   });
 }
+
+const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg'];
+
+/**
+ * Reads a user-selected file as a data URL, rejecting anything that isn't
+ * PNG or JPEG (the accept attribute alone doesn't stop drag-and-drop or an
+ * "All Files" override in the OS picker).
+ */
+export function readImageFile(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      reject(new Error('Only PNG and JPEG images are allowed.'));
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = () => reject(new Error('Could not read the selected file.'));
+    reader.readAsDataURL(file);
+  });
+}

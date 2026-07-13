@@ -8,3 +8,6 @@ coverage/
 !.env.example
 scripts/*firebase-adminsdk*.json
 *-adminsdk-*.json
+scripts/*token*.txt
+scripts/*.pem
+.vercel

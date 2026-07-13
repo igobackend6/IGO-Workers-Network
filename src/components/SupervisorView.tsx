@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Worker, Supervisor, Deployment, Project, UserProfile } from '../types';
-import { db, storage, handleFirestoreError, OperationType, collection, query, where, onSnapshot, doc, setDoc, updateDoc } from '../firebase';
-import { ref, uploadString, getDownloadURL } from 'firebase/storage';
+import { db, handleFirestoreError, OperationType, collection, query, where, onSnapshot, doc, setDoc, updateDoc } from '../firebase';
 import { getTranslation } from '../translations';
 import { STATES_AND_DISTRICTS, SKILL_CATEGORIES, ID_PROOF_TYPES } from '../data';
-import { compressImage } from '../utils';
-import { 
-  Users, Plus, CheckCircle, RefreshCw, Smartphone, 
-  MapPin, Phone, Briefcase, Camera, Save, ArrowLeft, 
-  Check, X, AlertCircle, FileText, ToggleLeft, ToggleRight, Wifi, WifiOff 
+import { compressImage, readImageFile } from '../utils';
+import CameraCaptureModal from './CameraCaptureModal';
+import {
+  Users, Plus, CheckCircle, RefreshCw, Smartphone,
+  MapPin, Phone, Briefcase, Camera, Save, ArrowLeft,
+  Check, X, AlertCircle, FileText, ToggleLeft, ToggleRight, Wifi, WifiOff, Upload
 } from 'lucide-react';
 
 interface SupervisorViewProps {
@@ -41,20 +41,14 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null);
   const [loading, setLoading] = useState(false);
-  const [syncing, setSyncing] = useState(false);
-  const [syncError, setSyncError] = useState('');
   const [hasPendingWrites, setHasPendingWrites] = useState(false);
-
-  // References for camera file inputs
-  const profileInputRef = useRef<HTMLInputElement>(null);
-  const idInputRef = useRef<HTMLInputElement>(null);
+  const [cameraTarget, setCameraTarget] = useState<'profile' | 'id' | null>(null);
+  const profileFileInputRef = useRef<HTMLInputElement>(null);
+  const idFileInputRef = useRef<HTMLInputElement>(null);
 
   // 1. Detect Network Changes
   useEffect(() => {
-    const handleOnline = () => {
-      setIsOnline(true);
-      triggerBackgroundSync();
-    };
+    const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
     window.addEventListener('online', handleOnline);
@@ -64,7 +58,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, [workers]);
+  }, []);
 
   // 2. Real-time Subscription to Workers (Offline-First)
   useEffect(() => {
@@ -82,12 +76,8 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
       snapshot.forEach((doc) => {
         list.push(doc.data() as Worker);
       });
-      // Sort: local pending first, then by updated timestamp
-      list.sort((a, b) => {
-        if (a.pendingSync && !b.pendingSync) return -1;
-        if (!a.pendingSync && b.pendingSync) return 1;
-        return new Date(b.lastUpdatedAt).getTime() - new Date(a.lastUpdatedAt).getTime();
-      });
+      // Sort: most recently updated first
+      list.sort((a, b) => new Date(b.lastUpdatedAt).getTime() - new Date(a.lastUpdatedAt).getTime());
       setWorkers(list);
     }, (error) => {
       console.error("Workers snapshot failed", error);
@@ -122,84 +112,32 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
     };
   }, []);
 
-  // 4. Background Sync Job (Uploader)
-  const triggerBackgroundSync = async () => {
-    if (!navigator.onLine || syncing) return;
-    
-    // Find workers that have base64 local images and need syncing to Firebase Storage
-    const workersToSync = workers.filter(w => 
-      w.pendingSync || 
-      (w.idProofPhotoUrl && w.idProofPhotoUrl.startsWith('data:image')) ||
-      (w.profilePhotoUrl && w.profilePhotoUrl.startsWith('data:image'))
-    );
-
-    if (workersToSync.length === 0) return;
-
-    setSyncing(true);
-    setSyncError('');
-    console.log(`Starting background upload sync for ${workersToSync.length} workers...`);
-
-    try {
-      for (const worker of workersToSync) {
-        let finalIdUrl = worker.idProofPhotoUrl;
-        let finalProfileUrl = worker.profilePhotoUrl;
-
-        // Upload ID Proof if it is a local base64 image
-        if (worker.idProofPhotoUrl && worker.idProofPhotoUrl.startsWith('data:image')) {
-          const idRef = ref(storage, `id_proofs/${worker.id}.jpg`);
-          await uploadString(idRef, worker.idProofPhotoUrl, 'data_url');
-          finalIdUrl = await getDownloadURL(idRef);
-        }
-
-        // Upload Profile Photo if it is a local base64 image
-        if (worker.profilePhotoUrl && worker.profilePhotoUrl.startsWith('data:image')) {
-          const profRef = ref(storage, `profiles/${worker.id}.jpg`);
-          await uploadString(profRef, worker.profilePhotoUrl, 'data_url');
-          finalProfileUrl = await getDownloadURL(profRef);
-        }
-
-        // Update Firestore document with remote URLs
-        const workerRef = doc(db, 'workers', worker.id);
-        await updateDoc(workerRef, {
-          idProofPhotoUrl: finalIdUrl,
-          profilePhotoUrl: finalProfileUrl,
-          pendingSync: false,
-          lastUpdatedAt: new Date().toISOString()
-        });
-      }
-      console.log("Background upload sync completed successfully!");
-    } catch (err) {
-      console.error("Error in background sync uploads:", err);
-      setSyncError(lang === 'en' ? 'Sync interrupted. Will retry when connection stabilizes.' : 'ஒத்திசைவு தடைபட்டது. இணைப்பு சரியானதும் மீண்டும் நிகழும்.');
-    } finally {
-      setSyncing(false);
+  // 4. Handling Photo Captures & Compression
+  const handleCameraCapture = async (dataUrl: string) => {
+    const compressed = await compressImage(dataUrl);
+    if (cameraTarget === 'profile') {
+      setProfilePhoto(compressed);
+    } else if (cameraTarget === 'id') {
+      setIdProofPhoto(compressed);
     }
+    setCameraTarget(null);
   };
 
-  // Run background sync automatically when online state is active
-  useEffect(() => {
-    if (isOnline && workers.length > 0) {
-      triggerBackgroundSync();
-    }
-  }, [isOnline, workers.length]);
-
-  // 5. Handling Photo Captures & Compression
-  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>, type: 'profile' | 'id') => {
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>, type: 'profile' | 'id') => {
     const file = e.target.files?.[0];
+    e.target.value = '';
     if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = async () => {
-      const base64 = reader.result as string;
-      // Compress immediately client-side
-      const compressed = await compressImage(base64);
+    try {
+      const dataUrl = await readImageFile(file);
+      const compressed = await compressImage(dataUrl);
       if (type === 'profile') {
         setProfilePhoto(compressed);
       } else {
         setIdProofPhoto(compressed);
       }
-    };
-    reader.readAsDataURL(file);
+    } catch (err: any) {
+      alert(err.message || (lang === 'en' ? 'Only PNG and JPEG images are allowed.' : 'PNG மற்றும் JPEG படங்கள் மட்டுமே அனுமதிக்கப்படும்.'));
+    }
   };
 
   // 6. Form Submission (Saves locally first)
@@ -230,7 +168,6 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
       createdAt: new Date().toISOString(),
       lastUpdatedAt: new Date().toISOString(),
       status: 'active',
-      pendingSync: true // marked as pending cloud sync
     };
 
     try {
@@ -246,12 +183,8 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
       setIdProofPhoto('');
       setIsCustomSkill(false);
       setCustomSkill('');
-      
-      // Go back to list & trigger background sync if online
+
       setActiveTab('list');
-      if (isOnline) {
-        triggerBackgroundSync();
-      }
     } catch (err) {
       handleFirestoreError(err, OperationType.CREATE, `workers/${workerId}`);
     } finally {
@@ -269,7 +202,6 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
       await updateDoc(workerRef, {
         status: 'archived',
         lastUpdatedAt: new Date().toISOString(),
-        pendingSync: true
       });
       setSelectedWorker(null);
     } catch (err) {
@@ -316,7 +248,6 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
   );
 
   // Status Badge styles
-  const isPendingSyncSomewhere = workers.some(w => w.pendingSync) || hasPendingWrites;
 
   return (
     <div className={`flex flex-col min-h-[85vh] bg-white/[0.03] text-white mx-auto border-2 border-white/10 rounded-3xl pb-20 shadow-2xl relative overflow-hidden transition-all ${activeTab === 'list' && !selectedWorker ? 'max-w-3xl' : 'max-w-md'}`}>
@@ -335,7 +266,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
         {/* Sync Status Badge */}
         <div className="flex items-center gap-1">
           {isOnline ? (
-            isPendingSyncSomewhere ? (
+            hasPendingWrites ? (
               <div className="inline-flex items-center gap-1 px-2.5 py-1 bg-amber-500 text-slate-950 text-[9px] font-black uppercase tracking-wider rounded-full shadow animate-pulse">
                 <RefreshCw className="w-3 h-3 animate-spin" />
                 {getTranslation('pendingSync', lang)}
@@ -467,9 +398,6 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
                           <h4 className="font-extrabold text-sm text-white truncate leading-tight">{worker.name}</h4>
-                          {worker.pendingSync && (
-                            <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shrink-0" title="Pending Sync" />
-                          )}
                         </div>
                         <p className="text-xs text-indigo-400 font-bold uppercase tracking-wider mt-0.5 flex items-center gap-1">
                           <Briefcase className="w-3 h-3 text-indigo-500 shrink-0" />
@@ -531,9 +459,6 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                 <div>
                   <div className="flex items-center gap-1.5">
                     <h3 className="text-lg font-black text-white leading-none">{selectedWorker.name}</h3>
-                    {selectedWorker.pendingSync && (
-                      <span className="inline-flex items-center px-1.5 py-0.5 bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[8px] font-black uppercase tracking-wider rounded">Pending Cloud Sync</span>
-                    )}
                   </div>
                   <p className="text-xs text-indigo-400 font-black uppercase tracking-wider mt-1">{selectedWorker.skill}</p>
                   <p className="text-xs text-slate-300 mt-1 flex items-center gap-1 font-semibold">
@@ -636,22 +561,28 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                     </div>
                     
                     <div className="flex flex-col gap-2 flex-1">
-                      {/* Real File Selector with touch prompt */}
-                      <input
-                        type="file"
-                        accept="image/*"
-                        capture="user"
-                        ref={profileInputRef}
-                        className="hidden"
-                        onChange={(e) => handlePhotoUpload(e, 'profile')}
-                      />
                       <button
                         type="button"
                         className="py-2 px-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-bold text-slate-200 flex items-center justify-center gap-1 shadow cursor-pointer"
-                        onClick={() => profileInputRef.current?.click()}
+                        onClick={() => setCameraTarget('profile')}
                       >
                         <Camera className="w-3.5 h-3.5" />
                         {lang === 'en' ? 'Device Camera' : 'கைபேசி கேமரா'}
+                      </button>
+                      <input
+                        type="file"
+                        accept="image/png,image/jpeg"
+                        ref={profileFileInputRef}
+                        className="hidden"
+                        onChange={(e) => handleFileSelect(e, 'profile')}
+                      />
+                      <button
+                        type="button"
+                        className="py-2 px-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs font-bold text-slate-300 flex items-center justify-center gap-1 shadow cursor-pointer"
+                        onClick={() => profileFileInputRef.current?.click()}
+                      >
+                        <Upload className="w-3.5 h-3.5" />
+                        {lang === 'en' ? 'Upload from Device' : 'சாதனத்திலிருந்து பதிவேற்று'}
                       </button>
                     </div>
                   </div>
@@ -795,22 +726,29 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                           ))}
                         </select>
                       </div>
-                      <div className="text-right">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          capture="environment"
-                          ref={idInputRef}
-                          className="hidden"
-                          onChange={(e) => handlePhotoUpload(e, 'id')}
-                        />
+                      <div className="text-right space-y-1.5">
                         <button
                           type="button"
                           className="w-full py-2.5 px-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-[10px] font-black uppercase tracking-wider text-white flex items-center justify-center gap-1 shadow cursor-pointer"
-                          onClick={() => idInputRef.current?.click()}
+                          onClick={() => setCameraTarget('id')}
                         >
                           <Camera className="w-3.5 h-3.5" />
                           {lang === 'en' ? 'ID Photo Capture' : 'அடையாள சான்று படம்'}
+                        </button>
+                        <input
+                          type="file"
+                          accept="image/png,image/jpeg"
+                          ref={idFileInputRef}
+                          className="hidden"
+                          onChange={(e) => handleFileSelect(e, 'id')}
+                        />
+                        <button
+                          type="button"
+                          className="w-full py-2.5 px-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-[10px] font-black uppercase tracking-wider text-slate-300 flex items-center justify-center gap-1 shadow cursor-pointer"
+                          onClick={() => idFileInputRef.current?.click()}
+                        >
+                          <Upload className="w-3.5 h-3.5" />
+                          {lang === 'en' ? 'Upload from Device' : 'சாதனத்திலிருந்து பதிவேற்று'}
                         </button>
                       </div>
                     </div>
@@ -974,6 +912,15 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
           )}
         </button>
       </nav>
+
+      {cameraTarget && (
+        <CameraCaptureModal
+          lang={lang}
+          facingMode={cameraTarget === 'id' ? 'environment' : 'user'}
+          onCapture={handleCameraCapture}
+          onClose={() => setCameraTarget(null)}
+        />
+      )}
     </div>
   );
 }
