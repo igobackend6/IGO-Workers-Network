@@ -5,19 +5,19 @@ import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import { getTranslation } from '../translations';
 import { UserProfile } from '../types';
-import { Mail, ChevronLeft, UserCheck, AlertTriangle, Crown } from 'lucide-react';
+import { Mail, ChevronLeft, UserCheck, AlertTriangle, LineChart } from 'lucide-react';
 
-interface AdminLoginViewProps {
+interface CeoLoginViewProps {
   lang: 'en' | 'ta';
   onLoginSuccess: (user: UserProfile) => void;
   onBack: () => void;
 }
 
-// Strict allowlist: only this account may ever access the Admin Portal.
+// Strict allowlist: only this account may ever access the CEO Portal.
 // This is defense-in-depth on top of the fact that only this account exists in Firebase Auth.
-const ALLOWED_ADMIN_EMAILS = ['admin@igogroups.com'];
+const ALLOWED_CEO_EMAILS = ['ceo@igogroups.in'];
 
-export default function AdminLoginView({ lang, onLoginSuccess, onBack }: AdminLoginViewProps) {
+export default function CeoLoginView({ lang, onLoginSuccess, onBack }: CeoLoginViewProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -30,8 +30,8 @@ export default function AdminLoginView({ lang, onLoginSuccess, onBack }: AdminLo
       return;
     }
     const normalizedEmail = email.trim().toLowerCase();
-    if (!ALLOWED_ADMIN_EMAILS.includes(normalizedEmail)) {
-      setError(lang === 'en' ? 'This email is not authorized for Admin Portal access.' : 'இந்த மின்னஞ்சல் நிர்வாக போர்டல் அணுகலுக்கு அங்கீகரிக்கப்படவில்லை.');
+    if (!ALLOWED_CEO_EMAILS.includes(normalizedEmail)) {
+      setError(lang === 'en' ? 'This email is not authorized for CEO Portal access.' : 'இந்த மின்னஞ்சல் சிஇஓ போர்டல் அணுகலுக்கு அங்கீகரிக்கப்படவில்லை.');
       return;
     }
     setError('');
@@ -41,17 +41,17 @@ export default function AdminLoginView({ lang, onLoginSuccess, onBack }: AdminLo
       const roleSnap = await getDoc(doc(db, 'roles', cred.user.uid));
       const roleData = roleSnap.exists() ? (roleSnap.data() as any) : null;
 
-      if (!roleData || roleData.role !== 'admin') {
+      if (!roleData || roleData.role !== 'ceo') {
         await signOut(auth);
-        setError(lang === 'en' ? 'This account is not authorized for Admin Portal access.' : 'இந்த கணக்கு நிர்வாக போர்டல் அணுகலுக்கு அங்கீகரிக்கப்படவில்லை.');
+        setError(lang === 'en' ? 'This account is not authorized for CEO Portal access.' : 'இந்த கணக்கு சிஇஓ போர்டல் அணுகலுக்கு அங்கீகரிக்கப்படவில்லை.');
         return;
       }
 
       onLoginSuccess({
         uid: cred.user.uid,
         email: cred.user.email || normalizedEmail,
-        name: roleData.name || 'Admin',
-        role: 'admin',
+        name: roleData.name || 'CEO',
+        role: 'ceo',
       });
     } catch (err: any) {
       console.error(err);
@@ -63,7 +63,7 @@ export default function AdminLoginView({ lang, onLoginSuccess, onBack }: AdminLo
 
   return (
     <motion.div
-      id="admin-login-container"
+      id="ceo-login-container"
       initial={{ opacity: 0, y: 24, scale: 0.97 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
@@ -80,8 +80,8 @@ export default function AdminLoginView({ lang, onLoginSuccess, onBack }: AdminLo
             <ChevronLeft className="w-4 h-4" />
           </button>
           <h1 className="text-sm font-black uppercase tracking-widest text-slate-200 flex items-center gap-2">
-            <Crown className="w-4 h-4 text-rose-400" />
-            {getTranslation('roleAdmin', lang)}
+            <LineChart className="w-4 h-4 text-amber-400" />
+            {getTranslation('roleCeo', lang)}
           </h1>
         </div>
 
@@ -93,7 +93,7 @@ export default function AdminLoginView({ lang, onLoginSuccess, onBack }: AdminLo
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25 }}
-              id="admin-login-error-alert"
+              id="ceo-login-error-alert"
               className="p-3.5 bg-rose-500/10 border border-rose-500/25 rounded-2xl text-rose-300 text-xs flex items-start gap-2.5 font-semibold animate-shake"
             >
               <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-rose-400" />
@@ -108,19 +108,19 @@ export default function AdminLoginView({ lang, onLoginSuccess, onBack }: AdminLo
           transition={{ duration: 0.3 }}
           onSubmit={handleLogin}
           className="space-y-4"
-          id="admin-login-form"
+          id="ceo-login-form"
         >
           <div className="space-y-1.5">
             <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">
               {getTranslation('emailAddress', lang)}
             </label>
             <div className="relative group">
-              <Mail className="w-3.5 h-3.5 absolute left-3.5 top-3 text-slate-500 group-focus-within:text-rose-400 transition-colors" />
+              <Mail className="w-3.5 h-3.5 absolute left-3.5 top-3 text-slate-500 group-focus-within:text-amber-400 transition-colors" />
               <input
                 id="input-email"
                 type="email"
-                placeholder="admin@igogroups.com"
-                className="w-full pl-9 pr-4 py-2.5 bg-white/5 border border-white/15 focus:border-rose-500 rounded-xl text-white font-bold text-xs focus:outline-none placeholder-slate-500 focus:ring-4 focus:ring-rose-500/20 transition-all font-sans"
+                placeholder="ceo@igogroups.in"
+                className="w-full pl-9 pr-4 py-2.5 bg-white/5 border border-white/15 focus:border-amber-500 rounded-xl text-white font-bold text-xs focus:outline-none placeholder-slate-500 focus:ring-4 focus:ring-amber-500/20 transition-all font-sans"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -135,7 +135,7 @@ export default function AdminLoginView({ lang, onLoginSuccess, onBack }: AdminLo
               id="input-password"
               type="password"
               placeholder="••••••••"
-              className="w-full px-4 py-2.5 bg-white/5 border border-white/15 focus:border-rose-500 rounded-xl text-white font-bold text-xs focus:outline-none placeholder-slate-500 focus:ring-4 focus:ring-rose-500/20 transition-all"
+              className="w-full px-4 py-2.5 bg-white/5 border border-white/15 focus:border-amber-500 rounded-xl text-white font-bold text-xs focus:outline-none placeholder-slate-500 focus:ring-4 focus:ring-amber-500/20 transition-all"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -147,10 +147,10 @@ export default function AdminLoginView({ lang, onLoginSuccess, onBack }: AdminLo
             disabled={loading}
             whileHover={{ scale: loading ? 1 : 1.015 }}
             whileTap={{ scale: loading ? 1 : 0.98 }}
-            className="btn-sheen w-full py-3 bg-rose-600 hover:bg-rose-500 text-white font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-md cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
+            className="btn-sheen w-full py-3 bg-amber-500 hover:bg-amber-600 text-slate-950 font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-md cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
           >
             {loading ? (
-              <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
+              <span className="animate-spin rounded-full h-4 w-4 border-2 border-slate-950 border-t-transparent"></span>
             ) : (
               <>
                 <UserCheck className="w-4 h-4" />

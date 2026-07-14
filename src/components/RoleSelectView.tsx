@@ -2,12 +2,38 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { getTranslation } from '../translations';
 import { UserRole } from '../types';
-import { Shield, Sparkles, ChevronRight, Users2, Briefcase, Crown } from 'lucide-react';
+import { Shield, Sparkles, ChevronRight, Users2, Briefcase, Crown, LineChart } from 'lucide-react';
 
 interface RoleSelectViewProps {
   lang: 'en' | 'ta';
   onSelectRole: (role: UserRole) => void;
 }
+
+type Accent = 'violet' | 'rose' | 'amber';
+
+const ACCENT_HOVER: Record<Accent, string> = {
+  violet: 'hover:bg-violet-500/10 hover:border-violet-500/30',
+  rose: 'hover:bg-rose-500/10 hover:border-rose-500/30',
+  amber: 'hover:bg-amber-500/10 hover:border-amber-500/30',
+};
+
+const ACCENT_ICON: Record<Accent, string> = {
+  violet: 'icon-glow-violet bg-violet-500/15 text-violet-400 border border-violet-500/25',
+  rose: 'icon-glow-rose bg-rose-500/15 text-rose-400 border border-rose-500/25',
+  amber: 'icon-glow-amber bg-amber-500/15 text-amber-400 border border-amber-500/25',
+};
+
+const ACCENT_TEXT: Record<Accent, string> = {
+  violet: 'text-violet-400',
+  rose: 'text-rose-400',
+  amber: 'text-amber-400',
+};
+
+const ACCENT_CHEVRON: Record<Accent, string> = {
+  violet: 'group-hover:text-violet-400',
+  rose: 'group-hover:text-rose-400',
+  amber: 'group-hover:text-amber-400',
+};
 
 export default function RoleSelectView({ lang, onSelectRole }: RoleSelectViewProps) {
   const roles: Array<{
@@ -16,7 +42,7 @@ export default function RoleSelectView({ lang, onSelectRole }: RoleSelectViewPro
     labelKey: string;
     tag: string;
     icon: React.ReactNode;
-    accent: 'violet' | 'rose';
+    accent: 'violet' | 'rose' | 'amber';
   }> = [
     {
       role: 'supervisor',
@@ -38,9 +64,17 @@ export default function RoleSelectView({ lang, onSelectRole }: RoleSelectViewPro
       role: 'admin',
       id: 'role-card-admin',
       labelKey: 'roleAdmin',
-      tag: lang === 'en' ? 'Pan-India Stats & Oversight' : 'அகில இந்திய புள்ளிவிவரங்கள்',
+      tag: lang === 'en' ? 'Pan-India Overview & Oversight' : 'அகில இந்திய கண்ணோட்டம்',
       icon: <Crown className="w-5 h-5" />,
       accent: 'rose',
+    },
+    {
+      role: 'ceo',
+      id: 'role-card-ceo',
+      labelKey: 'roleCeo',
+      tag: lang === 'en' ? 'Executive Analytics Dashboard' : 'நிர்வாக பகுப்பாய்வு கட்டுப்பாட்டகம்',
+      icon: <LineChart className="w-5 h-5" />,
+      accent: 'amber',
     },
   ];
 
@@ -98,19 +132,13 @@ export default function RoleSelectView({ lang, onSelectRole }: RoleSelectViewPro
               whileHover={{ x: 3 }}
               whileTap={{ scale: 0.98 }}
               className={`w-full flex items-center justify-between p-4 bg-white/5 border border-white/10 rounded-2xl text-left transition-colors cursor-pointer group shadow-sm ${
-                r.accent === 'rose'
-                  ? 'hover:bg-rose-500/10 hover:border-rose-500/30'
-                  : 'hover:bg-violet-500/10 hover:border-violet-500/30'
+                ACCENT_HOVER[r.accent]
               }`}
               onClick={() => onSelectRole(r.role)}
             >
               <div className="flex items-center gap-3">
                 <div
-                  className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 ${
-                    r.accent === 'rose'
-                      ? 'icon-glow-rose bg-rose-500/15 text-rose-400 border border-rose-500/25'
-                      : 'icon-glow-violet bg-violet-500/15 text-violet-400 border border-violet-500/25'
-                  }`}
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-105 ${ACCENT_ICON[r.accent]}`}
                 >
                   {r.icon}
                 </div>
@@ -118,19 +146,13 @@ export default function RoleSelectView({ lang, onSelectRole }: RoleSelectViewPro
                   <span className="font-extrabold text-slate-100 block text-sm">
                     {getTranslation(r.labelKey, lang)}
                   </span>
-                  <span
-                    className={`block text-[9px] font-extrabold uppercase tracking-widest mt-0.5 ${
-                      r.accent === 'rose' ? 'text-rose-400' : 'text-violet-400'
-                    }`}
-                  >
+                  <span className={`block text-[9px] font-extrabold uppercase tracking-widest mt-0.5 ${ACCENT_TEXT[r.accent]}`}>
                     {r.tag}
                   </span>
                 </div>
               </div>
               <ChevronRight
-                className={`w-4 h-4 text-slate-500 group-hover:translate-x-1 transition-all ${
-                  r.accent === 'rose' ? 'group-hover:text-rose-400' : 'group-hover:text-violet-400'
-                }`}
+                className={`w-4 h-4 text-slate-500 group-hover:translate-x-1 transition-all ${ACCENT_CHEVRON[r.accent]}`}
               />
             </motion.button>
           ))}

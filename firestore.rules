@@ -35,6 +35,12 @@ service cloud.firestore {
         && getRole() == 'admin';
     }
 
+    function isCEO() {
+      return isSignedIn()
+        && exists(/databases/$(database)/documents/roles/$(request.auth.uid))
+        && getRole() == 'ceo';
+    }
+
     function isHR() {
       return isSignedIn()
         && exists(/databases/$(database)/documents/roles/$(request.auth.uid))
@@ -140,7 +146,7 @@ service cloud.firestore {
       // (a worker's homeState/homeDistrict is their own native origin, independent of
       // the supervisor's own operating area, since migrant labor is the whole point).
       // HR/Project team role can read all workers
-      allow read: if isAdmin() || isHR() || (
+      allow read: if isAdmin() || isCEO() || isHR() || (
         isSupervisor()
         && resource.data.supervisorId == getSupervisorId()
       );
@@ -182,8 +188,8 @@ service cloud.firestore {
     }
 
     match /verificationLog/{logId} {
-      allow read: if isAdmin() || isHR();
-      allow write: if isAdmin();
+      allow read: if isAdmin() || isCEO() || isHR();
+      allow write: if isAdmin() || isCEO();
     }
   }
 }

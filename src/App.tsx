@@ -5,6 +5,7 @@ import LoginView from './components/LoginView';
 import SupervisorView from './components/SupervisorView';
 import HrView from './components/HrView';
 import AdminView from './components/AdminView';
+import CeoView from './components/CeoView';
 import MascotRobot from './components/MascotRobot';
 import AICommandBar from './components/AICommandBar';
 import { 
@@ -65,6 +66,11 @@ export default function App() {
       return lang === 'en'
         ? "Deepak, let's optimize today's travel routes!"
         : "தீபக், பயண வழிகளை மேம்படுத்துவோம்!";
+    }
+    if (currentUser.role === 'admin') {
+      return lang === 'en'
+        ? "Admin Desk: Here's the full Pan-India overview."
+        : "நிர்வாக அலுவலகம்: அகில இந்திய கண்ணோட்டம் தயார்.";
     }
     return lang === 'en'
       ? "CEO Desk: Database performance is exceptionally green."
@@ -281,6 +287,9 @@ export default function App() {
                 )}
                 {currentUser.role === 'admin' && (
                   <AdminView user={currentUser} lang={lang} />
+                )}
+                {currentUser.role === 'ceo' && (
+                  <CeoView user={currentUser} lang={lang} />
                 )}
               </div>
             )}

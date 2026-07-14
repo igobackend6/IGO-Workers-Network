@@ -32,8 +32,8 @@ const db = getFirestore(app, FIRESTORE_DATABASE_ID);
 
 const STATIC_ACCOUNTS = [
   { email: 'hr@igogroups.com', password: 'IgohrGroups86!', role: 'hr', name: 'Deepak HR Officer' },
-  { email: 'admin@igogroups.com', password: 'Igofamily123!', role: 'admin', name: 'CEO Office Admin' },
-  { email: 'ceo@igogroups.in', password: 'CEOofIgo27!', role: 'admin', name: 'CEO Office' },
+  { email: 'admin@igogroups.com', password: 'Igofamily123!', role: 'admin', name: 'Admin Officer' },
+  { email: 'ceo@igogroups.in', password: 'CEOofIgo27!', role: 'ceo', name: 'CEO Office' },
 ];
 
 const PRE_APPROVED_SUPERVISORS = [

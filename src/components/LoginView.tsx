@@ -4,6 +4,7 @@ import RoleSelectView from './RoleSelectView';
 import SupervisorLoginView from './SupervisorLoginView';
 import HrLoginView from './HrLoginView';
 import AdminLoginView from './AdminLoginView';
+import CeoLoginView from './CeoLoginView';
 
 interface LoginViewProps {
   lang: 'en' | 'ta';
@@ -23,6 +24,9 @@ export default function LoginView({ lang, onLoginSuccess }: LoginViewProps) {
   }
   if (stage === 'admin') {
     return <AdminLoginView lang={lang} onLoginSuccess={onLoginSuccess} onBack={() => setStage('roleSelect')} />;
+  }
+  if (stage === 'ceo') {
+    return <CeoLoginView lang={lang} onLoginSuccess={onLoginSuccess} onBack={() => setStage('roleSelect')} />;
   }
 
   return <RoleSelectView lang={lang} onSelectRole={setStage} />;

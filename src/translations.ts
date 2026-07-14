@@ -18,8 +18,12 @@ export const translations: TranslationDictionary = {
     ta: "திட்ட / மனிதவள குழு"
   },
   roleAdmin: {
-    en: "Admin / CEO Office",
-    ta: "நிர்வாகி / சிஇஓ அலுவலகம்"
+    en: "Admin Portal",
+    ta: "நிர்வாக போர்டல்"
+  },
+  roleCeo: {
+    en: "CEO Portal",
+    ta: "சிஇஓ போர்டல்"
   },
   selectRole: {
     en: "Select Portal Access Role",
@@ -280,6 +284,42 @@ export const translations: TranslationDictionary = {
   supervisorProfile: {
     en: "My Supervisor Profile",
     ta: "எனது மேற்பார்வையாளர் விவரக்குறிப்பு"
+  },
+  adminOverviewTitle: {
+    en: "Admin Command Center",
+    ta: "நிர்வாக கட்டுப்பாட்டு மையம்"
+  },
+  navSupervisor: {
+    en: "Supervisor",
+    ta: "மேற்பார்வையாளர்"
+  },
+  navHr: {
+    en: "HR",
+    ta: "மனிதவளம்"
+  },
+  navWorkers: {
+    en: "Workers",
+    ta: "தொழிலாளர்கள்"
+  },
+  navCeo: {
+    en: "CEO",
+    ta: "சிஇஓ"
+  },
+  totalSupervisorsRegistered: {
+    en: "Total Supervisors Registered",
+    ta: "மொத்த பதிவு செய்யப்பட்ட மேற்பார்வையாளர்கள்"
+  },
+  totalWorkersRegisteredSoFar: {
+    en: "Total Workers Registered So Far",
+    ta: "இதுவரை பதிவு செய்யப்பட்ட மொத்த தொழிலாளர்கள்"
+  },
+  assignedProjectWorkers: {
+    en: "Workers Assigned",
+    ta: "நியமிக்கப்பட்ட தொழிலாளர்கள்"
+  },
+  supervisorProjectOverview: {
+    en: "Supervisor → Project → Workers Overview",
+    ta: "மேற்பார்வையாளர் → திட்டம் → தொழிலாளர் கண்ணோட்டம்"
   }
 };
 
