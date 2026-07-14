@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { UserProfile } from './types';
 import { getTranslation } from './translations';
 import LoginView from './components/LoginView';
+import LandingPage from './components/LandingPage';
 import SupervisorView from './components/SupervisorView';
 import HrView from './components/HrView';
 import AdminView from './components/AdminView';
@@ -27,6 +28,8 @@ export default function App() {
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
   const [activeTab, setActiveTab] = useState<'dashboard' | 'search' | 'info'>('dashboard');
   const [showInfoModal, setShowInfoModal] = useState(false);
+  // Returning staff with a saved session skip straight past the marketing page.
+  const [showLanding, setShowLanding] = useState(() => !localStorage.getItem('igo_user'));
 
   // 1. Initialize and Restore session on first startup
   useEffect(() => {
@@ -89,7 +92,9 @@ export default function App() {
         <div className="absolute top-[40%] right-[15%] w-[320px] h-[320px] bg-fuchsia-500/10 rounded-full blur-3xl animate-blob animation-delay-4000" />
       </div>
 
-      {/* Main Glassmorphic Dashboard Console */}
+      {showLanding ? (
+        <LandingPage lang={lang} setLang={setLang} onEnterPortal={() => setShowLanding(false)} />
+      ) : (
       <div
         id="main-glass-console"
         className="w-full max-w-7xl glass-panel rounded-[32px] shadow-2xl flex flex-col md:flex-row overflow-hidden min-h-[92vh] border border-white/10 animate-fadeIn"
@@ -255,7 +260,7 @@ export default function App() {
           {/* C. ACTIVE PANEL INJECTION (Login or Roles) */}
           <section id="active-content-stage" className="flex-1 w-full min-h-0">
             {!currentUser ? (
-              <LoginView lang={lang} onLoginSuccess={handleLoginSuccess} />
+              <LoginView lang={lang} onLoginSuccess={handleLoginSuccess} onBackToHome={() => setShowLanding(true)} />
             ) : (
               <div className="w-full h-full animate-fadeIn" id="active-role-component">
                 {currentUser.isSandbox && (
@@ -302,6 +307,7 @@ export default function App() {
 
         </main>
       </div>
+      )}
 
       {/* Info Overview modal panel */}
       {showInfoModal && (

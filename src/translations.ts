@@ -320,6 +320,140 @@ export const translations: TranslationDictionary = {
   supervisorProjectOverview: {
     en: "Supervisor → Project → Workers Overview",
     ta: "மேற்பார்வையாளர் → திட்டம் → தொழிலாளர் கண்ணோட்டம்"
+  },
+
+  // --- Landing Page ---
+  landingNavServices: {
+    en: "Services",
+    ta: "சேவைகள்"
+  },
+  landingNavBrands: {
+    en: "Brands",
+    ta: "பிராண்டுகள்"
+  },
+  landingNavContact: {
+    en: "Contact",
+    ta: "தொடர்பு"
+  },
+  landingPortalLogin: {
+    en: "Portal Login",
+    ta: "போர்டல் உள்நுழைவு"
+  },
+  landingHeroHeadline: {
+    en: "Pan-India's Trusted Labour Workforce Partner",
+    ta: "அகில இந்தியாவின் நம்பகமான தொழிலாளர் பணியாளர் கூட்டாளர்"
+  },
+  landingHeroSubheadline: {
+    en: "Verified, skilled and general labour — sourced, deployed and managed across India, 24 hours a day, for any industry.",
+    ta: "சரிபார்க்கப்பட்ட, திறமையான மற்றும் பொது தொழிலாளர்கள் — இந்தியா முழுவதும் எந்த தொழிலுக்கும், 24 மணி நேரமும் வழங்கப்பட்டு நிர்வகிக்கப்படுகிறார்கள்."
+  },
+  landingHeroCtaPrimary: {
+    en: "Request Workers",
+    ta: "தொழிலாளர்களை கோரவும்"
+  },
+  landingHeroCtaSecondary: {
+    en: "Partner With Us",
+    ta: "எங்களுடன் இணையுங்கள்"
+  },
+  landingStatSupervisors: {
+    en: "Area Supervisors",
+    ta: "பகுதி மேற்பார்வையாளர்கள்"
+  },
+  landingStatWorkers: {
+    en: "Registered Workers",
+    ta: "பதிவு செய்யப்பட்ட தொழிலாளர்கள்"
+  },
+  landingStatBrands: {
+    en: "Brand Partners",
+    ta: "பிராண்ட் கூட்டாளர்கள்"
+  },
+  landingStatStates: {
+    en: "States & Growing",
+    ta: "மாநிலங்கள் & வளர்ச்சி"
+  },
+  landingServicesTitle: {
+    en: "24/7 Labour Support, For Any Industry",
+    ta: "24/7 தொழிலாளர் ஆதரவு, எந்த தொழிலுக்கும்"
+  },
+  landingServicesSubtitle: {
+    en: "Whatever your business needs — from a single skilled tradesperson to a full site crew — we source, verify and deploy the right workforce, day or night.",
+    ta: "உங்கள் வணிகத்திற்கு என்ன தேவைப்பட்டாலும் — ஒரு திறமையான தொழிலாளியிலிருந்து முழு தள குழு வரை — நாங்கள் சரியான பணியாளர்களை பகல் இரவு என்று பாராமல் வழங்குகிறோம்."
+  },
+  landingFeature247Title: {
+    en: "24/7 Availability",
+    ta: "24/7 கிடைக்கும் தன்மை"
+  },
+  landingFeature247Desc: {
+    en: "Round-the-clock request and deployment desk — no waiting for business hours.",
+    ta: "இடைவிடாத கோரிக்கை மற்றும் பணி அமர்த்தல் பிரிவு — வேலை நேரத்திற்காக காத்திருக்க தேவையில்லை."
+  },
+  landingFeatureVerifiedTitle: {
+    en: "Verified Workforce",
+    ta: "சரிபார்க்கப்பட்ட பணியாளர்கள்"
+  },
+  landingFeatureVerifiedDesc: {
+    en: "Every worker is registered with photo ID and government ID proof before deployment.",
+    ta: "ஒவ்வொரு தொழிலாளியும் பணி அமர்த்தலுக்கு முன் புகைப்படம் மற்றும் அரசு அடையாள சான்றுடன் பதிவு செய்யப்படுகிறார்."
+  },
+  landingFeatureReachTitle: {
+    en: "Pan-India Reach",
+    ta: "அகில இந்திய அணுகல்"
+  },
+  landingFeatureReachDesc: {
+    en: "A growing supervisor network across multiple states, ready to mobilize labour locally.",
+    ta: "பல மாநிலங்களில் வளர்ந்து வரும் மேற்பார்வையாளர் வலையமைப்பு, உள்நாட்டில் தொழிலாளர்களை அணிதிரட்ட தயார்."
+  },
+  landingFeatureFastTitle: {
+    en: "Fast Deployment",
+    ta: "விரைவான பணி அமர்த்தல்"
+  },
+  landingFeatureFastDesc: {
+    en: "From request to confirmed deployment, our supervisor network moves fast.",
+    ta: "கோரிக்கையிலிருந்து உறுதிப்படுத்தப்பட்ட பணி அமர்த்தல் வரை, எங்கள் மேற்பார்வையாளர் வலையமைப்பு வேகமாக செயல்படுகிறது."
+  },
+  landingSkillsBadge: {
+    en: "Smart Category Matching",
+    ta: "ஸ்மார்ட் வகை பொருத்தம்"
+  },
+  landingSkillsTitle: {
+    en: "Every Trade, Instantly Matched",
+    ta: "ஒவ்வொரு தொழிலும், உடனடியாக பொருத்தப்படுகிறது"
+  },
+  landingBrandsTitle: {
+    en: "Brands & Businesses We Work With",
+    ta: "நாங்கள் பணிபுரியும் பிராண்டுகள் & வணிகங்கள்"
+  },
+  landingBrandsSubtitle: {
+    en: "Proud to be part of the IGO Group family of businesses.",
+    ta: "ஐஜிஓ குழுமத்தின் வணிகக் குடும்பத்தின் ஒரு பகுதியாக இருப்பதில் பெருமிதம் கொள்கிறோம்."
+  },
+  landingContactTitle: {
+    en: "Get In Touch",
+    ta: "தொடர்பு கொள்ளுங்கள்"
+  },
+  landingContactSubtitle: {
+    en: "Need workers for your site or business? Reach out any time — we're available 24/7.",
+    ta: "உங்கள் தளத்திற்கு அல்லது வணிகத்திற்கு தொழிலாளர்கள் தேவையா? எப்போது வேண்டுமானாலும் தொடர்பு கொள்ளுங்கள் — நாங்கள் 24/7 கிடைக்கிறோம்."
+  },
+  landingContactPhone: {
+    en: "Phone",
+    ta: "தொலைபேசி"
+  },
+  landingContactEmail: {
+    en: "Email",
+    ta: "மின்னஞ்சல்"
+  },
+  landingContactAddress: {
+    en: "Coverage Hub",
+    ta: "சேவை மையம்"
+  },
+  landingFooterTagline: {
+    en: "Pan-India Informal Labour Registry & Deployment System",
+    ta: "அகில இந்திய முறைசாரா தொழிலாளர் பதிவு மற்றும் பணி அமர்த்தல் அமைப்பு"
+  },
+  landingBackToHome: {
+    en: "Back to Home",
+    ta: "முகப்புக்கு திரும்பு"
   }
 };
 

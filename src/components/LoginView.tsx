@@ -9,11 +9,12 @@ import CeoLoginView from './CeoLoginView';
 interface LoginViewProps {
   lang: 'en' | 'ta';
   onLoginSuccess: (user: UserProfile) => void;
+  onBackToHome?: () => void;
 }
 
 type LoginStage = 'roleSelect' | UserRole;
 
-export default function LoginView({ lang, onLoginSuccess }: LoginViewProps) {
+export default function LoginView({ lang, onLoginSuccess, onBackToHome }: LoginViewProps) {
   const [stage, setStage] = useState<LoginStage>('roleSelect');
 
   if (stage === 'supervisor') {
@@ -29,5 +30,5 @@ export default function LoginView({ lang, onLoginSuccess }: LoginViewProps) {
     return <CeoLoginView lang={lang} onLoginSuccess={onLoginSuccess} onBack={() => setStage('roleSelect')} />;
   }
 
-  return <RoleSelectView lang={lang} onSelectRole={setStage} />;
+  return <RoleSelectView lang={lang} onSelectRole={setStage} onBackToHome={onBackToHome} />;
 }

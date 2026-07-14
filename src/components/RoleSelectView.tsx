@@ -2,11 +2,12 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { getTranslation } from '../translations';
 import { UserRole } from '../types';
-import { Shield, Sparkles, ChevronRight, Users2, Briefcase, Crown, LineChart } from 'lucide-react';
+import { Shield, Sparkles, ChevronRight, Users2, Briefcase, Crown, LineChart, ArrowLeft } from 'lucide-react';
 
 interface RoleSelectViewProps {
   lang: 'en' | 'ta';
   onSelectRole: (role: UserRole) => void;
+  onBackToHome?: () => void;
 }
 
 type Accent = 'violet' | 'rose' | 'amber';
@@ -35,7 +36,7 @@ const ACCENT_CHEVRON: Record<Accent, string> = {
   amber: 'group-hover:text-amber-400',
 };
 
-export default function RoleSelectView({ lang, onSelectRole }: RoleSelectViewProps) {
+export default function RoleSelectView({ lang, onSelectRole, onBackToHome }: RoleSelectViewProps) {
   const roles: Array<{
     role: UserRole;
     id: string;
@@ -88,6 +89,17 @@ export default function RoleSelectView({ lang, onSelectRole }: RoleSelectViewPro
     >
       {/* Visual Header */}
       <div className="p-7 bg-black/40 text-center relative overflow-hidden">
+        {onBackToHome && (
+          <button
+            type="button"
+            id="btn-back-to-home"
+            onClick={onBackToHome}
+            className="absolute top-3 left-3 z-20 flex items-center gap-1 px-2.5 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-[9px] font-black uppercase tracking-widest text-slate-300 hover:text-slate-100 transition-all cursor-pointer"
+          >
+            <ArrowLeft className="w-3 h-3" />
+            {getTranslation('landingBackToHome', lang)}
+          </button>
+        )}
         <div className="absolute -top-10 -left-10 w-40 h-40 bg-violet-600/30 rounded-full blur-3xl animate-blob" />
         <div className="absolute -bottom-14 -right-10 w-44 h-44 bg-fuchsia-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
         <div
