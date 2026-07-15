@@ -6,7 +6,7 @@ import {
   Shield, Sparkles, ArrowRight, Clock, ShieldCheck, Globe2, Zap,
   Phone, Mail, MapPin, Building2, Languages, Users2, HardHat,
   Hammer, Axe, Wrench, Flame, Cog, Users, Tractor, Truck, BrainCircuit,
-  ChevronLeft, ChevronRight, MousePointer2, Facebook, Instagram, Linkedin, Youtube
+  ChevronLeft, ChevronRight, MousePointer2, Facebook, Instagram, Linkedin, Youtube, Camera
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -14,6 +14,11 @@ interface LandingPageProps {
   setLang: (lang: 'en' | 'ta') => void;
   onEnterPortal: () => void;
 }
+
+// Shared "glow on hover" treatment applied to every card on the page, per the request to
+// have every box brighten its border/glow on mouseover. White/green/black palette only.
+const CARD_GLOW =
+  'bg-white border-2 border-emerald-100 hover:border-emerald-400 shadow-sm hover:shadow-[0_0_22px_2px_rgba(16,129,73,0.28)] transition-all duration-300';
 
 // Illustrative figures for the marketing page — not pulled from live Firestore data.
 // Swap these for real numbers once the business has them.
@@ -31,27 +36,6 @@ const FEATURES: Array<{ icon: React.ReactNode; titleKey: string; descKey: string
   { icon: <Zap className="w-6 h-6" />, titleKey: 'landingFeatureFastTitle', descKey: 'landingFeatureFastDesc' },
 ];
 
-// Bento-grid card styling for the skills section, inspired by crypto/AI-product landing
-// pages (glowing gradient-bordered cards on a dark canvas). Tailwind class names must stay
-// fully static (not template-built) for the JIT compiler to pick them up, so each accent is
-// a complete literal string here rather than assembled from a variable.
-type SkillAccent = 'emerald' | 'emerald' | 'amber' | 'emerald' | 'rose';
-const SKILL_ACCENTS: SkillAccent[] = ['emerald', 'emerald', 'amber', 'emerald', 'rose'];
-
-const SKILL_ACCENT_ICON: Record<SkillAccent, string> = {
-  emerald: 'icon-glow-emerald bg-emerald-500/15 text-emerald-300 border border-emerald-500/30',
-  emerald: 'icon-glow-emerald bg-emerald-500/15 text-emerald-300 border border-emerald-500/30',
-  amber: 'icon-glow-amber bg-amber-500/15 text-amber-300 border border-amber-500/30',
-  emerald: 'icon-glow-emerald bg-emerald-500/15 text-emerald-300 border border-emerald-500/30',
-  rose: 'icon-glow-rose bg-rose-500/15 text-rose-300 border border-rose-500/30',
-};
-const SKILL_ACCENT_BLOB: Record<SkillAccent, string> = {
-  emerald: 'bg-emerald-500',
-  emerald: 'bg-emerald-500',
-  amber: 'bg-amber-500',
-  emerald: 'bg-emerald-500',
-  rose: 'bg-rose-500',
-};
 const SKILL_ICON_MAP: Record<string, React.ReactNode> = {
   'Mason': <Hammer className="w-5 h-5" />,
   'Carpenter': <Axe className="w-5 h-5" />,
@@ -63,6 +47,19 @@ const SKILL_ICON_MAP: Record<string, React.ReactNode> = {
   'Agri-Infrastructure Operator': <Tractor className="w-5 h-5" />,
   'Excavator Operator': <Truck className="w-5 h-5" />,
 };
+
+// Real crew photos from a live IGO site build — copied from assets/Skills into public/skills
+// so Vite/Vercel serve them statically. Only 7 of the 9 skill categories have a matching
+// photo yet (no Helper/General Labour or Agri-Infrastructure Operator shot supplied).
+const GALLERY_PHOTOS: Array<{ skill: string; file: string }> = [
+  { skill: 'Mason', file: 'mason.png' },
+  { skill: 'Carpenter', file: 'carpenter.png' },
+  { skill: 'Electrician', file: 'electrician.png' },
+  { skill: 'Plumber', file: 'plumber.png' },
+  { skill: 'Welder', file: 'welder.png' },
+  { skill: 'Concrete Mixer Operator', file: 'mixer-operator.png' },
+  { skill: 'Excavator Operator', file: 'excavator-operator.png' },
+];
 
 // Real contact details, sourced from igoagritechfarms.in (an IGO Group brand site).
 const CONTACT_PHONE = '+91 73977 89803';
@@ -104,19 +101,10 @@ const BRANDS: Array<{ name: string; file: string; desc: string }> = [
   { name: 'Valluvam', file: 'valluvam.jpg', desc: 'Traditional wellness & heritage products' },
 ];
 
-type BrandAccent = 'emerald' | 'emerald' | 'amber' | 'emerald' | 'rose';
-const BRAND_ACCENTS: BrandAccent[] = ['emerald', 'emerald', 'amber', 'emerald', 'rose'];
-const BRAND_ACCENT_GLOW: Record<BrandAccent, string> = {
-  emerald: 'border-emerald-400/60 shadow-[0_0_16px_1px_rgba(139,92,246,0.35)] hover:shadow-[0_0_26px_4px_rgba(139,92,246,0.55)]',
-  emerald: 'border-emerald-400/60 shadow-[0_0_16px_1px_rgba(124,110,246,0.35)] hover:shadow-[0_0_26px_4px_rgba(124,110,246,0.55)]',
-  amber: 'border-amber-400/60 shadow-[0_0_16px_1px_rgba(245,158,11,0.35)] hover:shadow-[0_0_26px_4px_rgba(245,158,11,0.55)]',
-  emerald: 'border-emerald-400/60 shadow-[0_0_16px_1px_rgba(16,185,129,0.35)] hover:shadow-[0_0_26px_4px_rgba(16,185,129,0.55)]',
-  rose: 'border-rose-400/60 shadow-[0_0_16px_1px_rgba(244,63,94,0.35)] hover:shadow-[0_0_26px_4px_rgba(244,63,94,0.55)]',
-};
-
 // Orbit system for the hero (Nixtio marketing-agency reference): worker avatars and
 // dark skill-icon tiles circling a central headline stat on concentric rings.
-// Angles are degrees, radii are px within a 420px visual (scaled down on mobile).
+// Structure/motion kept exactly as originally built — only recolored to the white/green/black
+// palette below. Angles are degrees, radii are px within a 420px visual (scaled on mobile).
 const ORBIT_AVATARS: Array<{ angle: number; radius: number; img: string }> = [
   { angle: -80, radius: 195, img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop' },
   { angle: 10, radius: 195, img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop' },
@@ -127,9 +115,9 @@ const ORBIT_AVATARS: Array<{ angle: number; radius: number; img: string }> = [
 
 const ORBIT_TILES: Array<{ angle: number; radius: number; icon: React.ReactNode }> = [
   { angle: -30, radius: 145, icon: <Zap className="w-4 h-4 text-emerald-300" /> },
-  { angle: 60, radius: 145, icon: <Hammer className="w-4 h-4 text-amber-300" /> },
+  { angle: 60, radius: 145, icon: <Hammer className="w-4 h-4 text-emerald-300" /> },
   { angle: 150, radius: 145, icon: <Wrench className="w-4 h-4 text-emerald-300" /> },
-  { angle: 230, radius: 195, icon: <Flame className="w-4 h-4 text-rose-300" /> },
+  { angle: 230, radius: 195, icon: <Flame className="w-4 h-4 text-emerald-300" /> },
 ];
 
 export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPageProps) {
@@ -146,26 +134,40 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
     return () => clearInterval(timer);
   }, [carouselPaused, skillCount]);
 
+  // Auto-changing photo gallery ("under the home page"), crossfading through real crew photos.
+  const [activePhoto, setActivePhoto] = useState(0);
+  const [galleryPaused, setGalleryPaused] = useState(false);
+  const photoCount = GALLERY_PHOTOS.length;
+
+  useEffect(() => {
+    if (galleryPaused) return;
+    const timer = setInterval(() => {
+      setActivePhoto((i) => (i + 1) % photoCount);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [galleryPaused, photoCount]);
+
   return (
     <div
       id="landing-page-root"
-      className="w-full max-w-7xl mx-auto glass-panel rounded-[32px] shadow-2xl border border-white/10 animate-fadeIn text-slate-100"
+      className="w-full max-w-7xl mx-auto bg-white rounded-[32px] shadow-2xl border border-emerald-100 animate-fadeIn text-slate-900 overflow-hidden"
     >
       {/* Nav Header */}
-      <header className="sticky top-0 z-20 flex items-center justify-between gap-3 px-5 sm:px-8 py-4 bg-black/40 backdrop-blur-md border-b border-white/10 rounded-t-[32px]">
+      <header className="sticky top-0 z-20 flex items-center justify-between gap-3 px-5 sm:px-8 py-4 bg-white/95 backdrop-blur-md border-b border-emerald-100">
         <div className="flex items-center gap-2.5">
-          <div className="icon-glow-emerald w-9 h-9 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white font-black text-base tracking-tighter shadow-lg select-none shrink-0">
+          <div className="icon-glow-emerald w-9 h-9 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-black text-base tracking-tighter shadow-lg select-none shrink-0">
             I
           </div>
-          <span className="text-sm font-black tracking-tight uppercase text-white hidden sm:inline">
+          <span className="text-sm font-black tracking-tight uppercase text-slate-900 hidden sm:inline">
             {getTranslation('appName', lang)}
           </span>
         </div>
 
-        <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-slate-300">
-          <a href="#services" className="hover:text-emerald-300 transition-colors">{getTranslation('landingNavServices', lang)}</a>
-          <a href="#brands" className="hover:text-emerald-300 transition-colors">{getTranslation('landingNavBrands', lang)}</a>
-          <a href="#contact" className="hover:text-emerald-300 transition-colors">{getTranslation('landingNavContact', lang)}</a>
+        <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-slate-600">
+          <a href="#gallery" className="hover:text-emerald-700 transition-colors">{getTranslation('landingNavGallery', lang)}</a>
+          <a href="#services" className="hover:text-emerald-700 transition-colors">{getTranslation('landingNavServices', lang)}</a>
+          <a href="#brands" className="hover:text-emerald-700 transition-colors">{getTranslation('landingNavBrands', lang)}</a>
+          <a href="#contact" className="hover:text-emerald-700 transition-colors">{getTranslation('landingNavContact', lang)}</a>
         </nav>
 
         <div className="flex items-center gap-2 shrink-0">
@@ -173,7 +175,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             type="button"
             id="landing-lang-toggle"
             onClick={() => setLang(lang === 'en' ? 'ta' : 'en')}
-            className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 flex items-center justify-center transition-all cursor-pointer active:scale-95"
+            className="w-9 h-9 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 flex items-center justify-center transition-all cursor-pointer active:scale-95"
             title="Switch Language"
           >
             <Languages className="w-4 h-4" />
@@ -182,7 +184,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             type="button"
             id="btn-portal-login"
             onClick={onEnterPortal}
-            className="btn-sheen px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-md transition-colors cursor-pointer flex items-center gap-1.5 active:scale-95"
+            className="btn-sheen px-4 py-2 bg-black hover:bg-slate-900 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-md transition-colors cursor-pointer flex items-center gap-1.5 active:scale-95"
           >
             {getTranslation('landingPortalLogin', lang)}
             <ArrowRight className="w-3.5 h-3.5" />
@@ -190,11 +192,11 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
         </div>
       </header>
 
-      {/* Hero — Nixtio marketing-agency reference: left-aligned bold headline + pill CTA,
-          orbital avatar/icon ring system around a central stat on the right,
-          and a partner logo strip along the bottom edge. */}
+      {/* Hero — layout/motion kept exactly as built: left-aligned bold headline + pill CTA,
+          orbital avatar/icon ring system around a central stat on the right, partner strip
+          along the bottom edge. Only the background/text/accent colors changed to white/green/black. */}
       <section className="hero-nixtio-glow relative overflow-hidden px-5 sm:px-10 pt-14 sm:pt-20 pb-8">
-        <div className="pointer-events-none absolute bottom-[-20%] right-[-10%] w-[420px] h-[420px] bg-emerald-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="pointer-events-none absolute bottom-[-20%] right-[-10%] w-[420px] h-[420px] bg-emerald-500/10 rounded-full blur-3xl animate-blob animation-delay-2000" />
         <div className="pointer-events-none absolute top-[30%] right-[20%] w-[280px] h-[280px] bg-emerald-400/10 rounded-full blur-3xl animate-blob animation-delay-4000" />
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
@@ -213,7 +215,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-sm sm:text-base text-slate-400 font-medium mt-5 max-w-md mx-auto lg:mx-0 leading-relaxed"
+              className="text-sm sm:text-base text-slate-600 font-medium mt-5 max-w-md mx-auto lg:mx-0 leading-relaxed"
             >
               {getTranslation('landingHeroSubheadline', lang)}
             </motion.p>
@@ -227,7 +229,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
               <a
                 href="#contact"
                 id="btn-hero-request-workers"
-                className="btn-sheen inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 hover:bg-emerald-400 border border-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider rounded-full shadow-[0_0_20px_2px_rgba(16,185,129,0.35)] hover:shadow-[0_0_28px_4px_rgba(16,185,129,0.5)] transition-all cursor-pointer active:scale-95"
+                className="btn-sheen inline-flex items-center gap-2 px-7 py-3.5 bg-black hover:bg-slate-900 border border-emerald-500/40 text-white font-black text-xs uppercase tracking-wider rounded-full shadow-[0_0_20px_2px_rgba(16,129,73,0.35)] hover:shadow-[0_0_28px_4px_rgba(16,129,73,0.5)] transition-all cursor-pointer active:scale-95"
               >
                 {getTranslation('landingHeroCtaPrimary', lang)}
                 <ArrowRight className="w-4 h-4" />
@@ -235,8 +237,8 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
 
               {/* Collaborative cursor tag, like the reference's "David" pointer chip */}
               <div className="hidden sm:flex items-start pt-6 pl-2 select-none" aria-hidden="true">
-                <MousePointer2 className="w-4 h-4 text-emerald-400 -mb-1 fill-emerald-400" />
-                <span className="ml-0.5 mt-3 px-2.5 py-1 bg-emerald-500/90 text-white text-[10px] font-bold rounded-full rounded-tl-none shadow-md">
+                <MousePointer2 className="w-4 h-4 text-emerald-700 -mb-1 fill-emerald-700" />
+                <span className="ml-0.5 mt-3 px-2.5 py-1 bg-emerald-700 text-white text-[10px] font-bold rounded-full rounded-tl-none shadow-md">
                   {getTranslation('landingHeroCursorTag', lang)}
                 </span>
               </div>
@@ -253,14 +255,14 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             aria-hidden="true"
           >
             {/* Concentric rings */}
-            <div className="absolute inset-0 rounded-full border border-white/10" />
-            <div className="absolute inset-[55px] rounded-full border border-white/10" />
-            <div className="absolute inset-[110px] rounded-full border border-white/[0.07]" />
+            <div className="absolute inset-0 rounded-full border border-emerald-100" />
+            <div className="absolute inset-[55px] rounded-full border border-emerald-100" />
+            <div className="absolute inset-[110px] rounded-full border border-emerald-50" />
 
             {/* Central stat */}
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-              <span className="text-4xl font-black text-white tracking-tight">10,000+</span>
-              <span className="text-[11px] font-bold text-slate-400 mt-1">{getTranslation('landingStatWorkers', lang)}</span>
+              <span className="text-4xl font-black text-slate-900 tracking-tight">10,000+</span>
+              <span className="text-[11px] font-bold text-slate-500 mt-1">{getTranslation('landingStatWorkers', lang)}</span>
             </div>
 
             {/* Orbiting items: the wrapper spins slowly, each item counter-spins to stay upright */}
@@ -276,7 +278,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
                       src={item.img}
                       alt=""
                       referrerPolicy="no-referrer"
-                      className="w-10 h-10 rounded-full object-cover border-2 border-white/40 shadow-[0_0_14px_2px_rgba(139,92,246,0.35)]"
+                      className="w-10 h-10 rounded-full object-cover border-2 border-white shadow-[0_0_14px_2px_rgba(16,129,73,0.35)]"
                     />
                   </div>
                 </div>
@@ -288,7 +290,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
                   style={{ transform: `rotate(${item.angle}deg) translate(${item.radius}px) rotate(${-item.angle}deg)` }}
                 >
                   <div className="animate-orbit-reverse">
-                    <div className="w-10 h-10 rounded-xl bg-slate-950/90 border border-white/15 flex items-center justify-center shadow-[0_0_14px_2px_rgba(139,92,246,0.25)]">
+                    <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center shadow-[0_0_14px_2px_rgba(16,129,73,0.3)]">
                       {item.icon}
                     </div>
                   </div>
@@ -299,12 +301,85 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
         </div>
 
         {/* Partner strip along the hero's bottom edge, like the reference */}
-        <div className="relative z-10 mt-10 pt-6 border-t border-white/10 flex flex-wrap items-center justify-center lg:justify-between gap-x-8 gap-y-3">
+        <div className="relative z-10 mt-10 pt-6 border-t border-emerald-100 flex flex-wrap items-center justify-center lg:justify-between gap-x-8 gap-y-3">
           {BRANDS.slice(0, 5).map((brand) => (
-            <span key={brand.file} className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-300 transition-colors select-none">
+            <span key={brand.file} className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-slate-400 hover:text-emerald-700 transition-colors select-none">
               {brand.name}
             </span>
           ))}
+        </div>
+      </section>
+
+      {/* Auto-changing photo gallery — new content: real IGO crew photos, "under the home page"
+          per the reference site's own auto-rotating hero carousel pattern. */}
+      <section id="gallery" className="px-5 sm:px-8 py-14 border-t border-emerald-50">
+        <div className="text-center max-w-2xl mx-auto mb-8">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 border border-emerald-200 rounded-full text-[9px] font-black uppercase tracking-widest text-emerald-700 mb-3">
+            <Camera className="w-3.5 h-3.5" />
+            {getTranslation('landingGalleryBadge', lang)}
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            {getTranslation('landingGalleryTitle', lang)}
+          </h2>
+          <p className="text-sm text-slate-600 font-medium mt-3 leading-relaxed">
+            {getTranslation('landingGallerySubtitle', lang)}
+          </p>
+        </div>
+
+        <div
+          className="relative max-w-4xl mx-auto aspect-video rounded-3xl overflow-hidden border-2 border-emerald-100 shadow-lg hover:border-emerald-400 hover:shadow-[0_0_30px_4px_rgba(16,129,73,0.25)] transition-all duration-300"
+          id="landing-gallery"
+          onMouseEnter={() => setGalleryPaused(true)}
+          onMouseLeave={() => setGalleryPaused(false)}
+        >
+          <div className="absolute inset-0">
+            <img
+              src={`/skills/${GALLERY_PHOTOS[activePhoto].file}`}
+              alt={GALLERY_PHOTOS[activePhoto].skill}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+            <div className="absolute bottom-0 left-0 p-5 sm:p-7">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full mb-2">
+                {SKILL_ICON_MAP[GALLERY_PHOTOS[activePhoto].skill]}
+                {GALLERY_PHOTOS[activePhoto].skill}
+              </span>
+              <p className="text-white text-lg sm:text-2xl font-black tracking-tight drop-shadow-lg">
+                {getTranslation('appName', lang)}
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            id="landing-gallery-prev"
+            onClick={() => setActivePhoto((i) => (i - 1 + photoCount) % photoCount)}
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/40 flex items-center justify-center text-white transition-all cursor-pointer"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            type="button"
+            id="landing-gallery-next"
+            onClick={() => setActivePhoto((i) => (i + 1) % photoCount)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/40 flex items-center justify-center text-white transition-all cursor-pointer"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+
+          <div className="absolute bottom-4 right-5 z-10 flex items-center gap-1.5">
+            {GALLERY_PHOTOS.map((photo, idx) => (
+              <button
+                key={photo.file}
+                type="button"
+                aria-label={photo.skill}
+                onClick={() => setActivePhoto(idx)}
+                className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                  idx === activePhoto ? 'w-5 bg-white' : 'w-1.5 bg-white/40 hover:bg-white/60'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -318,13 +393,13 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: idx * 0.06 }}
-              className="bg-white/5 border-2 border-white/10 rounded-2xl p-4 sm:p-5 text-center shadow-sm"
+              className={`rounded-2xl p-4 sm:p-5 text-center ${CARD_GLOW}`}
             >
-              <div className="icon-glow-emerald inline-flex p-2.5 bg-emerald-500/15 text-emerald-300 rounded-xl border border-emerald-500/30 mb-2">
+              <div className="icon-glow-emerald inline-flex p-2.5 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200 mb-2">
                 {stat.icon}
               </div>
-              <div className="text-xl sm:text-2xl font-black text-white">{stat.value}</div>
-              <div className="text-[10px] sm:text-[11px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">
+              <div className="text-xl sm:text-2xl font-black text-slate-900">{stat.value}</div>
+              <div className="text-[10px] sm:text-[11px] text-slate-500 font-bold uppercase tracking-wider mt-0.5">
                 {getTranslation(stat.labelKey, lang)}
               </div>
             </motion.div>
@@ -333,12 +408,12 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
       </section>
 
       {/* Services / 24-7 Section */}
-      <section id="services" className="px-5 sm:px-8 py-14 border-t border-white/5">
+      <section id="services" className="px-5 sm:px-8 py-14 border-t border-emerald-50">
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
             {getTranslation('landingServicesTitle', lang)}
           </h2>
-          <p className="text-sm text-slate-400 font-medium mt-3 leading-relaxed">
+          <p className="text-sm text-slate-600 font-medium mt-3 leading-relaxed">
             {getTranslation('landingServicesSubtitle', lang)}
           </p>
         </div>
@@ -351,25 +426,26 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: idx * 0.06 }}
-              className="bg-white/5 border-2 border-white/10 rounded-2xl p-5 shadow-sm hover:border-white/20 transition-all"
+              className={`rounded-2xl p-5 ${CARD_GLOW}`}
             >
-              <div className="icon-glow-amber inline-flex p-2.5 bg-amber-500/15 text-amber-300 rounded-xl border border-amber-500/30 mb-3">
+              <div className="icon-glow-emerald inline-flex p-2.5 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200 mb-3">
                 {f.icon}
               </div>
-              <h3 className="text-xs font-black text-white uppercase tracking-wider mb-1.5">
+              <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider mb-1.5">
                 {getTranslation(f.titleKey, lang)}
               </h3>
-              <p className="text-[11px] text-slate-400 font-semibold leading-relaxed">
+              <p className="text-[11px] text-slate-500 font-semibold leading-relaxed">
                 {getTranslation(f.descKey, lang)}
               </p>
             </motion.div>
           ))}
         </div>
 
-        <div className="relative overflow-hidden bg-black/30 border-2 border-white/10 rounded-3xl p-6 sm:p-8">
-          {/* Ambient glow + dot-grid backdrop, crypto/AI-product landing page style */}
-          <div className="pointer-events-none absolute -top-20 -left-16 w-64 h-64 bg-emerald-600/20 rounded-full blur-3xl animate-blob" />
-          <div className="pointer-events-none absolute -bottom-24 -right-16 w-72 h-72 bg-emerald-500/15 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        {/* Skills coverflow panel — a deliberate black bookend (like the footer) framing this
+            section, per "footer in black": structure/motion kept exactly as built, only recolored. */}
+        <div className="relative overflow-hidden bg-black rounded-3xl p-6 sm:p-8">
+          <div className="pointer-events-none absolute -top-20 -left-16 w-64 h-64 bg-emerald-600/25 rounded-full blur-3xl animate-blob" />
+          <div className="pointer-events-none absolute -bottom-24 -right-16 w-72 h-72 bg-emerald-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.05]"
             style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '20px 20px' }}
@@ -380,14 +456,13 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
               <BrainCircuit className="w-3.5 h-3.5 text-emerald-300" />
               {getTranslation('landingSkillsBadge', lang)}
             </span>
-            <h3 className="text-2xl sm:text-4xl font-black text-shimmer tracking-tight">
+            <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
               {getTranslation('landingSkillsTitle', lang)}
             </h3>
           </div>
 
-          {/* 3D coverflow carousel — inspired by the referenced crypto-landing-page shot:
-              a giant glowing horizon arc beneath an elevated, perspective-tilted card row.
-              Auto-advances continuously (setInterval in the effect above), pauses on hover. */}
+          {/* 3D coverflow carousel: a giant glowing horizon arc beneath an elevated,
+              perspective-tilted card row. Auto-advances continuously, pauses on hover. */}
           <div
             className="relative z-10 h-96 sm:h-[30rem] [perspective:1600px]"
             onMouseEnter={() => setCarouselPaused(true)}
@@ -396,8 +471,8 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             aria-label={getTranslation('landingSkillsTitle', lang)}
           >
             {/* Glowing horizon arc */}
-            <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[-200px] w-[160%] h-96 rounded-[50%] bg-emerald-600/25 blur-3xl" />
-            <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[-150px] w-[100%] h-60 rounded-[50%] bg-emerald-500/15 blur-3xl" />
+            <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[-200px] w-[160%] h-96 rounded-[50%] bg-emerald-600/30 blur-3xl" />
+            <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[-150px] w-[100%] h-60 rounded-[50%] bg-emerald-500/20 blur-3xl" />
 
             <div className="relative h-full flex items-center justify-center [transform-style:preserve-3d]">
               {SKILL_CATEGORIES.map((skill, idx) => {
@@ -407,7 +482,6 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
                 const dist = Math.abs(offset);
                 if (dist > 1) return null; // only center card + its two neighbors are shown
 
-                const accent = SKILL_ACCENTS[idx % SKILL_ACCENTS.length];
                 const icon = SKILL_ICON_MAP[skill] ?? <Sparkles className="w-9 h-9" />;
                 const isActive = dist === 0;
 
@@ -429,13 +503,13 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
                     <div
                       className={`relative overflow-hidden rounded-3xl p-8 sm:p-10 flex flex-col items-center text-center gap-4 border transition-colors ${
                         isActive
-                          ? 'bg-gradient-to-b from-white/[0.08] to-black/40 border-white/20 shadow-2xl'
+                          ? 'bg-gradient-to-b from-emerald-950 to-black border-emerald-500/40 shadow-2xl'
                           : 'bg-white/[0.03] border-white/10'
                       }`}
                     >
-                      <div className={`pointer-events-none absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl opacity-40 ${SKILL_ACCENT_BLOB[accent]}`} />
+                      <div className="pointer-events-none absolute -top-10 -right-10 w-32 h-32 rounded-full blur-2xl opacity-40 bg-emerald-500" />
                       {/* Glossy 3D-style icon badge: base glow color + a soft highlight overlay for volume */}
-                      <div className={`relative z-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center overflow-hidden ${SKILL_ACCENT_ICON[accent]}`}>
+                      <div className="icon-glow-emerald relative z-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center overflow-hidden bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
                         <div
                           className="absolute inset-0 rounded-full"
                           style={{ background: 'radial-gradient(circle at 32% 28%, rgba(255,255,255,0.55), transparent 55%)' }}
@@ -488,93 +562,89 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
       </section>
 
       {/* Brands / Clients Gallery */}
-      <section id="brands" className="px-5 sm:px-8 py-14 border-t border-white/5">
+      <section id="brands" className="px-5 sm:px-8 py-14 border-t border-emerald-50">
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
             {getTranslation('landingBrandsTitle', lang)}
           </h2>
-          <p className="text-sm text-slate-400 font-medium mt-3 leading-relaxed">
+          <p className="text-sm text-slate-600 font-medium mt-3 leading-relaxed">
             {getTranslation('landingBrandsSubtitle', lang)}
           </p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="landing-brands-grid">
-          {BRANDS.map((brand, idx) => {
-            const accent = BRAND_ACCENTS[idx % BRAND_ACCENTS.length];
-            return (
-              <motion.div
-                key={brand.file}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: (idx % 8) * 0.04 }}
-                whileHover={{ y: -3 }}
-                className={`bg-white rounded-2xl border-2 flex flex-col items-center text-center p-3 h-[150px] sm:h-[160px] transition-shadow duration-300 ${BRAND_ACCENT_GLOW[accent]}`}
-              >
-                <div className="flex-1 min-h-0 w-full flex items-center justify-center">
-                  <img
-                    src={`/brand-logos/${brand.file}`}
-                    alt={brand.name}
-                    className="max-h-full max-w-[88%] object-contain"
-                  />
-                </div>
-                <div className="shrink-0 w-full">
-                  <h4 className="text-[11px] font-black text-slate-800 leading-tight line-clamp-1">{brand.name}</h4>
-                  <p className="text-[9px] text-slate-500 font-semibold mt-0.5 leading-snug line-clamp-1">{brand.desc}</p>
-                </div>
-              </motion.div>
-            );
-          })}
+          {BRANDS.map((brand, idx) => (
+            <motion.div
+              key={brand.file}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: (idx % 8) * 0.04 }}
+              whileHover={{ y: -3 }}
+              className={`rounded-2xl flex flex-col items-center text-center p-3 h-[150px] sm:h-[160px] ${CARD_GLOW}`}
+            >
+              <div className="flex-1 min-h-0 w-full flex items-center justify-center">
+                <img
+                  src={`/brand-logos/${brand.file}`}
+                  alt={brand.name}
+                  className="max-h-full max-w-[88%] object-contain"
+                />
+              </div>
+              <div className="shrink-0 w-full">
+                <h4 className="text-[11px] font-black text-slate-800 leading-tight line-clamp-1">{brand.name}</h4>
+                <p className="text-[9px] text-slate-500 font-semibold mt-0.5 leading-snug line-clamp-1">{brand.desc}</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
       {/* Contact */}
-      <section id="contact" className="px-5 sm:px-8 py-14 border-t border-white/5">
+      <section id="contact" className="px-5 sm:px-8 py-14 border-t border-emerald-50">
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
             {getTranslation('landingContactTitle', lang)}
           </h2>
-          <p className="text-sm text-slate-400 font-medium mt-3 leading-relaxed">
+          <p className="text-sm text-slate-600 font-medium mt-3 leading-relaxed">
             {getTranslation('landingContactSubtitle', lang)}
           </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto">
-          <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-5 text-center">
-            <div className="icon-glow-emerald inline-flex p-2.5 bg-emerald-500/15 text-emerald-300 rounded-xl border border-emerald-500/30 mb-2.5">
+          <div className={`rounded-2xl p-5 text-center ${CARD_GLOW}`}>
+            <div className="icon-glow-emerald inline-flex p-2.5 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200 mb-2.5">
               <Phone className="w-5 h-5" />
             </div>
-            <div className="text-[10px] text-slate-400 font-black uppercase tracking-wider">{getTranslation('landingContactPhone', lang)}</div>
-            <div className="text-sm font-bold text-white mt-1" id="landing-contact-phone">{CONTACT_PHONE}</div>
+            <div className="text-[10px] text-slate-500 font-black uppercase tracking-wider">{getTranslation('landingContactPhone', lang)}</div>
+            <div className="text-sm font-bold text-slate-900 mt-1" id="landing-contact-phone">{CONTACT_PHONE}</div>
           </div>
-          <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-5 text-center">
-            <div className="icon-glow-emerald inline-flex p-2.5 bg-emerald-500/15 text-emerald-300 rounded-xl border border-emerald-500/30 mb-2.5">
+          <div className={`rounded-2xl p-5 text-center ${CARD_GLOW}`}>
+            <div className="icon-glow-emerald inline-flex p-2.5 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200 mb-2.5">
               <Mail className="w-5 h-5" />
             </div>
-            <div className="text-[10px] text-slate-400 font-black uppercase tracking-wider">{getTranslation('landingContactEmail', lang)}</div>
-            <div className="text-sm font-bold text-white mt-1 break-all" id="landing-contact-email">{CONTACT_EMAIL}</div>
+            <div className="text-[10px] text-slate-500 font-black uppercase tracking-wider">{getTranslation('landingContactEmail', lang)}</div>
+            <div className="text-sm font-bold text-slate-900 mt-1 break-all" id="landing-contact-email">{CONTACT_EMAIL}</div>
           </div>
-          <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-5 text-center">
-            <div className="icon-glow-rose inline-flex p-2.5 bg-rose-500/15 text-rose-300 rounded-xl border border-rose-500/30 mb-2.5">
+          <div className={`rounded-2xl p-5 text-center ${CARD_GLOW}`}>
+            <div className="icon-glow-emerald inline-flex p-2.5 bg-emerald-50 text-emerald-700 rounded-xl border border-emerald-200 mb-2.5">
               <MapPin className="w-5 h-5" />
             </div>
-            <div className="text-[10px] text-slate-400 font-black uppercase tracking-wider">{getTranslation('landingContactAddress', lang)}</div>
-            <div className="text-sm font-bold text-white mt-1" id="landing-contact-address">{CONTACT_HUB}</div>
+            <div className="text-[10px] text-slate-500 font-black uppercase tracking-wider">{getTranslation('landingContactAddress', lang)}</div>
+            <div className="text-sm font-bold text-slate-900 mt-1" id="landing-contact-address">{CONTACT_HUB}</div>
           </div>
         </div>
       </section>
 
-      {/* Footer — layout inspired by the IGO Agritech Farms site footer (logo/vision + contact/mission
-          + copyright bar), recolored to this page's emerald/amber theme instead of that site's green accent. */}
-      <footer className="relative overflow-hidden px-5 sm:px-10 py-12 border-t border-white/10 bg-black/30">
-        <div className="pointer-events-none absolute -top-24 -left-10 w-72 h-72 bg-emerald-600/15 rounded-full blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -right-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl" />
+      {/* Footer — black, per the reference site's own footer, with green accents throughout. */}
+      <footer className="relative overflow-hidden px-5 sm:px-10 py-12 border-t border-emerald-900/40 bg-black">
+        <div className="pointer-events-none absolute -top-24 -left-10 w-72 h-72 bg-emerald-600/20 rounded-full blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -right-10 w-72 h-72 bg-emerald-500/15 rounded-full blur-3xl" />
 
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Logo, vision, socials */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="icon-glow-emerald w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-700 flex items-center justify-center text-white font-black text-lg tracking-tighter shadow-lg select-none shrink-0">
+              <div className="icon-glow-emerald w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-800 flex items-center justify-center text-white font-black text-lg tracking-tighter shadow-lg select-none shrink-0">
                 I
               </div>
               <span className="text-sm font-black uppercase tracking-tight text-white">{getTranslation('appName', lang)}</span>
@@ -591,7 +661,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
                   key={i}
                   href="#"
                   onClick={(e) => e.preventDefault()}
-                  className="w-8 h-8 rounded-full bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-400/40 flex items-center justify-center text-slate-400 hover:text-emerald-300 transition-all"
+                  className="w-8 h-8 rounded-full bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-400/50 flex items-center justify-center text-slate-400 hover:text-emerald-300 transition-all"
                   aria-label="Social link"
                 >
                   <Icon className="w-3.5 h-3.5" />
@@ -642,8 +712,8 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             © {new Date().getFullYear()} {getTranslation('appName', lang)}. {getTranslation('landingFooterRights', lang)}
           </span>
           <div className="flex items-center gap-5 text-[10px] text-slate-500 font-bold">
-            <span className="hover:text-slate-300 transition-colors cursor-pointer">{getTranslation('landingFooterPrivacy', lang)}</span>
-            <span className="hover:text-slate-300 transition-colors cursor-pointer">{getTranslation('landingFooterTerms', lang)}</span>
+            <span className="hover:text-emerald-400 transition-colors cursor-pointer">{getTranslation('landingFooterPrivacy', lang)}</span>
+            <span className="hover:text-emerald-400 transition-colors cursor-pointer">{getTranslation('landingFooterTerms', lang)}</span>
           </div>
         </div>
       </footer>

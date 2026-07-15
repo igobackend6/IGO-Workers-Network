@@ -159,17 +159,18 @@ select optgroup {
   animation: shimmerText 4.5s linear infinite;
 }
 
-/* Landing hero background — dark theme with bright emerald glow */
+/* Landing hero background — white/light-green canvas matching igoagritechfarms.in's
+   palette (white sections, deep forest-green accents), with two soft green glows. */
 .hero-nixtio-glow {
+  background-color: #ffffff;
   background-image:
-    radial-gradient(ellipse 900px 700px at 50% 90%, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.1) 30%, transparent 60%),
-    radial-gradient(ellipse 620px 480px at 10% 10%, rgba(20, 20, 20, 0.8) 0%, transparent 50%);
+    radial-gradient(ellipse 900px 700px at -5% -8%, rgba(16, 129, 73, 0.14) 0%, rgba(16, 129, 73, 0.06) 30%, transparent 60%),
+    radial-gradient(ellipse 620px 480px at 104% 108%, rgba(16, 129, 73, 0.10) 0%, transparent 55%);
 }
 
-/* Headline text fade — dark navy where it sits over the bright corner glow,
-   fading to white further down/right where the background has gone dark. */
+/* Headline text — solid deep-green-to-black gradient, readable on the white hero background. */
 .text-fade-dark-light {
-  background: linear-gradient(125deg, #ffffff 0%, #ffffff 34%, #ffffff 58%, #ffffff 100%);
+  background: linear-gradient(125deg, #0a1510 0%, #10633a 55%, #0a1510 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

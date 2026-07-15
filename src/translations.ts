@@ -335,6 +335,22 @@ export const translations: TranslationDictionary = {
     en: "Contact",
     ta: "தொடர்பு"
   },
+  landingNavGallery: {
+    en: "Gallery",
+    ta: "படத்தொகுப்பு"
+  },
+  landingGalleryBadge: {
+    en: "Our Workforce In Action",
+    ta: "எங்கள் பணியாளர்கள் செயலில்"
+  },
+  landingGalleryTitle: {
+    en: "See IGO Workers Network at Work",
+    ta: "ஐஜிஓ தொழிலாளர் வலைப்பின்னலை வேலையில் காணுங்கள்"
+  },
+  landingGallerySubtitle: {
+    en: "Real crews, real sites — a glimpse of the skilled and general labour we deploy across India.",
+    ta: "உண்மையான குழுக்கள், உண்மையான தளங்கள் — இந்தியா முழுவதும் நாங்கள் வழங்கும் தொழிலாளர்களின் ஒரு காட்சி."
+  },
   landingPortalLogin: {
     en: "Portal Login",
     ta: "போர்டல் உள்நுழைவு"
