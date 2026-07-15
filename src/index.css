@@ -218,6 +218,20 @@ select optgroup {
   animation: orbitSpin 48s linear infinite reverse;
 }
 
+/* Continuous left-to-right (well, right-scrolling-left) marquee for the brands strip.
+   The track renders its item list twice back to back and scrolls exactly -50%,
+   which loops seamlessly since that's precisely one full copy of the content. */
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marqueeScroll 50s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
 /* Gentle shake for validation errors */
 @keyframes shakeX {
   10%, 90% { transform: translateX(-1px); }

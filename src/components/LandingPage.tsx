@@ -72,33 +72,37 @@ const CONTACT_HUB = 'Uthandi Kanathur, Chennai 600119, Tamil Nadu, India';
 // Only 24 of the intended 26 brand logo files were found in that folder — ask the business
 // for the remaining 2 (or confirm 24 is the current, correct count) and drop them in alongside
 // these to reach 26.
-// Short taglines below are inferred from each brand name (no official copy was supplied) —
-// swap these for real descriptions whenever the business provides them.
-const BRANDS: Array<{ name: string; file: string; desc: string }> = [
-  { name: 'IGO Agritech Farms', file: 'igo-agritech-farms.jpg', desc: 'Agri engineering & smart farm consulting' },
-  { name: 'IGO Academy', file: 'igo-academy.jpg', desc: 'Skill training & farmer education' },
-  { name: 'IGO Agri Mart', file: 'igo-agri-mart.jpg', desc: 'Farm inputs & equipment retail' },
-  { name: 'IGO Crop Care', file: 'igo-crop-care.jpg', desc: 'Crop protection & plant health solutions' },
-  { name: 'IGO Exports', file: 'igo-exports.jpg', desc: 'Pan-India agri produce exports' },
-  { name: 'IGO Farm Automation', file: 'igo-farm-automation.jpg', desc: 'Smart irrigation & IoT farm systems' },
-  { name: 'IGO Farm Factories', file: 'igo-farm-factories.jpg', desc: 'Controlled-environment farm production' },
-  { name: 'IGO Farm Loans, Subsidy & Grants', file: 'igo-farm-loans-subsidy-grants.jpg', desc: 'Farmer financing & subsidy assistance' },
-  { name: 'IGO Farmlands', file: 'igo-farmlands.jpg', desc: 'Managed farmland investment' },
-  { name: 'IGO Fintech', file: 'igo-fintech.jpg', desc: 'Agri-focused financial services' },
-  { name: 'IGO Franchise', file: 'igo-franchise.jpg', desc: 'Business franchise opportunities' },
-  { name: 'IGO Mart', file: 'igo-mart.jpg', desc: 'Retail marketplace for farm goods' },
-  { name: 'IGO Natural Cosmetics', file: 'igo-natural-cosmetics.jpg', desc: 'Organic & natural personal care' },
-  { name: 'IGO Nursery', file: 'igo-nursery.jpg', desc: 'Plant saplings & nursery supply' },
-  { name: 'IGO Organic Pharmacy', file: 'igo-organic-pharmacy.jpg', desc: 'Organic health & wellness products' },
-  { name: 'IGO Wealth Management Service', file: 'igo-wealth-management.jpg', desc: 'Investment & wealth advisory' },
-  { name: 'India Green Organics', file: 'india-green-organics.jpg', desc: 'Certified organic produce' },
-  { name: 'Farm Gate Mandi', file: 'farm-gate-mandi.jpg', desc: 'Direct farm-to-market produce trading' },
-  { name: 'Farmer Factory', file: 'farmer-factory.jpg', desc: 'Farm produce processing & packaging' },
-  { name: 'Palm Cafe', file: 'palm-cafe.jpg', desc: 'Farm-to-cup cafe experience' },
-  { name: 'Protein Cuts', file: 'protein-cuts.jpg', desc: 'Quality meat & protein retail' },
-  { name: 'Tech Farming Expert', file: 'tech-farming-expert.jpg', desc: 'Precision farming technology consulting' },
-  { name: 'Tech Farming Scientists Foundation', file: 'tech-farming-scientists-foundation.jpg', desc: 'Agri research & innovation foundation' },
-  { name: 'Valluvam', file: 'valluvam.jpg', desc: 'Traditional wellness & heritage products' },
+// Category + description copy below is the REAL "26 Verticals of IGO" content, taken directly
+// from igoagritechfarms.in/igo-groups. Two entries (IGO Agrimart, India Green) reuse a sibling
+// division's logo since no distinct asset exists for them; IGO Green Energy has none at all yet
+// (falls back to a generic icon in the card).
+const BRANDS: Array<{ category: string; name: string; file: string | null; desc: string }> = [
+  { category: 'Core Business', name: 'IGO Agritech Farms', file: 'igo-agritech-farms.jpg', desc: "India's leading Agri Engineering & Consulting brand — polyhouse, hydroponics, vertical farming, precision farming and livestock projects. Pan-India. MSME Award 2024." },
+  { category: 'Processing & Mfg', name: 'Farmers Factory', file: 'farmer-factory.jpg', desc: 'Farm to shop distribution brand. Bringing fresh farm produce directly to retail stores and consumers across India.' },
+  { category: 'Agri Consultancy', name: 'Valluvam', file: 'valluvam.jpg', desc: 'Branded grocery staples celebrating Tamil heritage. Quality everyday essentials — As Pure As Nature.' },
+  { category: 'Farm-to-Table', name: 'Protein Cuts', file: 'protein-cuts.jpg', desc: "Premium meat, fish, and eggs retail brand. Fresh protein products straight from IGO's own livestock farms." },
+  { category: 'Distribution', name: 'IGO Agri Mart', file: 'igo-agri-mart.jpg', desc: 'Farm inputs and distribution network connecting quality agricultural inputs directly to farmers across India.' },
+  { category: 'Plant Propagation', name: 'IGO Nursery', file: 'igo-nursery.jpg', desc: 'Premium nursery and landscaping solutions — supplying quality plants, seeds and horticultural products pan-India.' },
+  { category: 'F&B', name: 'Palm Cafe', file: 'palm-cafe.jpg', desc: "The Healthy Food Joint — farm-to-table F&B brand creating 5,000 jobs for youth using IGO's own farm produce." },
+  { category: 'Trade', name: 'IGO Exports & Imports', file: 'igo-exports.jpg', desc: 'International trade division connecting Indian agri products to global markets and bringing world-class inputs to India.' },
+  { category: 'Foundation', name: 'IGO Tech Farming Scientist Foundation', file: 'tech-farming-scientists-foundation.jpg', desc: 'Research and education foundation advancing agri-science and technology for the next generation of tech farming scientists.' },
+  { category: 'Retail', name: 'IGO Mart', file: 'igo-mart.jpg', desc: "Supermarket chain offering quality products at accessible prices — part of IGO Group's consumer retail vision." },
+  { category: 'Fintech', name: 'IGO Fintech', file: 'igo-fintech.jpg', desc: 'Micro finance unit providing financial access and support to farmers and agricultural entrepreneurs across India.' },
+  { category: 'Real Estate', name: 'IGO Farm Land Estates', file: 'igo-farmlands.jpg', desc: 'Agricultural land and property development — creating investment opportunities in farmland across India.' },
+  { category: 'Investment', name: 'IGO Wealth Management Services', file: 'igo-wealth-management.jpg', desc: 'JV investment project providing wealth management and financial planning services to IGO Group stakeholders.' },
+  { category: 'Franchise', name: 'IGO Franchise', file: 'igo-franchise.jpg', desc: 'Franchise operations division expanding IGO Group brands across India through a structured franchise model.' },
+  { category: 'Programme', name: 'IGO Farmgate Mandi', file: 'farm-gate-mandi.jpg', desc: 'Guaranteed buy-back programme for farmers — empowering agricultural entrepreneurs with assured market access.' },
+  { category: 'Agri Input', name: 'IGO Crop Care', file: 'igo-crop-care.jpg', desc: 'Quality crop care solutions for optimum yield and sustainable farming practices across all crop types.' },
+  { category: 'Healthcare', name: 'IGO Organic Pharmacy', file: 'igo-organic-pharmacy.jpg', desc: "Future division developing organic pharmaceutical products from IGO's farm network — bridging agriculture and health." },
+  { category: 'Lifestyle', name: 'IGO Natural Cosmetics', file: 'igo-natural-cosmetics.jpg', desc: 'Future personal care brand using natural farm-sourced ingredients. Farm to skin — the next frontier for IGO Group.' },
+  { category: 'Infrastructure', name: 'IGO Farm Factories', file: 'igo-farm-factories.jpg', desc: 'Industrial-scale farm facilities integrating processing, storage, and logistics for high-efficiency agri-chains.' },
+  { category: 'Distribution', name: 'IGO Agrimart', file: 'igo-agri-mart.jpg', desc: 'Specialized input supply centers for advanced farming technologies and sustainable inputs.' },
+  { category: 'Sustainability', name: 'India Green', file: 'india-green-organics.jpg', desc: 'Environmental conservation and green initiative division focused on carbon neutrality and sustainable agri-ecosystems.' },
+  { category: 'Organic', name: 'India Green Organics', file: 'india-green-organics.jpg', desc: 'Certified organic production and distribution arm ensuring chemical-free food for a healthier India.' },
+  { category: 'Finance', name: 'IGO Farm Loans, Subsidy & Grants', file: 'igo-farm-loans-subsidy-grants.jpg', desc: 'Expert guidance and financial facilitation for farmers to access government agricultural subsidies and low-interest loans.' },
+  { category: 'Technology', name: 'IGO Farm Automation', file: 'igo-farm-automation.jpg', desc: 'Smart farm hardware and software solutions — IoT, sensors, and automated climate control for precision agriculture.' },
+  { category: 'Education', name: 'IGO Training Courses', file: 'igo-academy.jpg', desc: 'Skill development and masterclasses for modern farming techniques, certified by industry experts.' },
+  { category: 'Energy', name: 'IGO Green Energy', file: null, desc: 'Renewable energy solutions for farms, including solar water pumps and solar agri-grid integration.' },
 ];
 
 // Orbit system for the hero (Nixtio marketing-agency reference): worker avatars and
@@ -303,7 +307,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
         {/* Partner strip along the hero's bottom edge, like the reference */}
         <div className="relative z-10 mt-10 pt-6 border-t border-emerald-100 flex flex-wrap items-center justify-center lg:justify-between gap-x-8 gap-y-3">
           {BRANDS.slice(0, 5).map((brand) => (
-            <span key={brand.file} className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-slate-400 hover:text-emerald-700 transition-colors select-none">
+            <span key={brand.name} className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-slate-400 hover:text-emerald-700 transition-colors select-none">
               {brand.name}
             </span>
           ))}
@@ -572,30 +576,47 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4" id="landing-brands-grid">
-          {BRANDS.map((brand, idx) => (
-            <motion.div
-              key={brand.file}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: (idx % 8) * 0.04 }}
-              whileHover={{ y: -3 }}
-              className={`rounded-2xl flex flex-col items-center text-center p-3 h-[150px] sm:h-[160px] ${CARD_GLOW}`}
-            >
-              <div className="flex-1 min-h-0 w-full flex items-center justify-center">
-                <img
-                  src={`/brand-logos/${brand.file}`}
-                  alt={brand.name}
-                  className="max-h-full max-w-[88%] object-contain"
-                />
+        {/* Continuous left-scrolling marquee — the track is the brand list rendered twice back
+            to back, scrolled exactly -50% on a loop, so it wraps seamlessly. Pauses on hover. */}
+        <div
+          className="relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]"
+          id="landing-brands-grid"
+        >
+          <div className="flex gap-5 w-max animate-marquee">
+            {[...BRANDS, ...BRANDS].map((brand, idx) => (
+              <div
+                key={`${brand.name}-${idx}`}
+                className="w-64 sm:w-72 shrink-0 flex flex-col rounded-3xl bg-white border-2 border-slate-100 hover:border-emerald-300 shadow-sm hover:shadow-[0_0_24px_2px_rgba(16,129,73,0.2)] transition-all duration-300 p-5"
+              >
+                <div className="w-full aspect-square bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-center p-6 mb-4">
+                  {brand.file ? (
+                    <img
+                      src={`/brand-logos/${brand.file}`}
+                      alt={brand.name}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  ) : (
+                    <Building2 className="w-10 h-10 text-slate-300" />
+                  )}
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-amber-600 mb-1">
+                  {brand.category}
+                </span>
+                <h4 className="text-sm font-black text-slate-900 uppercase leading-tight mb-2">
+                  {brand.name}
+                </h4>
+                <p className="text-xs text-slate-500 leading-relaxed flex-1">
+                  {brand.desc}
+                </p>
+                <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-amber-600">
+                    Active Division
+                  </span>
+                  <ArrowRight className="w-3.5 h-3.5 text-amber-600" />
+                </div>
               </div>
-              <div className="shrink-0 w-full">
-                <h4 className="text-[11px] font-black text-slate-800 leading-tight line-clamp-1">{brand.name}</h4>
-                <p className="text-[9px] text-slate-500 font-semibold mt-0.5 leading-snug line-clamp-1">{brand.desc}</p>
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 

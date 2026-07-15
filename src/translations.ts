@@ -336,8 +336,8 @@ export const translations: TranslationDictionary = {
     ta: "தொடர்பு"
   },
   landingNavGallery: {
-    en: "Gallery",
-    ta: "படத்தொகுப்பு"
+    en: "Projects",
+    ta: "திட்டங்கள்"
   },
   landingGalleryBadge: {
     en: "Our Workforce In Action",
