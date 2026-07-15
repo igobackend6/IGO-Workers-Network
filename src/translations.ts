@@ -340,8 +340,12 @@ export const translations: TranslationDictionary = {
     ta: "போர்டல் உள்நுழைவு"
   },
   landingHeroHeadline: {
-    en: "Pan-India's Trusted Labour Workforce Partner",
-    ta: "அகில இந்தியாவின் நம்பகமான தொழிலாளர் பணியாளர் கூட்டாளர்"
+    en: "Unlock Trusted Labour You Thought Was Out of Reach — Now Just One Call Away!",
+    ta: "கிடைக்காது என்று நினைத்த நம்பகமான தொழிலாளர்கள் — இப்போது ஒரே அழைப்பில்!"
+  },
+  landingHeroCursorTag: {
+    en: "IGO Team",
+    ta: "ஐஜிஓ குழு"
   },
   landingHeroSubheadline: {
     en: "Verified, skilled and general labour — sourced, deployed and managed across India, 24 hours a day, for any industry.",
@@ -447,13 +451,41 @@ export const translations: TranslationDictionary = {
     en: "Coverage Hub",
     ta: "சேவை மையம்"
   },
-  landingFooterTagline: {
-    en: "Pan-India Informal Labour Registry & Deployment System",
-    ta: "அகில இந்திய முறைசாரா தொழிலாளர் பதிவு மற்றும் பணி அமர்த்தல் அமைப்பு"
-  },
   landingBackToHome: {
     en: "Back to Home",
     ta: "முகப்புக்கு திரும்பு"
+  },
+  landingFooterVisionLabel: {
+    en: "Vision",
+    ta: "பார்வை"
+  },
+  landingFooterVisionText: {
+    en: "To be Pan-India's most trusted labour workforce partner, connecting verified, skilled and general labour with every industry that needs them — any time, anywhere.",
+    ta: "அகில இந்தியாவின் மிகவும் நம்பகமான தொழிலாளர் பணியாளர் கூட்டாளராக இருப்பது, சரிபார்க்கப்பட்ட தொழிலாளர்களை தேவைப்படும் ஒவ்வொரு தொழிலுடனும் இணைப்பது — எப்போது வேண்டுமானாலும், எங்கு வேண்டுமானாலும்."
+  },
+  landingFooterMissionLabel: {
+    en: "Mission",
+    ta: "நோக்கம்"
+  },
+  landingFooterMissionText: {
+    en: "To win lifetime loyal partners across Pan-India by delivering verified, ready-to-deploy labour through a supervisor network built on speed, trust and round-the-clock availability.",
+    ta: "வேகம், நம்பிக்கை மற்றும் 24 மணி நேர கிடைக்கும் தன்மையின் அடிப்படையில் கட்டமைக்கப்பட்ட மேற்பார்வையாளர் வலையமைப்பு மூலம் சரிபார்க்கப்பட்ட தொழிலாளர்களை வழங்குவதன் மூலம் அகில இந்தியா முழுவதும் வாழ்நாள் நம்பகமான கூட்டாளர்களை வெல்வது."
+  },
+  landingFooterGetInTouch: {
+    en: "Get in Touch",
+    ta: "தொடர்பு கொள்ளுங்கள்"
+  },
+  landingFooterRights: {
+    en: "All rights reserved.",
+    ta: "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை."
+  },
+  landingFooterPrivacy: {
+    en: "Privacy Policy",
+    ta: "தனியுரிமைக் கொள்கை"
+  },
+  landingFooterTerms: {
+    en: "Terms of Use",
+    ta: "பயன்பாட்டு விதிமுறைகள்"
   }
 };
 

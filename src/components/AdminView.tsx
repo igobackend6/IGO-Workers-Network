@@ -139,7 +139,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
         className="relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900 text-white p-5 rounded-3xl border-b-4 border-rose-500 mb-6 shadow-lg"
       >
         <div className="pointer-events-none absolute -top-12 -left-8 w-48 h-48 bg-rose-500/20 rounded-full blur-3xl animate-blob" />
-        <div className="pointer-events-none absolute -bottom-16 right-10 w-52 h-52 bg-indigo-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="pointer-events-none absolute -bottom-16 right-10 w-52 h-52 bg-emerald-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
 
         <div className="relative z-10">
           <span className="text-xs font-black text-rose-400 uppercase tracking-widest block">Pan-India Oversight</span>
@@ -182,7 +182,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
             <div className="space-y-4" id="admin-tab-supervisor">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-4 flex items-center gap-4 shadow-sm shrink-0">
-                  <div className="icon-glow-indigo p-3 bg-indigo-500/15 text-indigo-300 rounded-2xl border border-indigo-500/30">
+                  <div className="icon-glow-emerald p-3 bg-emerald-500/15 text-emerald-300 rounded-2xl border border-emerald-500/30">
                     <Users2 className="w-6 h-6" />
                   </div>
                   <div>
@@ -198,7 +198,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                     id="admin-supervisor-search"
                     type="text"
                     placeholder="Search supervisors by name, phone or area..."
-                    className="w-full pl-10 pr-4 py-3 bg-white/5 border-2 border-white/10 rounded-2xl text-xs font-bold text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 transition-all"
+                    className="w-full pl-10 pr-4 py-3 bg-white/5 border-2 border-white/10 rounded-2xl text-xs font-bold text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 transition-all"
                     value={supervisorSearchQuery}
                     onChange={(e) => setSupervisorSearchQuery(e.target.value)}
                   />
@@ -219,14 +219,14 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                         onClick={() => setSelectedSupervisorId(sup.id)}
                         className={`w-full flex items-center gap-3 p-3 rounded-2xl border-2 text-left transition-all cursor-pointer ${
                           selectedSupervisorId === sup.id
-                            ? 'bg-indigo-500/10 border-indigo-500/40'
+                            ? 'bg-emerald-500/10 border-emerald-500/40'
                             : 'bg-white/[0.03] border-white/5 hover:border-white/15'
                         }`}
                       >
                         {sup.profilePhotoUrl ? (
                           <img src={sup.profilePhotoUrl} alt={sup.name} className="w-10 h-10 rounded-full object-cover shrink-0 border-2 border-white/10" referrerPolicy="no-referrer" />
                         ) : (
-                          <div className="w-10 h-10 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center font-black shrink-0">
+                          <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-black shrink-0">
                             {sup.name.charAt(0)}
                           </div>
                         )}
@@ -273,7 +273,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                                   <span className="text-[9px] font-black text-emerald-400 uppercase">{proj.status}</span>
                                 </div>
                                 <p className="text-[10px] text-slate-500 font-bold mt-0.5">📍 {proj.locationDistrict}, {proj.locationState}</p>
-                                <p className="text-[10px] text-indigo-300 font-black mt-1">
+                                <p className="text-[10px] text-emerald-300 font-black mt-1">
                                   {getTranslation('assignedProjectWorkers', lang)}: {workersAssignedToProject(proj.id)}
                                 </p>
                               </div>
@@ -293,7 +293,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
             <div className="space-y-4" id="admin-tab-hr">
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
-                  <div className="icon-glow-indigo p-3 bg-indigo-500/15 text-indigo-300 rounded-2xl border border-indigo-500/30">
+                  <div className="icon-glow-emerald p-3 bg-emerald-500/15 text-emerald-300 rounded-2xl border border-emerald-500/30">
                     <Briefcase className="w-6 h-6" />
                   </div>
                   <div>
@@ -339,7 +339,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                             <span className="text-[9px] font-black text-emerald-400 uppercase shrink-0">{proj.status}</span>
                           </div>
 
-                          <p className="text-[10px] text-indigo-300 font-black mt-2">
+                          <p className="text-[10px] text-emerald-300 font-black mt-2">
                             Supervisor: <span className="text-slate-100 font-bold">{supervisor ? supervisor.name : 'Unassigned'}</span>
                           </p>
 
@@ -402,7 +402,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                   <span className="text-[9px] text-slate-400 font-black uppercase tracking-wider">Available</span>
                 </div>
                 <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-3 text-center">
-                  <span className="text-lg font-black text-indigo-300 block">{deployedCount}</span>
+                  <span className="text-lg font-black text-emerald-300 block">{deployedCount}</span>
                   <span className="text-[9px] text-slate-400 font-black uppercase tracking-wider">Deployed</span>
                 </div>
                 <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-3 text-center">
@@ -426,7 +426,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                         onClick={() => setSelectedWorkerId(w.id)}
                         className={`w-full flex items-center gap-2.5 p-2.5 rounded-2xl border-2 text-left transition-all cursor-pointer ${
                           selectedWorkerId === w.id
-                            ? 'bg-indigo-500/10 border-indigo-500/40'
+                            ? 'bg-emerald-500/10 border-emerald-500/40'
                             : 'bg-white/[0.03] border-white/5 hover:border-white/15'
                         }`}
                       >
@@ -437,7 +437,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                         </div>
                         <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-1 rounded-lg shrink-0 ${
                           w.availability === 'available' ? 'bg-emerald-500/15 text-emerald-300' :
-                          w.availability === 'deployed' ? 'bg-indigo-500/15 text-indigo-300' :
+                          w.availability === 'deployed' ? 'bg-emerald-500/15 text-emerald-300' :
                           'bg-white/10 text-slate-400'
                         }`}>
                           {w.availability}
@@ -459,7 +459,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                         <img src={selectedWorker.profilePhotoUrl} alt={selectedWorker.name} className="w-14 h-14 rounded-xl object-cover shrink-0 border-2 border-white/10" referrerPolicy="no-referrer" />
                         <div className="min-w-0">
                           <h3 className="text-sm font-black text-white truncate">{selectedWorker.name}</h3>
-                          <span className="text-[10px] text-indigo-300 font-bold uppercase tracking-wider">{selectedWorker.skill}</span>
+                          <span className="text-[10px] text-emerald-300 font-bold uppercase tracking-wider">{selectedWorker.skill}</span>
                         </div>
                       </div>
 

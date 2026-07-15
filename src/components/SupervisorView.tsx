@@ -311,7 +311,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                         <div key={proj.id} className="p-3 bg-white/[0.03] rounded-xl border-2 border-white/10">
                           <div className="flex items-center justify-between">
                             <h4 className="text-xs font-extrabold text-white leading-tight">{proj.name}</h4>
-                            <span className="text-[9px] bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 px-2 py-0.5 rounded-full font-black uppercase tracking-wider shrink-0">{proj.status}</span>
+                            <span className="text-[9px] bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-full font-black uppercase tracking-wider shrink-0">{proj.status}</span>
                           </div>
                           <p className="text-[10px] text-slate-500 font-bold flex items-center gap-1 mt-1">
                             <MapPin className="w-3 h-3 text-slate-400" />
@@ -320,7 +320,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                           <div className="flex flex-wrap gap-1 mt-2">
                             {proj.requiredSkills.map(({ skill, count }) => (
                               <span key={skill} className="px-1.5 py-0.5 bg-white/5 border border-white/10 text-[9px] text-slate-300 font-bold uppercase tracking-wider rounded-md">
-                                {skill} <span className="text-indigo-400">×{count}</span>
+                                {skill} <span className="text-emerald-400">×{count}</span>
                               </span>
                             ))}
                           </div>
@@ -336,7 +336,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
             <div className="space-y-4">
             <div className="bg-white/5 p-4 rounded-2xl border-2 border-white/10 shadow-sm">
               <div className="flex justify-between items-center mb-3">
-                <h3 className="text-xs font-black text-indigo-400 uppercase tracking-widest">
+                <h3 className="text-xs font-black text-emerald-400 uppercase tracking-widest">
                   📍 {user.assignedDistrict}, {user.assignedState}
                 </h3>
                 <span className="text-xs font-bold text-slate-500">
@@ -347,7 +347,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
               <input
                 type="text"
                 placeholder={getTranslation('searchPlaceholder', lang)}
-                className="w-full px-3.5 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 rounded-xl text-xs font-bold text-slate-100 placeholder-slate-400 focus:outline-none transition-all"
+                className="w-full px-3.5 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-xs font-bold text-slate-100 placeholder-slate-400 focus:outline-none transition-all"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -361,7 +361,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
               
               <button
                 type="button"
-                className="px-3.5 py-2 bg-indigo-700 hover:bg-indigo-800 text-white font-black uppercase tracking-wider text-[10px] rounded-xl flex items-center gap-1 shadow-md cursor-pointer active:translate-y-0.5 transition-all"
+                className="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-black uppercase tracking-wider text-[10px] rounded-xl flex items-center gap-1 shadow-md cursor-pointer active:translate-y-0.5 transition-all"
                 onClick={() => setActiveTab('add')}
               >
                 <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -384,7 +384,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                   return (
                     <div
                       key={worker.id}
-                      className="bg-white/5 p-3.5 rounded-2xl border-2 border-white/10 hover:border-indigo-400 hover:shadow-md cursor-pointer transition-all flex items-center gap-3 relative overflow-hidden"
+                      className="bg-white/5 p-3.5 rounded-2xl border-2 border-white/10 hover:border-emerald-400 hover:shadow-md cursor-pointer transition-all flex items-center gap-3 relative overflow-hidden"
                       onClick={() => setSelectedWorker(worker)}
                     >
                       {/* Worker Thumbnail */}
@@ -399,8 +399,8 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                         <div className="flex items-center gap-1.5">
                           <h4 className="font-extrabold text-sm text-white truncate leading-tight">{worker.name}</h4>
                         </div>
-                        <p className="text-xs text-indigo-400 font-bold uppercase tracking-wider mt-0.5 flex items-center gap-1">
-                          <Briefcase className="w-3 h-3 text-indigo-500 shrink-0" />
+                        <p className="text-xs text-emerald-400 font-bold uppercase tracking-wider mt-0.5 flex items-center gap-1">
+                          <Briefcase className="w-3 h-3 text-emerald-500 shrink-0" />
                           {worker.skill}
                         </p>
                         <p className="text-[10px] text-slate-500 font-semibold flex items-center gap-1 mt-0.5">
@@ -416,7 +416,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                             {getTranslation('available', lang)}
                           </span>
                         ) : isDeployed ? (
-                          <span className="px-2 py-1 bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-[9px] font-black uppercase tracking-wider rounded-lg block text-center">
+                          <span className="px-2 py-1 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[9px] font-black uppercase tracking-wider rounded-lg block text-center">
                             {getTranslation('deployed', lang)}
                           </span>
                         ) : (
@@ -440,7 +440,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
           <div className="space-y-4 animate-fadeIn">
             <button
               type="button"
-              className="flex items-center gap-1.5 text-xs font-black text-slate-500 hover:text-indigo-400 cursor-pointer"
+              className="flex items-center gap-1.5 text-xs font-black text-slate-500 hover:text-emerald-400 cursor-pointer"
               onClick={() => setSelectedWorker(null)}
             >
               <ArrowLeft className="w-4 h-4" />
@@ -460,7 +460,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                   <div className="flex items-center gap-1.5">
                     <h3 className="text-lg font-black text-white leading-none">{selectedWorker.name}</h3>
                   </div>
-                  <p className="text-xs text-indigo-400 font-black uppercase tracking-wider mt-1">{selectedWorker.skill}</p>
+                  <p className="text-xs text-emerald-400 font-black uppercase tracking-wider mt-1">{selectedWorker.skill}</p>
                   <p className="text-xs text-slate-300 mt-1 flex items-center gap-1 font-semibold">
                     <Phone className="w-3.5 h-3.5 text-slate-400" />
                     +91 {selectedWorker.phone}
@@ -484,7 +484,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                 </div>
                 <div className="bg-white/[0.03] p-2.5 rounded-xl border-2 border-white/10">
                   <span className="text-[9px] text-slate-400 block uppercase font-bold">Availability</span>
-                  <span className={`font-extrabold block ${selectedWorker.availability === 'available' ? 'text-emerald-400' : selectedWorker.availability === 'deployed' ? 'text-indigo-400' : 'text-slate-400'}`}>
+                  <span className={`font-extrabold block ${selectedWorker.availability === 'available' ? 'text-emerald-400' : selectedWorker.availability === 'deployed' ? 'text-emerald-400' : 'text-slate-400'}`}>
                     {selectedWorker.availability.toUpperCase()}
                   </span>
                 </div>
@@ -533,7 +533,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
           <div className="space-y-4">
             <button
               type="button"
-              className="flex items-center gap-1.5 text-xs font-black text-slate-500 hover:text-indigo-400 cursor-pointer"
+              className="flex items-center gap-1.5 text-xs font-black text-slate-500 hover:text-emerald-400 cursor-pointer"
               onClick={() => setActiveTab('list')}
             >
               <ArrowLeft className="w-4 h-4" />
@@ -598,7 +598,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                       type="text"
                       required
                       placeholder="eg. Muthu Karuppan"
-                      className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all"
+                      className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                     />
@@ -615,7 +615,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                         min={18}
                         max={90}
                         placeholder="eg. 32"
-                        className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all"
+                        className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all"
                         value={age}
                         onChange={(e) => setAge(e.target.value ? Number(e.target.value) : '')}
                       />
@@ -629,7 +629,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                         required
                         maxLength={10}
                         placeholder="eg. 9123456780"
-                        className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all font-mono tracking-wider"
+                        className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all font-mono tracking-wider"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
                       />
@@ -643,7 +643,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                         {getTranslation('nativeState', lang)}
                       </label>
                       <select
-                        className="w-full p-2 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-100 font-bold focus:outline-none focus:border-indigo-600"
+                        className="w-full p-2 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-100 font-bold focus:outline-none focus:border-emerald-600"
                         value={homeState}
                         onChange={(e) => {
                           setHomeState(e.target.value);
@@ -658,7 +658,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                         {getTranslation('nativeDistrict', lang)}
                       </label>
                       <select
-                        className="w-full p-2 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-100 font-bold focus:outline-none focus:border-indigo-600"
+                        className="w-full p-2 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-100 font-bold focus:outline-none focus:border-emerald-600"
                         value={homeDistrict}
                         onChange={(e) => setHomeDistrict(e.target.value)}
                       >
@@ -675,7 +675,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                     <div className="space-y-2">
                       <div className="flex gap-2">
                         <select
-                          className="flex-1 px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 rounded-lg text-xs text-slate-100 font-bold focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                          className="flex-1 px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 rounded-lg text-xs text-slate-100 font-bold focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                           disabled={isCustomSkill}
                           value={skill}
                           onChange={(e) => setSkill(e.target.value)}
@@ -688,7 +688,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                           type="button"
                           className={`px-3.5 py-2 rounded-lg text-xs font-black uppercase tracking-wider border-2 transition-all cursor-pointer ${
                             isCustomSkill 
-                              ? 'bg-indigo-700 border-indigo-700 text-white' 
+                              ? 'bg-emerald-700 border-emerald-700 text-white' 
                               : 'bg-white/10 border-white/10 text-slate-300 hover:bg-white/15'
                           }`}
                           onClick={() => setIsCustomSkill(!isCustomSkill)}
@@ -701,7 +701,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                           type="text"
                           required
                           placeholder="Type custom skill..."
-                          className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 rounded-xl text-xs font-bold text-slate-100"
+                          className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-xs font-bold text-slate-100"
                           value={customSkill}
                           onChange={(e) => setCustomSkill(e.target.value)}
                         />
@@ -717,7 +717,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                           {getTranslation('idProofType', lang)}
                         </label>
                         <select
-                          className="w-full px-2 py-2.5 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-100 font-bold focus:outline-none focus:border-indigo-600"
+                          className="w-full px-2 py-2.5 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-100 font-bold focus:outline-none focus:border-emerald-600"
                           value={idProofType}
                           onChange={(e) => setIdProofType(e.target.value)}
                         >
@@ -770,7 +770,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                     </div>
                     <button
                       type="button"
-                      className="text-indigo-400 active:scale-95 transition-all cursor-pointer"
+                      className="text-emerald-400 active:scale-95 transition-all cursor-pointer"
                       onClick={() => setIsAvailable(!isAvailable)}
                     >
                       {isAvailable ? (
@@ -823,7 +823,7 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                   if (!workerObj || !projObj) return null;
 
                   return (
-                    <div key={dep.id} className="bg-white/5 p-4 rounded-2xl border-2 border-white/10 space-y-3 shadow-sm hover:border-indigo-400 transition-all">
+                    <div key={dep.id} className="bg-white/5 p-4 rounded-2xl border-2 border-white/10 space-y-3 shadow-sm hover:border-emerald-400 transition-all">
                       <div className="flex items-start gap-3">
                         <img
                           src={workerObj.profilePhotoUrl}
@@ -833,14 +833,14 @@ export default function SupervisorView({ user, lang }: SupervisorViewProps) {
                         />
                         <div className="flex-1 min-w-0">
                           <h4 className="text-sm font-extrabold text-white truncate leading-none">{workerObj.name}</h4>
-                          <span className="text-[9px] font-mono text-indigo-400 font-black uppercase tracking-widest mt-1 block">{workerObj.skill}</span>
+                          <span className="text-[9px] font-mono text-emerald-400 font-black uppercase tracking-widest mt-1 block">{workerObj.skill}</span>
                         </div>
                       </div>
 
                       <div className="p-2.5 bg-white/[0.03] rounded-lg border-2 border-white/10 text-xs text-slate-100">
                         <div className="font-extrabold text-white">{projObj.name}</div>
                         <div className="text-[10px] text-slate-500 mt-0.5 font-bold">📍 {projObj.locationDistrict}, {projObj.locationState}</div>
-                        <div className="text-[10px] text-slate-300 font-mono mt-2 bg-indigo-500/10 border border-indigo-500/20 p-1 px-2 rounded inline-block">
+                        <div className="text-[10px] text-slate-300 font-mono mt-2 bg-emerald-500/10 border border-emerald-500/20 p-1 px-2 rounded inline-block">
                           {dep.startDate} to {dep.endDate}
                         </div>
                       </div>

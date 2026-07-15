@@ -307,7 +307,7 @@ export default function HrView({ user, lang }: HrViewProps) {
       >
         {/* Decorative ambient glow orbs, matching the login/app header language */}
         <div className="pointer-events-none absolute -top-12 -left-8 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl animate-blob" />
-        <div className="pointer-events-none absolute -bottom-16 right-10 w-52 h-52 bg-indigo-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="pointer-events-none absolute -bottom-16 right-10 w-52 h-52 bg-emerald-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
 
         <div className="relative z-10">
           <span className="text-xs font-black text-amber-400 uppercase tracking-widest block">IGO Group Pan-India System</span>
@@ -379,7 +379,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                   <input
                     type="text"
                     placeholder={getTranslation('searchPlaceholder', lang)}
-                    className="w-full pl-10 pr-4 py-3 bg-white/[0.03] border-2 border-white/10 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 rounded-xl text-xs font-bold text-slate-100 placeholder-slate-400 focus:outline-none transition-all"
+                    className="w-full pl-10 pr-4 py-3 bg-white/[0.03] border-2 border-white/10 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-xs font-bold text-slate-100 placeholder-slate-400 focus:outline-none transition-all"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -391,7 +391,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                 <div>
                   <label className="block text-[10px] text-slate-400 uppercase font-black tracking-wider mb-1">Skill</label>
                   <select
-                    className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                    className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                     value={filterSkill}
                     onChange={(e) => setFilterSkill(e.target.value)}
                   >
@@ -402,7 +402,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                 <div>
                   <label className="block text-[10px] text-slate-400 uppercase font-black tracking-wider mb-1">Home State</label>
                   <select
-                    className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                    className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                     value={filterState}
                     onChange={(e) => setFilterState(e.target.value)}
                   >
@@ -413,7 +413,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                 <div>
                   <label className="block text-[10px] text-slate-400 uppercase font-black tracking-wider mb-1">Status</label>
                   <select
-                    className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                    className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                     value={filterAvailability}
                     onChange={(e) => setFilterAvailability(e.target.value)}
                   >
@@ -444,7 +444,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                       whileHover={{ y: -2 }}
                       className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex gap-3 items-center relative ${
                         isSel
-                          ? 'icon-glow-indigo bg-indigo-500/10 border-indigo-500 shadow-md'
+                          ? 'icon-glow-emerald bg-emerald-500/10 border-emerald-500 shadow-md'
                           : 'bg-white/5 border-white/10 hover:border-white/20 hover:shadow-md'
                       }`}
                       onClick={() => { setSelectedWorker(worker); setIsDeploying(false); }}
@@ -456,8 +456,8 @@ export default function HrView({ user, lang }: HrViewProps) {
                         referrerPolicy="no-referrer"
                       />
                       <div className="flex-1 min-w-0">
-                        <h4 className={`font-extrabold text-sm truncate ${isSel ? 'text-indigo-200' : 'text-white'}`}>{worker.name}</h4>
-                        <p className="text-xs text-indigo-400 font-bold uppercase tracking-wider mt-0.5 truncate">{worker.skill}</p>
+                        <h4 className={`font-extrabold text-sm truncate ${isSel ? 'text-emerald-200' : 'text-white'}`}>{worker.name}</h4>
+                        <p className="text-xs text-emerald-400 font-bold uppercase tracking-wider mt-0.5 truncate">{worker.skill}</p>
                         <p className="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5 font-semibold">
                           <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
                           {worker.homeDistrict}, {worker.homeState}
@@ -469,7 +469,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         {worker.availability === 'available' ? (
                           <span className="inline-block px-2 py-0.5 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[9px] font-black uppercase tracking-wider rounded-lg">Available</span>
                         ) : worker.availability === 'deployed' ? (
-                          <span className="inline-block px-2 py-0.5 bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 text-[9px] font-black uppercase tracking-wider rounded-lg">Deployed</span>
+                          <span className="inline-block px-2 py-0.5 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[9px] font-black uppercase tracking-wider rounded-lg">Deployed</span>
                         ) : (
                           <span className="inline-block px-2 py-0.5 bg-white/10 border border-white/10 text-slate-300 text-[9px] font-black uppercase tracking-wider rounded-lg">Unavailable</span>
                         )}
@@ -491,7 +491,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.97 }}
                 transition={{ duration: 0.25, ease: 'easeOut' }}
-                className="icon-glow-indigo bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md" id="hr-worker-detail-pane">
+                className="icon-glow-emerald bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md" id="hr-worker-detail-pane">
 
                 {/* Visual Header */}
                 <div className="flex items-start gap-3 border-b-2 border-white/5 pb-4">
@@ -503,7 +503,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                   />
                   <div>
                     <h2 className="text-base font-black text-white leading-tight">{selectedWorker.name}</h2>
-                    <span className="text-xs font-black text-indigo-400 uppercase tracking-widest mt-0.5 block">{selectedWorker.skill}</span>
+                    <span className="text-xs font-black text-emerald-400 uppercase tracking-widest mt-0.5 block">{selectedWorker.skill}</span>
                     <p className="text-[11px] text-slate-500 mt-0.5 font-bold">Native: {selectedWorker.homeDistrict}, {selectedWorker.homeState}</p>
                   </div>
                 </div>
@@ -534,7 +534,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                     <div className="p-3.5 bg-white/[0.03] rounded-2xl border-2 border-white/10 space-y-1 shadow-inner">
                       <span className="text-[9px] text-slate-400 uppercase tracking-wider block font-black">Captured By Supervisor</span>
                       <div className="text-xs font-black text-slate-100 flex items-center gap-1">
-                        <User className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                        <User className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                         {sup ? sup.name : 'Selvam Swamy'}
                       </div>
                       <div className="text-[11px] text-slate-500 flex items-center gap-1 font-mono font-bold">
@@ -560,7 +560,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                 ) : (
                   <form onSubmit={handleSubmitDeploymentRequest} className="space-y-4 pt-4 border-t-2 border-white/5 animate-fadeIn" id="deployment-form">
                     <h3 className="text-xs font-black text-slate-100 uppercase tracking-widest flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-indigo-400" />
+                      <Calendar className="w-3.5 h-3.5 text-emerald-400" />
                       Assign Travel & Projects
                     </h3>
 
@@ -576,7 +576,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         Select IGO Project
                       </label>
                       <select
-                        className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                        className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                         value={selectedProjectId}
                         onChange={(e) => setSelectedProjectId(e.target.value)}
                       >
@@ -594,7 +594,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         <input
                           type="date"
                           required
-                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 font-mono"
+                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 font-mono"
                           value={startDate}
                           onChange={(e) => setStartDate(e.target.value)}
                         />
@@ -606,7 +606,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         <input
                           type="date"
                           required
-                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 font-mono"
+                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 font-mono"
                           value={endDate}
                           onChange={(e) => setEndDate(e.target.value)}
                         />
@@ -618,7 +618,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         id="btn-submit-deployment"
                         type="submit"
                         disabled={submitting}
-                        className="flex-1 py-3 bg-indigo-700 hover:bg-indigo-800 text-white font-black uppercase tracking-wider text-xs rounded-xl shadow-md transition-all cursor-pointer"
+                        className="flex-1 py-3 bg-emerald-700 hover:bg-emerald-800 text-white font-black uppercase tracking-wider text-xs rounded-xl shadow-md transition-all cursor-pointer"
                       >
                         {submitting ? 'Sending...' : getTranslation('submitRequest', lang)}
                       </button>
@@ -669,7 +669,7 @@ export default function HrView({ user, lang }: HrViewProps) {
               <button
                 type="button"
                 id="btn-open-add-supervisor"
-                className="px-3.5 py-2 bg-indigo-700 hover:bg-indigo-800 text-white font-black uppercase tracking-wider text-[10px] rounded-xl flex items-center gap-1 shadow-md cursor-pointer transition-all"
+                className="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-black uppercase tracking-wider text-[10px] rounded-xl flex items-center gap-1 shadow-md cursor-pointer transition-all"
                 onClick={() => { setIsAddingSupervisor(true); setSelectedSupervisor(null); setSupFormError(''); }}
               >
                 <Plus className="w-4 h-4 stroke-[2.5]" />
@@ -695,7 +695,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                       whileHover={{ y: -2 }}
                       className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex gap-3 items-center ${
                         isSel
-                          ? 'icon-glow-indigo bg-indigo-500/10 border-indigo-500 shadow-md'
+                          ? 'icon-glow-emerald bg-emerald-500/10 border-emerald-500 shadow-md'
                           : 'bg-white/5 border-white/10 hover:border-white/20 hover:shadow-md'
                       }`}
                       onClick={() => { setSelectedSupervisor(sup); setIsAddingSupervisor(false); }}
@@ -707,8 +707,8 @@ export default function HrView({ user, lang }: HrViewProps) {
                         referrerPolicy="no-referrer"
                       />
                       <div className="flex-1 min-w-0">
-                        <h4 className={`font-extrabold text-sm truncate ${isSel ? 'text-indigo-200' : 'text-white'}`}>{sup.name}</h4>
-                        <p className="text-xs text-indigo-400 font-bold uppercase tracking-wider mt-0.5 truncate">Area Supervisor</p>
+                        <h4 className={`font-extrabold text-sm truncate ${isSel ? 'text-emerald-200' : 'text-white'}`}>{sup.name}</h4>
+                        <p className="text-xs text-emerald-400 font-bold uppercase tracking-wider mt-0.5 truncate">Area Supervisor</p>
                         <p className="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5 font-semibold">
                           <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
                           {sup.assignedDistrict}, {sup.assignedState}
@@ -797,7 +797,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         type="text"
                         required
                         placeholder="eg. Ganesh Prasad"
-                        className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all"
+                        className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all"
                         value={supName}
                         onChange={(e) => setSupName(e.target.value)}
                       />
@@ -810,7 +810,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                           Location (State)
                         </label>
                         <select
-                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                           value={supState}
                           onChange={(e) => {
                             setSupState(e.target.value);
@@ -825,7 +825,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                           Location (District)
                         </label>
                         <select
-                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                           value={supDistrict}
                           onChange={(e) => setSupDistrict(e.target.value)}
                         >
@@ -845,7 +845,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         required
                         maxLength={10}
                         placeholder="eg. 9123456780"
-                        className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all font-mono tracking-wider"
+                        className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all font-mono tracking-wider"
                         value={supPhone}
                         onChange={(e) => setSupPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
                       />
@@ -859,7 +859,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                             ID Proof Type
                           </label>
                           <select
-                            className="w-full px-2 py-2.5 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-100 font-bold focus:outline-none focus:border-indigo-600"
+                            className="w-full px-2 py-2.5 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-100 font-bold focus:outline-none focus:border-emerald-600"
                             value={supIdProofType}
                             onChange={(e) => setSupIdProofType(e.target.value)}
                           >
@@ -931,7 +931,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.25, ease: 'easeOut' }}
-                  className="icon-glow-indigo bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md"
+                  className="icon-glow-emerald bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md"
                   id="hr-supervisor-detail-pane"
                 >
                   {/* Visual Header */}
@@ -944,7 +944,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                     />
                     <div>
                       <h2 className="text-base font-black text-white leading-tight">{selectedSupervisor.name}</h2>
-                      <span className="text-xs font-black text-indigo-400 uppercase tracking-widest mt-0.5 block">Area Supervisor</span>
+                      <span className="text-xs font-black text-emerald-400 uppercase tracking-widest mt-0.5 block">Area Supervisor</span>
                       <p className="text-[11px] text-slate-500 mt-0.5 font-bold">Native: {selectedSupervisor.assignedDistrict}, {selectedSupervisor.assignedState}</p>
                     </div>
                   </div>
@@ -980,7 +980,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                               <div key={proj.id} className="p-3 bg-white/[0.03] rounded-xl border-2 border-white/10">
                                 <div className="flex items-center justify-between">
                                   <h4 className="text-xs font-extrabold text-white leading-tight">{proj.name}</h4>
-                                  <span className="text-[9px] bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 px-2 py-0.5 rounded-full font-black uppercase tracking-wider shrink-0">{proj.status}</span>
+                                  <span className="text-[9px] bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-full font-black uppercase tracking-wider shrink-0">{proj.status}</span>
                                 </div>
                                 <p className="text-[10px] text-slate-500 font-bold flex items-center gap-1 mt-1">
                                   <MapPin className="w-3 h-3 text-slate-400" />
@@ -989,7 +989,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                                 <div className="flex flex-wrap gap-1 mt-2">
                                   {proj.requiredSkills.map(({ skill, count }) => (
                                     <span key={skill} className="px-1.5 py-0.5 bg-white/5 border border-white/10 text-[9px] text-slate-300 font-bold uppercase tracking-wider rounded-md">
-                                      {skill} <span className="text-indigo-400">×{count}</span>
+                                      {skill} <span className="text-emerald-400">×{count}</span>
                                     </span>
                                   ))}
                                 </div>
@@ -1038,7 +1038,7 @@ export default function HrView({ user, lang }: HrViewProps) {
               
               <button
                 type="button"
-                className="px-3.5 py-2 bg-indigo-700 hover:bg-indigo-800 text-white font-black uppercase tracking-wider text-[10px] rounded-xl flex items-center gap-1 shadow-md cursor-pointer transition-all"
+                className="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-black uppercase tracking-wider text-[10px] rounded-xl flex items-center gap-1 shadow-md cursor-pointer transition-all"
                 onClick={() => { setIsAddingProject(true); setSelectedProject(null); }}
               >
                 <Plus className="w-4 h-4 stroke-[2.5]" />
@@ -1060,12 +1060,12 @@ export default function HrView({ user, lang }: HrViewProps) {
                     <div
                       key={proj.id}
                       className={`p-4 rounded-2xl border-2 cursor-pointer space-y-3 shadow-sm transition-all ${
-                        isSel ? 'icon-glow-indigo bg-indigo-500/10 border-indigo-500' : 'bg-white/5 border-white/10 hover:border-indigo-400'
+                        isSel ? 'icon-glow-emerald bg-emerald-500/10 border-emerald-500' : 'bg-white/5 border-white/10 hover:border-emerald-400'
                       }`}
                       onClick={() => { setSelectedProject(proj); setIsAddingProject(false); }}
                     >
                       <div>
-                        <span className="text-[9px] bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider">{proj.status}</span>
+                        <span className="text-[9px] bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider">{proj.status}</span>
                         <h4 className="text-sm font-extrabold text-white mt-1.5 leading-tight">{proj.name}</h4>
                         <p className="text-xs text-slate-500 font-bold flex items-center gap-1 mt-1">
                           <MapPin className="w-3.5 h-3.5 text-slate-400" />
@@ -1082,7 +1082,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         <div className="flex flex-wrap gap-1.5">
                           {proj.requiredSkills.map(({ skill, count }) => (
                             <span key={skill} className="px-2 py-1 bg-white/[0.03] border border-white/10 text-[9px] text-slate-300 font-bold uppercase tracking-wider rounded-lg">
-                              {skill} <span className="text-indigo-400">×{count}</span>
+                              {skill} <span className="text-emerald-400">×{count}</span>
                             </span>
                           ))}
                         </div>
@@ -1111,7 +1111,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                       type="text"
                       required
                       placeholder="eg. IGO Salem Paddy Mill Phase 3"
-                      className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                      className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                       value={newProjectName}
                       onChange={(e) => setNewProjectName(e.target.value)}
                     />
@@ -1123,7 +1123,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         State Location
                       </label>
                       <select
-                        className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                        className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                         value={newProjectState}
                         onChange={(e) => {
                           setNewProjectState(e.target.value);
@@ -1138,7 +1138,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         District Location
                       </label>
                       <select
-                        className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                        className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                         value={newProjectDistrict}
                         onChange={(e) => setNewProjectDistrict(e.target.value)}
                       >
@@ -1153,7 +1153,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                     </label>
                     <select
                       id="input-project-supervisor"
-                      className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                      className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                       value={newProjectSupervisorId}
                       onChange={(e) => setNewProjectSupervisorId(e.target.value)}
                     >
@@ -1175,7 +1175,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         return (
                           <div
                             key={s}
-                            className={`flex items-center justify-between p-2 px-3 rounded-lg text-xs font-bold transition-colors ${isChecked ? 'bg-indigo-500/15 border-2 border-indigo-400/40 text-indigo-200' : 'text-slate-300'}`}
+                            className={`flex items-center justify-between p-2 px-3 rounded-lg text-xs font-bold transition-colors ${isChecked ? 'bg-emerald-500/15 border-2 border-emerald-400/40 text-emerald-200' : 'text-slate-300'}`}
                           >
                             <span>{s}</span>
                             {isChecked ? (
@@ -1187,10 +1187,10 @@ export default function HrView({ user, lang }: HrViewProps) {
                                 >
                                   −
                                 </button>
-                                <span className="w-5 text-center font-black text-indigo-200">{count}</span>
+                                <span className="w-5 text-center font-black text-emerald-200">{count}</span>
                                 <button
                                   type="button"
-                                  className="w-6 h-6 flex items-center justify-center rounded-md bg-indigo-600 hover:bg-indigo-500 text-white font-black cursor-pointer transition-colors"
+                                  className="w-6 h-6 flex items-center justify-center rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-black cursor-pointer transition-colors"
                                   onClick={() => incrementRequiredSkill(s)}
                                 >
                                   +
@@ -1199,7 +1199,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                             ) : (
                               <button
                                 type="button"
-                                className="px-3 py-1 rounded-lg bg-white/10 hover:bg-indigo-600 hover:text-white text-slate-300 font-black cursor-pointer transition-colors"
+                                className="px-3 py-1 rounded-lg bg-white/10 hover:bg-emerald-600 hover:text-white text-slate-300 font-black cursor-pointer transition-colors"
                                 onClick={() => incrementRequiredSkill(s)}
                               >
                                 +
@@ -1229,9 +1229,9 @@ export default function HrView({ user, lang }: HrViewProps) {
                 </form>
               </div>
             ) : selectedProject ? (
-              <div className="icon-glow-indigo bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md" id="hr-project-detail-pane">
+              <div className="icon-glow-emerald bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md" id="hr-project-detail-pane">
                 <div className="border-b-2 border-white/5 pb-4">
-                  <span className="text-[9px] bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider">{selectedProject.status}</span>
+                  <span className="text-[9px] bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider">{selectedProject.status}</span>
                   <h2 className="text-base font-black text-white leading-tight mt-1.5">{selectedProject.name}</h2>
                   <p className="text-[11px] text-slate-500 mt-0.5 font-bold flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5 text-slate-400" />
@@ -1248,7 +1248,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                       {sup ? (
                         <>
                           <div className="text-xs font-black text-slate-100 flex items-center gap-1">
-                            <UserCog className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                            <UserCog className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                             {sup.name}
                           </div>
                           <div className="text-[11px] text-slate-500 flex items-center gap-1 font-mono font-bold">
@@ -1298,7 +1298,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                   <div className="flex flex-wrap gap-1.5">
                     {selectedProject.requiredSkills.map(({ skill, count }) => (
                       <span key={skill} className="px-2 py-1 bg-white/[0.03] border border-white/10 text-[9px] text-slate-300 font-bold uppercase tracking-wider rounded-lg">
-                        {skill} <span className="text-indigo-400">×{count}</span>
+                        {skill} <span className="text-emerald-400">×{count}</span>
                       </span>
                     ))}
                   </div>

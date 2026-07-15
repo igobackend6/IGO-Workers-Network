@@ -115,7 +115,7 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
             <ChevronLeft className="w-4 h-4" />
           </button>
           <h1 className="text-sm font-black uppercase tracking-widest text-slate-200 flex items-center gap-2">
-            <Phone className="w-4 h-4 text-violet-400" />
+            <Phone className="w-4 h-4 text-emerald-400" />
             {getTranslation('phoneLogin', lang)}
           </h1>
         </div>
@@ -153,12 +153,12 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
                   {lang === 'en' ? 'Full Name' : 'முழு பெயர்'}
                 </label>
                 <div className="relative group">
-                  <UserRound className="w-3.5 h-3.5 absolute left-3.5 top-3 text-slate-500 group-focus-within:text-violet-400 transition-colors" />
+                  <UserRound className="w-3.5 h-3.5 absolute left-3.5 top-3 text-slate-500 group-focus-within:text-emerald-400 transition-colors" />
                   <input
                     id="input-supervisor-name"
                     type="text"
                     placeholder={lang === 'en' ? 'eg. Selvam Swamy' : 'எ.கா. செல்வம் சாமி'}
-                    className="w-full pl-9 pr-4 py-2.5 bg-white/5 border border-white/15 focus:border-violet-500 rounded-xl text-white font-bold text-xs focus:outline-none placeholder-slate-500 focus:ring-4 focus:ring-violet-500/20 transition-all font-sans"
+                    className="w-full pl-9 pr-4 py-2.5 bg-white/5 border border-white/15 focus:border-emerald-500 rounded-xl text-white font-bold text-xs focus:outline-none placeholder-slate-500 focus:ring-4 focus:ring-emerald-500/20 transition-all font-sans"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -170,13 +170,13 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
                   {getTranslation('mobileNumber', lang)}
                 </label>
                 <div className="relative group">
-                  <span className="absolute left-3 top-3 text-slate-500 text-xs font-black group-focus-within:text-violet-400 transition-colors">+91</span>
+                  <span className="absolute left-3 top-3 text-slate-500 text-xs font-black group-focus-within:text-emerald-400 transition-colors">+91</span>
                   <input
                     id="input-phone"
                     type="tel"
                     maxLength={10}
                     placeholder={getTranslation('enterPhone', lang)}
-                    className="w-full pl-11 pr-4 py-2.5 bg-white/5 border border-white/15 focus:border-violet-500 rounded-xl text-white font-bold text-xs focus:outline-none tracking-wider placeholder-slate-500 focus:ring-4 focus:ring-violet-500/20 transition-all font-sans"
+                    className="w-full pl-11 pr-4 py-2.5 bg-white/5 border border-white/15 focus:border-emerald-500 rounded-xl text-white font-bold text-xs focus:outline-none tracking-wider placeholder-slate-500 focus:ring-4 focus:ring-emerald-500/20 transition-all font-sans"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
                   />
@@ -189,7 +189,7 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
                 disabled={loading}
                 whileHover={{ scale: loading ? 1 : 1.015 }}
                 whileTap={{ scale: loading ? 1 : 0.98 }}
-                className="btn-sheen w-full py-3 bg-violet-600 hover:bg-violet-500 text-white font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-md cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
+                className="btn-sheen w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-md cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
               >
                 {loading ? (
                   <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
@@ -220,7 +220,7 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
                   type="text"
                   maxLength={6}
                   placeholder={getTranslation('enterOtp', lang)}
-                  className="w-full px-4 py-2.5 bg-white/5 border border-white/15 focus:border-violet-500 rounded-xl text-center text-white font-bold text-lg focus:outline-none tracking-widest placeholder-slate-500 focus:ring-4 focus:ring-violet-500/20 transition-all"
+                  className="w-full px-4 py-2.5 bg-white/5 border border-white/15 focus:border-emerald-500 rounded-xl text-center text-white font-bold text-lg focus:outline-none tracking-widest placeholder-slate-500 focus:ring-4 focus:ring-emerald-500/20 transition-all"
                   value={otpCode}
                   onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                 />
@@ -228,7 +228,7 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
                   <span className="text-[10px] text-slate-400 font-bold">SMS sent to +91 {phoneNumber}</span>
                   <button
                     type="button"
-                    className="text-[10px] text-violet-400 hover:text-violet-300 font-black uppercase tracking-wider cursor-pointer"
+                    className="text-[10px] text-emerald-400 hover:text-emerald-300 font-black uppercase tracking-wider cursor-pointer"
                     onClick={() => { setOtpSent(false); setOtpCode(''); setError(''); }}
                   >
                     {lang === 'en' ? 'Change Phone' : 'எண்ணை மாற்றவும்'}
@@ -242,7 +242,7 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
                 disabled={loading}
                 whileHover={{ scale: loading ? 1 : 1.015 }}
                 whileTap={{ scale: loading ? 1 : 0.98 }}
-                className="btn-sheen w-full py-3 bg-violet-600 hover:bg-violet-500 text-white font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-md cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
+                className="btn-sheen w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-md cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
               >
                 {loading ? (
                   <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>

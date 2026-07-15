@@ -71,7 +71,7 @@ export default function HrLoginView({ lang, onLoginSuccess, onBack }: HrLoginVie
             <ChevronLeft className="w-4 h-4" />
           </button>
           <h1 className="text-sm font-black uppercase tracking-widest text-slate-200 flex items-center gap-2">
-            <Briefcase className="w-4 h-4 text-violet-400" />
+            <Briefcase className="w-4 h-4 text-emerald-400" />
             {getTranslation('emailLogin', lang)}
           </h1>
         </div>
@@ -106,12 +106,12 @@ export default function HrLoginView({ lang, onLoginSuccess, onBack }: HrLoginVie
               {getTranslation('emailAddress', lang)}
             </label>
             <div className="relative group">
-              <Mail className="w-3.5 h-3.5 absolute left-3.5 top-3 text-slate-500 group-focus-within:text-violet-400 transition-colors" />
+              <Mail className="w-3.5 h-3.5 absolute left-3.5 top-3 text-slate-500 group-focus-within:text-emerald-400 transition-colors" />
               <input
                 id="input-email"
                 type="email"
                 placeholder="hr@igogroups.com"
-                className="w-full pl-9 pr-4 py-2.5 bg-white/5 border border-white/15 focus:border-violet-500 rounded-xl text-white font-bold text-xs focus:outline-none placeholder-slate-500 focus:ring-4 focus:ring-violet-500/20 transition-all font-sans"
+                className="w-full pl-9 pr-4 py-2.5 bg-white/5 border border-white/15 focus:border-emerald-500 rounded-xl text-white font-bold text-xs focus:outline-none placeholder-slate-500 focus:ring-4 focus:ring-emerald-500/20 transition-all font-sans"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -126,7 +126,7 @@ export default function HrLoginView({ lang, onLoginSuccess, onBack }: HrLoginVie
               id="input-password"
               type="password"
               placeholder="••••••••"
-              className="w-full px-4 py-2.5 bg-white/5 border border-white/15 focus:border-violet-500 rounded-xl text-white font-bold text-xs focus:outline-none placeholder-slate-500 focus:ring-4 focus:ring-violet-500/20 transition-all"
+              className="w-full px-4 py-2.5 bg-white/5 border border-white/15 focus:border-emerald-500 rounded-xl text-white font-bold text-xs focus:outline-none placeholder-slate-500 focus:ring-4 focus:ring-emerald-500/20 transition-all"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -138,7 +138,7 @@ export default function HrLoginView({ lang, onLoginSuccess, onBack }: HrLoginVie
             disabled={loading}
             whileHover={{ scale: loading ? 1 : 1.015 }}
             whileTap={{ scale: loading ? 1 : 0.98 }}
-            className="btn-sheen w-full py-3 bg-violet-600 hover:bg-violet-500 text-white font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-md cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
+            className="btn-sheen w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-md cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
           >
             {loading ? (
               <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>

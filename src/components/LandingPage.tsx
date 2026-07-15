@@ -6,7 +6,7 @@ import {
   Shield, Sparkles, ArrowRight, Clock, ShieldCheck, Globe2, Zap,
   Phone, Mail, MapPin, Building2, Languages, Users2, HardHat,
   Hammer, Axe, Wrench, Flame, Cog, Users, Tractor, Truck, BrainCircuit,
-  ChevronLeft, ChevronRight
+  ChevronLeft, ChevronRight, MousePointer2, Facebook, Instagram, Linkedin, Youtube
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -35,19 +35,19 @@ const FEATURES: Array<{ icon: React.ReactNode; titleKey: string; descKey: string
 // pages (glowing gradient-bordered cards on a dark canvas). Tailwind class names must stay
 // fully static (not template-built) for the JIT compiler to pick them up, so each accent is
 // a complete literal string here rather than assembled from a variable.
-type SkillAccent = 'violet' | 'indigo' | 'amber' | 'emerald' | 'rose';
-const SKILL_ACCENTS: SkillAccent[] = ['violet', 'indigo', 'amber', 'emerald', 'rose'];
+type SkillAccent = 'emerald' | 'emerald' | 'amber' | 'emerald' | 'rose';
+const SKILL_ACCENTS: SkillAccent[] = ['emerald', 'emerald', 'amber', 'emerald', 'rose'];
 
 const SKILL_ACCENT_ICON: Record<SkillAccent, string> = {
-  violet: 'icon-glow-violet bg-violet-500/15 text-violet-300 border border-violet-500/30',
-  indigo: 'icon-glow-indigo bg-indigo-500/15 text-indigo-300 border border-indigo-500/30',
+  emerald: 'icon-glow-emerald bg-emerald-500/15 text-emerald-300 border border-emerald-500/30',
+  emerald: 'icon-glow-emerald bg-emerald-500/15 text-emerald-300 border border-emerald-500/30',
   amber: 'icon-glow-amber bg-amber-500/15 text-amber-300 border border-amber-500/30',
   emerald: 'icon-glow-emerald bg-emerald-500/15 text-emerald-300 border border-emerald-500/30',
   rose: 'icon-glow-rose bg-rose-500/15 text-rose-300 border border-rose-500/30',
 };
 const SKILL_ACCENT_BLOB: Record<SkillAccent, string> = {
-  violet: 'bg-violet-500',
-  indigo: 'bg-indigo-500',
+  emerald: 'bg-emerald-500',
+  emerald: 'bg-emerald-500',
   amber: 'bg-amber-500',
   emerald: 'bg-emerald-500',
   rose: 'bg-rose-500',
@@ -66,7 +66,9 @@ const SKILL_ICON_MAP: Record<string, React.ReactNode> = {
 
 // Real contact details, sourced from igoagritechfarms.in (an IGO Group brand site).
 const CONTACT_PHONE = '+91 73977 89803';
+const CONTACT_PHONES = ['+91 73977 89803', '+91 73977 89804', '+91 73977 89805'];
 const CONTACT_EMAIL = 'bd2@igogroups.com';
+const CONTACT_EMAILS = ['precisionfarming152@gmail.com', 'bd2@igogroups.com'];
 const CONTACT_HUB = 'Uthandi Kanathur, Chennai 600119, Tamil Nadu, India';
 
 // Logos copied from assets/IGO Brands into public/brand-logos so Vite/Vercel serve them statically.
@@ -102,15 +104,33 @@ const BRANDS: Array<{ name: string; file: string; desc: string }> = [
   { name: 'Valluvam', file: 'valluvam.jpg', desc: 'Traditional wellness & heritage products' },
 ];
 
-type BrandAccent = 'violet' | 'indigo' | 'amber' | 'emerald' | 'rose';
-const BRAND_ACCENTS: BrandAccent[] = ['violet', 'indigo', 'amber', 'emerald', 'rose'];
+type BrandAccent = 'emerald' | 'emerald' | 'amber' | 'emerald' | 'rose';
+const BRAND_ACCENTS: BrandAccent[] = ['emerald', 'emerald', 'amber', 'emerald', 'rose'];
 const BRAND_ACCENT_GLOW: Record<BrandAccent, string> = {
-  violet: 'border-violet-400/60 shadow-[0_0_16px_1px_rgba(139,92,246,0.35)] hover:shadow-[0_0_26px_4px_rgba(139,92,246,0.55)]',
-  indigo: 'border-indigo-400/60 shadow-[0_0_16px_1px_rgba(124,110,246,0.35)] hover:shadow-[0_0_26px_4px_rgba(124,110,246,0.55)]',
+  emerald: 'border-emerald-400/60 shadow-[0_0_16px_1px_rgba(139,92,246,0.35)] hover:shadow-[0_0_26px_4px_rgba(139,92,246,0.55)]',
+  emerald: 'border-emerald-400/60 shadow-[0_0_16px_1px_rgba(124,110,246,0.35)] hover:shadow-[0_0_26px_4px_rgba(124,110,246,0.55)]',
   amber: 'border-amber-400/60 shadow-[0_0_16px_1px_rgba(245,158,11,0.35)] hover:shadow-[0_0_26px_4px_rgba(245,158,11,0.55)]',
   emerald: 'border-emerald-400/60 shadow-[0_0_16px_1px_rgba(16,185,129,0.35)] hover:shadow-[0_0_26px_4px_rgba(16,185,129,0.55)]',
   rose: 'border-rose-400/60 shadow-[0_0_16px_1px_rgba(244,63,94,0.35)] hover:shadow-[0_0_26px_4px_rgba(244,63,94,0.55)]',
 };
+
+// Orbit system for the hero (Nixtio marketing-agency reference): worker avatars and
+// dark skill-icon tiles circling a central headline stat on concentric rings.
+// Angles are degrees, radii are px within a 420px visual (scaled down on mobile).
+const ORBIT_AVATARS: Array<{ angle: number; radius: number; img: string }> = [
+  { angle: -80, radius: 195, img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop' },
+  { angle: 10, radius: 195, img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop' },
+  { angle: 100, radius: 195, img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop' },
+  { angle: 190, radius: 145, img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop' },
+  { angle: 280, radius: 95, img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=100&auto=format&fit=crop' },
+];
+
+const ORBIT_TILES: Array<{ angle: number; radius: number; icon: React.ReactNode }> = [
+  { angle: -30, radius: 145, icon: <Zap className="w-4 h-4 text-emerald-300" /> },
+  { angle: 60, radius: 145, icon: <Hammer className="w-4 h-4 text-amber-300" /> },
+  { angle: 150, radius: 145, icon: <Wrench className="w-4 h-4 text-emerald-300" /> },
+  { angle: 230, radius: 195, icon: <Flame className="w-4 h-4 text-rose-300" /> },
+];
 
 export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPageProps) {
   // Auto-advancing 3D coverflow carousel for the skills section, paused on hover.
@@ -134,7 +154,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
       {/* Nav Header */}
       <header className="sticky top-0 z-20 flex items-center justify-between gap-3 px-5 sm:px-8 py-4 bg-black/40 backdrop-blur-md border-b border-white/10 rounded-t-[32px]">
         <div className="flex items-center gap-2.5">
-          <div className="icon-glow-violet w-9 h-9 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-700 flex items-center justify-center text-white font-black text-base tracking-tighter shadow-lg select-none shrink-0">
+          <div className="icon-glow-emerald w-9 h-9 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white font-black text-base tracking-tighter shadow-lg select-none shrink-0">
             I
           </div>
           <span className="text-sm font-black tracking-tight uppercase text-white hidden sm:inline">
@@ -143,9 +163,9 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
         </div>
 
         <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-slate-300">
-          <a href="#services" className="hover:text-violet-300 transition-colors">{getTranslation('landingNavServices', lang)}</a>
-          <a href="#brands" className="hover:text-violet-300 transition-colors">{getTranslation('landingNavBrands', lang)}</a>
-          <a href="#contact" className="hover:text-violet-300 transition-colors">{getTranslation('landingNavContact', lang)}</a>
+          <a href="#services" className="hover:text-emerald-300 transition-colors">{getTranslation('landingNavServices', lang)}</a>
+          <a href="#brands" className="hover:text-emerald-300 transition-colors">{getTranslation('landingNavBrands', lang)}</a>
+          <a href="#contact" className="hover:text-emerald-300 transition-colors">{getTranslation('landingNavContact', lang)}</a>
         </nav>
 
         <div className="flex items-center gap-2 shrink-0">
@@ -162,7 +182,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             type="button"
             id="btn-portal-login"
             onClick={onEnterPortal}
-            className="btn-sheen px-4 py-2 bg-violet-600 hover:bg-violet-500 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-md transition-colors cursor-pointer flex items-center gap-1.5 active:scale-95"
+            className="btn-sheen px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-md transition-colors cursor-pointer flex items-center gap-1.5 active:scale-95"
           >
             {getTranslation('landingPortalLogin', lang)}
             <ArrowRight className="w-3.5 h-3.5" />
@@ -170,61 +190,122 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="relative overflow-hidden px-5 sm:px-8 py-16 sm:py-24 text-center">
-        <div className="pointer-events-none absolute top-[-15%] left-[-10%] w-[380px] h-[380px] bg-violet-500/20 rounded-full blur-3xl animate-blob" />
-        <div className="pointer-events-none absolute bottom-[-20%] right-[-10%] w-[420px] h-[420px] bg-indigo-500/15 rounded-full blur-3xl animate-blob animation-delay-2000" />
-        <div className="pointer-events-none absolute top-[30%] right-[20%] w-[280px] h-[280px] bg-fuchsia-500/10 rounded-full blur-3xl animate-blob animation-delay-4000" />
+      {/* Hero — Nixtio marketing-agency reference: left-aligned bold headline + pill CTA,
+          orbital avatar/icon ring system around a central stat on the right,
+          and a partner logo strip along the bottom edge. */}
+      <section className="hero-nixtio-glow relative overflow-hidden px-5 sm:px-10 pt-14 sm:pt-20 pb-8">
+        <div className="pointer-events-none absolute bottom-[-20%] right-[-10%] w-[420px] h-[420px] bg-emerald-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="pointer-events-none absolute top-[30%] right-[20%] w-[280px] h-[280px] bg-emerald-400/10 rounded-full blur-3xl animate-blob animation-delay-4000" />
 
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="relative z-10 inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-widest text-violet-300 mb-6"
-        >
-          <Sparkles className="w-3 h-3 text-amber-400" />
-          {getTranslation('portalSubtitle', lang)}
-        </motion.div>
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          {/* Left: headline + CTA */}
+          <div className="text-center lg:text-left">
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-fade-dark-light text-4xl sm:text-5xl xl:text-6xl font-black tracking-tight leading-[1.08]"
+            >
+              {getTranslation('landingHeroHeadline', lang)}
+            </motion.h1>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="relative z-10 text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight max-w-3xl mx-auto"
-        >
-          {getTranslation('landingHeroHeadline', lang)}
-        </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-sm sm:text-base text-slate-400 font-medium mt-5 max-w-md mx-auto lg:mx-0 leading-relaxed"
+            >
+              {getTranslation('landingHeroSubheadline', lang)}
+            </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="relative z-10 text-sm sm:text-base text-slate-300 font-medium mt-5 max-w-xl mx-auto leading-relaxed"
-        >
-          {getTranslation('landingHeroSubheadline', lang)}
-        </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="mt-8 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4"
+            >
+              <a
+                href="#contact"
+                id="btn-hero-request-workers"
+                className="btn-sheen inline-flex items-center gap-2 px-7 py-3.5 bg-emerald-500 hover:bg-emerald-400 border border-emerald-400 text-slate-950 font-black text-xs uppercase tracking-wider rounded-full shadow-[0_0_20px_2px_rgba(16,185,129,0.35)] hover:shadow-[0_0_28px_4px_rgba(16,185,129,0.5)] transition-all cursor-pointer active:scale-95"
+              >
+                {getTranslation('landingHeroCtaPrimary', lang)}
+                <ArrowRight className="w-4 h-4" />
+              </a>
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="relative z-10 flex flex-col sm:flex-row items-center justify-center gap-3 mt-8"
-        >
-          <a
-            href="#contact"
-            id="btn-hero-request-workers"
-            className="btn-sheen w-full sm:w-auto px-6 py-3.5 bg-amber-500 hover:bg-amber-600 border-b-4 border-amber-700 text-slate-950 font-black uppercase tracking-wider text-xs rounded-xl shadow-md transition-all active:translate-y-0.5 active:border-b-0 cursor-pointer text-center"
+              {/* Collaborative cursor tag, like the reference's "David" pointer chip */}
+              <div className="hidden sm:flex items-start pt-6 pl-2 select-none" aria-hidden="true">
+                <MousePointer2 className="w-4 h-4 text-emerald-400 -mb-1 fill-emerald-400" />
+                <span className="ml-0.5 mt-3 px-2.5 py-1 bg-emerald-500/90 text-white text-[10px] font-bold rounded-full rounded-tl-none shadow-md">
+                  {getTranslation('landingHeroCursorTag', lang)}
+                </span>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right: orbital ring system around the central stat */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="relative mx-auto w-[420px] h-[420px] scale-[0.72] sm:scale-90 lg:scale-100 -my-14 sm:-my-4 lg:my-0"
+            id="hero-orbit"
+            aria-hidden="true"
           >
-            {getTranslation('landingHeroCtaPrimary', lang)}
-          </a>
-          <a
-            href="#contact"
-            id="btn-hero-partner"
-            className="w-full sm:w-auto px-6 py-3.5 bg-white/10 hover:bg-white/15 border-2 border-white/10 text-slate-100 font-black uppercase tracking-wider text-xs rounded-xl transition-all cursor-pointer text-center"
-          >
-            {getTranslation('landingHeroCtaSecondary', lang)}
-          </a>
-        </motion.div>
+            {/* Concentric rings */}
+            <div className="absolute inset-0 rounded-full border border-white/10" />
+            <div className="absolute inset-[55px] rounded-full border border-white/10" />
+            <div className="absolute inset-[110px] rounded-full border border-white/[0.07]" />
+
+            {/* Central stat */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+              <span className="text-4xl font-black text-white tracking-tight">10,000+</span>
+              <span className="text-[11px] font-bold text-slate-400 mt-1">{getTranslation('landingStatWorkers', lang)}</span>
+            </div>
+
+            {/* Orbiting items: the wrapper spins slowly, each item counter-spins to stay upright */}
+            <div className="absolute inset-0 animate-orbit">
+              {ORBIT_AVATARS.map((item) => (
+                <div
+                  key={item.angle}
+                  className="absolute left-1/2 top-1/2 -ml-5 -mt-5"
+                  style={{ transform: `rotate(${item.angle}deg) translate(${item.radius}px) rotate(${-item.angle}deg)` }}
+                >
+                  <div className="animate-orbit-reverse">
+                    <img
+                      src={item.img}
+                      alt=""
+                      referrerPolicy="no-referrer"
+                      className="w-10 h-10 rounded-full object-cover border-2 border-white/40 shadow-[0_0_14px_2px_rgba(139,92,246,0.35)]"
+                    />
+                  </div>
+                </div>
+              ))}
+              {ORBIT_TILES.map((item) => (
+                <div
+                  key={item.angle}
+                  className="absolute left-1/2 top-1/2 -ml-5 -mt-5"
+                  style={{ transform: `rotate(${item.angle}deg) translate(${item.radius}px) rotate(${-item.angle}deg)` }}
+                >
+                  <div className="animate-orbit-reverse">
+                    <div className="w-10 h-10 rounded-xl bg-slate-950/90 border border-white/15 flex items-center justify-center shadow-[0_0_14px_2px_rgba(139,92,246,0.25)]">
+                      {item.icon}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Partner strip along the hero's bottom edge, like the reference */}
+        <div className="relative z-10 mt-10 pt-6 border-t border-white/10 flex flex-wrap items-center justify-center lg:justify-between gap-x-8 gap-y-3">
+          {BRANDS.slice(0, 5).map((brand) => (
+            <span key={brand.file} className="text-[11px] sm:text-xs font-black uppercase tracking-widest text-slate-500 hover:text-slate-300 transition-colors select-none">
+              {brand.name}
+            </span>
+          ))}
+        </div>
       </section>
 
       {/* Stats Strip */}
@@ -239,7 +320,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
               transition={{ duration: 0.35, delay: idx * 0.06 }}
               className="bg-white/5 border-2 border-white/10 rounded-2xl p-4 sm:p-5 text-center shadow-sm"
             >
-              <div className="icon-glow-violet inline-flex p-2.5 bg-violet-500/15 text-violet-300 rounded-xl border border-violet-500/30 mb-2">
+              <div className="icon-glow-emerald inline-flex p-2.5 bg-emerald-500/15 text-emerald-300 rounded-xl border border-emerald-500/30 mb-2">
                 {stat.icon}
               </div>
               <div className="text-xl sm:text-2xl font-black text-white">{stat.value}</div>
@@ -287,16 +368,16 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
 
         <div className="relative overflow-hidden bg-black/30 border-2 border-white/10 rounded-3xl p-6 sm:p-8">
           {/* Ambient glow + dot-grid backdrop, crypto/AI-product landing page style */}
-          <div className="pointer-events-none absolute -top-20 -left-16 w-64 h-64 bg-violet-600/20 rounded-full blur-3xl animate-blob" />
-          <div className="pointer-events-none absolute -bottom-24 -right-16 w-72 h-72 bg-indigo-500/15 rounded-full blur-3xl animate-blob animation-delay-2000" />
+          <div className="pointer-events-none absolute -top-20 -left-16 w-64 h-64 bg-emerald-600/20 rounded-full blur-3xl animate-blob" />
+          <div className="pointer-events-none absolute -bottom-24 -right-16 w-72 h-72 bg-emerald-500/15 rounded-full blur-3xl animate-blob animation-delay-2000" />
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.05]"
             style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '20px 20px' }}
           />
 
           <div className="relative z-10 flex flex-col items-center text-center mb-8">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-violet-500/10 border border-violet-500/25 rounded-full text-[9px] font-black uppercase tracking-widest text-violet-300 mb-3">
-              <BrainCircuit className="w-3.5 h-3.5 text-violet-300" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/25 rounded-full text-[9px] font-black uppercase tracking-widest text-emerald-300 mb-3">
+              <BrainCircuit className="w-3.5 h-3.5 text-emerald-300" />
               {getTranslation('landingSkillsBadge', lang)}
             </span>
             <h3 className="text-2xl sm:text-4xl font-black text-shimmer tracking-tight">
@@ -315,8 +396,8 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             aria-label={getTranslation('landingSkillsTitle', lang)}
           >
             {/* Glowing horizon arc */}
-            <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[-200px] w-[160%] h-96 rounded-[50%] bg-violet-600/25 blur-3xl" />
-            <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[-150px] w-[100%] h-60 rounded-[50%] bg-fuchsia-500/15 blur-3xl" />
+            <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[-200px] w-[160%] h-96 rounded-[50%] bg-emerald-600/25 blur-3xl" />
+            <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-[-150px] w-[100%] h-60 rounded-[50%] bg-emerald-500/15 blur-3xl" />
 
             <div className="relative h-full flex items-center justify-center [transform-style:preserve-3d]">
               {SKILL_CATEGORIES.map((skill, idx) => {
@@ -398,7 +479,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
                 aria-label={skill}
                 onClick={() => setActiveSkill(idx)}
                 className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                  idx === activeSkill ? 'w-5 bg-violet-400' : 'w-1.5 bg-white/20 hover:bg-white/35'
+                  idx === activeSkill ? 'w-5 bg-emerald-400' : 'w-1.5 bg-white/20 hover:bg-white/35'
                 }`}
               />
             ))}
@@ -467,7 +548,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             <div className="text-sm font-bold text-white mt-1" id="landing-contact-phone">{CONTACT_PHONE}</div>
           </div>
           <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-5 text-center">
-            <div className="icon-glow-indigo inline-flex p-2.5 bg-indigo-500/15 text-indigo-300 rounded-xl border border-indigo-500/30 mb-2.5">
+            <div className="icon-glow-emerald inline-flex p-2.5 bg-emerald-500/15 text-emerald-300 rounded-xl border border-emerald-500/30 mb-2.5">
               <Mail className="w-5 h-5" />
             </div>
             <div className="text-[10px] text-slate-400 font-black uppercase tracking-wider">{getTranslation('landingContactEmail', lang)}</div>
@@ -483,16 +564,88 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="px-5 sm:px-8 py-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-        <div className="flex items-center gap-2">
-          <Shield className="w-4 h-4 text-violet-400" />
+      {/* Footer — layout inspired by the IGO Agritech Farms site footer (logo/vision + contact/mission
+          + copyright bar), recolored to this page's emerald/amber theme instead of that site's green accent. */}
+      <footer className="relative overflow-hidden px-5 sm:px-10 py-12 border-t border-white/10 bg-black/30">
+        <div className="pointer-events-none absolute -top-24 -left-10 w-72 h-72 bg-emerald-600/15 rounded-full blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -right-10 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl" />
+
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+          {/* Logo, vision, socials */}
           <div>
-            <span className="text-xs font-black text-white uppercase tracking-wider block">{getTranslation('appName', lang)}</span>
-            <span className="text-[10px] text-slate-500 font-semibold">{getTranslation('landingFooterTagline', lang)}</span>
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="icon-glow-emerald w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-700 flex items-center justify-center text-white font-black text-lg tracking-tighter shadow-lg select-none shrink-0">
+                I
+              </div>
+              <span className="text-sm font-black uppercase tracking-tight text-white">{getTranslation('appName', lang)}</span>
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 block mb-2">
+              {getTranslation('landingFooterVisionLabel', lang)}
+            </span>
+            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+              {getTranslation('landingFooterVisionText', lang)}
+            </p>
+            <div className="flex items-center gap-2.5 mt-5">
+              {[Facebook, Instagram, Linkedin, Youtube].map((Icon, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  onClick={(e) => e.preventDefault()}
+                  className="w-8 h-8 rounded-full bg-white/5 hover:bg-emerald-500/20 border border-white/10 hover:border-emerald-400/40 flex items-center justify-center text-slate-400 hover:text-emerald-300 transition-all"
+                  aria-label="Social link"
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Contact + mission */}
+          <div>
+            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 block mb-4">
+              {getTranslation('landingNavContact', lang)}
+            </span>
+            <div className="space-y-3">
+              <div className="flex items-start gap-2.5 text-xs text-slate-300 font-semibold">
+                <MapPin className="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0" />
+                <span>{CONTACT_HUB}</span>
+              </div>
+              <div className="flex items-start gap-2.5 text-xs text-slate-300 font-semibold">
+                <Phone className="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0" />
+                <span>{CONTACT_PHONES.join(' • ')}</span>
+              </div>
+              <div className="flex items-start gap-2.5 text-xs text-slate-300 font-semibold">
+                <Mail className="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0" />
+                <span className="break-all">{CONTACT_EMAILS.join(' • ')}</span>
+              </div>
+            </div>
+
+            <a
+              href="#contact"
+              className="mt-5 inline-flex items-center gap-1.5 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-black uppercase tracking-wider rounded-full shadow-md transition-all cursor-pointer active:scale-95"
+            >
+              {getTranslation('landingFooterGetInTouch', lang)}
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+
+            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 block mt-6 mb-2">
+              {getTranslation('landingFooterMissionLabel', lang)}
+            </span>
+            <p className="text-xs text-slate-400 leading-relaxed">
+              {getTranslation('landingFooterMissionText', lang)}
+            </p>
           </div>
         </div>
-        <span className="text-[10px] text-slate-600 font-bold">© {new Date().getFullYear()} {getTranslation('appName', lang)}. All rights reserved.</span>
+
+        <div className="relative z-10 mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <span className="text-[10px] text-slate-500 font-bold">
+            © {new Date().getFullYear()} {getTranslation('appName', lang)}. {getTranslation('landingFooterRights', lang)}
+          </span>
+          <div className="flex items-center gap-5 text-[10px] text-slate-500 font-bold">
+            <span className="hover:text-slate-300 transition-colors cursor-pointer">{getTranslation('landingFooterPrivacy', lang)}</span>
+            <span className="hover:text-slate-300 transition-colors cursor-pointer">{getTranslation('landingFooterTerms', lang)}</span>
+          </div>
+        </div>
       </footer>
     </div>
   );

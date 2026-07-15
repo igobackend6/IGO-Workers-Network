@@ -10,28 +10,28 @@ interface RoleSelectViewProps {
   onBackToHome?: () => void;
 }
 
-type Accent = 'violet' | 'rose' | 'amber';
+type Accent = 'emerald' | 'rose' | 'amber';
 
 const ACCENT_HOVER: Record<Accent, string> = {
-  violet: 'hover:bg-violet-500/10 hover:border-violet-500/30',
+  emerald: 'hover:bg-emerald-500/10 hover:border-emerald-500/30',
   rose: 'hover:bg-rose-500/10 hover:border-rose-500/30',
   amber: 'hover:bg-amber-500/10 hover:border-amber-500/30',
 };
 
 const ACCENT_ICON: Record<Accent, string> = {
-  violet: 'icon-glow-violet bg-violet-500/15 text-violet-400 border border-violet-500/25',
+  emerald: 'icon-glow-emerald bg-emerald-500/15 text-emerald-400 border border-emerald-500/25',
   rose: 'icon-glow-rose bg-rose-500/15 text-rose-400 border border-rose-500/25',
   amber: 'icon-glow-amber bg-amber-500/15 text-amber-400 border border-amber-500/25',
 };
 
 const ACCENT_TEXT: Record<Accent, string> = {
-  violet: 'text-violet-400',
+  emerald: 'text-emerald-400',
   rose: 'text-rose-400',
   amber: 'text-amber-400',
 };
 
 const ACCENT_CHEVRON: Record<Accent, string> = {
-  violet: 'group-hover:text-violet-400',
+  emerald: 'group-hover:text-emerald-400',
   rose: 'group-hover:text-rose-400',
   amber: 'group-hover:text-amber-400',
 };
@@ -43,7 +43,7 @@ export default function RoleSelectView({ lang, onSelectRole, onBackToHome }: Rol
     labelKey: string;
     tag: string;
     icon: React.ReactNode;
-    accent: 'violet' | 'rose' | 'amber';
+    accent: 'emerald' | 'rose' | 'amber';
   }> = [
     {
       role: 'supervisor',
@@ -51,7 +51,7 @@ export default function RoleSelectView({ lang, onSelectRole, onBackToHome }: Rol
       labelKey: 'roleSupervisor',
       tag: lang === 'en' ? 'Mobile OTP Login' : 'மொபைல் ஒடிபி உள்நுழைவு',
       icon: <Users2 className="w-5 h-5" />,
-      accent: 'violet',
+      accent: 'emerald',
     },
     {
       role: 'hr',
@@ -59,7 +59,7 @@ export default function RoleSelectView({ lang, onSelectRole, onBackToHome }: Rol
       labelKey: 'roleHR',
       tag: lang === 'en' ? 'Pan-India Deployment Desk' : 'அகில இந்திய பணி அமர்த்தல் பிரிவு',
       icon: <Briefcase className="w-5 h-5" />,
-      accent: 'violet',
+      accent: 'emerald',
     },
     {
       role: 'admin',
@@ -100,8 +100,8 @@ export default function RoleSelectView({ lang, onSelectRole, onBackToHome }: Rol
             {getTranslation('landingBackToHome', lang)}
           </button>
         )}
-        <div className="absolute -top-10 -left-10 w-40 h-40 bg-violet-600/30 rounded-full blur-3xl animate-blob" />
-        <div className="absolute -bottom-14 -right-10 w-44 h-44 bg-fuchsia-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute -top-10 -left-10 w-40 h-40 bg-emerald-600/30 rounded-full blur-3xl animate-blob" />
+        <div className="absolute -bottom-14 -right-10 w-44 h-44 bg-emerald-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
         <div
           className="absolute inset-0 opacity-[0.07]"
           style={{
@@ -114,14 +114,14 @@ export default function RoleSelectView({ lang, onSelectRole, onBackToHome }: Rol
           initial={{ scale: 0.6, opacity: 0, rotate: -10 }}
           animate={{ scale: 1, opacity: 1, rotate: 0 }}
           transition={{ delay: 0.1, duration: 0.5, ease: 'easeOut' }}
-          className="icon-glow-violet animate-glow-ring inline-flex p-3.5 bg-violet-600 rounded-full text-white mb-3 shadow-lg relative z-10"
+          className="icon-glow-emerald animate-glow-ring inline-flex p-3.5 bg-emerald-600 rounded-full text-white mb-3 shadow-lg relative z-10"
         >
           <Shield className="w-6 h-6 stroke-[2]" />
         </motion.div>
         <h1 className="text-xl font-black font-sans tracking-tight uppercase text-white leading-none relative z-10">
           <span className="text-shimmer">{getTranslation('appName', lang)}</span>
         </h1>
-        <p className="text-[9px] text-violet-300/90 font-bold mt-1.5 uppercase tracking-widest font-sans relative z-10 flex items-center justify-center gap-1">
+        <p className="text-[9px] text-emerald-300/90 font-bold mt-1.5 uppercase tracking-widest font-sans relative z-10 flex items-center justify-center gap-1">
           <Sparkles className="w-3 h-3 text-amber-400" />
           {getTranslation('portalSubtitle', lang)}
         </p>

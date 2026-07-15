@@ -156,7 +156,7 @@ export default function CeoView({ user, lang }: CeoViewProps) {
       >
         {/* Decorative ambient glow orbs */}
         <div className="pointer-events-none absolute -top-12 -right-8 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl animate-blob" />
-        <div className="pointer-events-none absolute -bottom-16 left-10 w-52 h-52 bg-indigo-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="pointer-events-none absolute -bottom-16 left-10 w-52 h-52 bg-emerald-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
 
         <div className="relative z-10">
           <span className="text-xs font-black text-amber-400 uppercase tracking-widest block">Executive Intelligence Core</span>
@@ -194,7 +194,7 @@ export default function CeoView({ user, lang }: CeoViewProps) {
           whileHover={{ y: -3 }}
           className="bg-white/5 border-2 border-white/10 rounded-2xl p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-all"
         >
-          <div className="icon-glow-indigo p-3 bg-indigo-500/15 text-indigo-300 rounded-2xl border border-indigo-500/30">
+          <div className="icon-glow-emerald p-3 bg-emerald-500/15 text-emerald-300 rounded-2xl border border-emerald-500/30">
             <Users className="w-6 h-6" />
           </div>
           <div>
@@ -230,13 +230,13 @@ export default function CeoView({ user, lang }: CeoViewProps) {
           whileHover={{ y: -3 }}
           className="bg-white/5 border-2 border-white/10 rounded-2xl p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-all"
         >
-          <div className="icon-glow-indigo p-3 bg-indigo-500/15 text-indigo-300 rounded-2xl border border-indigo-500/30">
+          <div className="icon-glow-emerald p-3 bg-emerald-500/15 text-emerald-300 rounded-2xl border border-emerald-500/30">
             <CheckCircle className="w-6 h-6" />
           </div>
           <div>
             <span className="text-[10px] text-slate-400 font-black uppercase tracking-wider block">Active Placement Rate</span>
             <span className="text-2xl font-black text-white">{placementRate}%</span>
-            <span className="text-[10px] text-indigo-300 font-extrabold block mt-0.5">{totalDeployed} deployed onsite</span>
+            <span className="text-[10px] text-emerald-300 font-extrabold block mt-0.5">{totalDeployed} deployed onsite</span>
           </div>
         </motion.div>
 
@@ -265,7 +265,7 @@ export default function CeoView({ user, lang }: CeoViewProps) {
         {/* Regional State-wise Registry Summary */}
         <div className="lg:col-span-2 bg-white/5 border-2 border-white/10 rounded-3xl p-5 shadow-sm">
           <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1">
-            <Map className="w-4 h-4 text-indigo-400" />
+            <Map className="w-4 h-4 text-emerald-400" />
             {getTranslation('stateWiseSummary', lang)}
           </h3>
 
@@ -286,8 +286,8 @@ export default function CeoView({ user, lang }: CeoViewProps) {
                     <td className="py-3 font-extrabold text-white">{item.state}</td>
                     <td className="py-3 text-center text-slate-100 font-mono font-bold">{item.registered}</td>
                     <td className="py-3 text-center text-emerald-400 font-mono font-bold">{item.available}</td>
-                    <td className="py-3 text-center text-indigo-400 font-mono font-bold">{item.deployed}</td>
-                    <td className="py-3 text-right font-black font-mono text-indigo-300">{item.rate}%</td>
+                    <td className="py-3 text-center text-emerald-400 font-mono font-bold">{item.deployed}</td>
+                    <td className="py-3 text-right font-black font-mono text-emerald-300">{item.rate}%</td>
                   </tr>
                 ))}
               </tbody>
@@ -322,7 +322,7 @@ export default function CeoView({ user, lang }: CeoViewProps) {
                     <span className="text-[9px] text-slate-400 font-bold">Last active: {new Date(sup.lastActiveAt).toLocaleDateString()}</span>
                   </div>
                   <div className="text-right">
-                    <span className="text-xs font-black text-indigo-300 block">{supWorkersIds.length} reg</span>
+                    <span className="text-xs font-black text-emerald-300 block">{supWorkersIds.length} reg</span>
                     <span className="text-[9px] text-emerald-400 font-mono font-bold block">{placementsCount} placements</span>
                   </div>
                 </div>
@@ -376,7 +376,7 @@ export default function CeoView({ user, lang }: CeoViewProps) {
         {/* Administrative Officer Compliance Verification Log */}
         <div className="bg-white/5 border-2 border-white/10 rounded-3xl p-5 shadow-sm">
           <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
-            <ClipboardList className="w-4.5 h-4.5 text-indigo-400" />
+            <ClipboardList className="w-4.5 h-4.5 text-emerald-400" />
             Vetting Verification Console
           </h3>
 
@@ -389,7 +389,7 @@ export default function CeoView({ user, lang }: CeoViewProps) {
               <button
                 id="btn-open-verify-form"
                 type="button"
-                className="w-full py-3.5 bg-indigo-700 hover:bg-indigo-800 text-white font-black uppercase tracking-wider text-xs rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1"
+                className="w-full py-3.5 bg-emerald-700 hover:bg-emerald-800 text-white font-black uppercase tracking-wider text-xs rounded-xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-1"
                 onClick={() => setIsVerifying(true)}
               >
                 <Plus className="w-4 h-4 stroke-[2.5]" />
@@ -429,7 +429,7 @@ export default function CeoView({ user, lang }: CeoViewProps) {
                 </label>
                 <select
                   required
-                  className="w-full p-2.5 bg-white/5 border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20"
+                  className="w-full p-2.5 bg-white/5 border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                   value={verifyWorkerId}
                   onChange={(e) => setVerifyWorkerId(e.target.value)}
                 >
@@ -470,7 +470,7 @@ export default function CeoView({ user, lang }: CeoViewProps) {
                   required
                   rows={2}
                   placeholder="Vetted profile photo and credentials. All details verified as accurate..."
-                  className="w-full p-2.5 bg-white/5 border-2 border-white/10 rounded-xl text-xs font-semibold text-slate-100 placeholder-slate-400 focus:outline-none focus:border-indigo-600 focus:ring-4 focus:ring-indigo-500/20 font-sans"
+                  className="w-full p-2.5 bg-white/5 border-2 border-white/10 rounded-xl text-xs font-semibold text-slate-100 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 font-sans"
                   value={verifyNotes}
                   onChange={(e) => setVerifyNotes(e.target.value)}
                 />

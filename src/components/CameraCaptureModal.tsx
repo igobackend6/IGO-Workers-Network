@@ -99,7 +99,7 @@ export default function CameraCaptureModal({ lang, facingMode = 'user', onCaptur
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="w-full py-2.5 bg-indigo-700 hover:bg-indigo-800 text-white font-black uppercase tracking-wider text-xs rounded-xl cursor-pointer"
+              className="w-full py-2.5 bg-emerald-700 hover:bg-emerald-800 text-white font-black uppercase tracking-wider text-xs rounded-xl cursor-pointer"
             >
               {lang === 'en' ? 'Upload Photo Instead' : 'புகைப்படத்தை பதிவேற்றவும்'}
             </button>

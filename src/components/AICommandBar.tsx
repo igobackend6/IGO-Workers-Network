@@ -91,7 +91,7 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
               title: w.name,
               subtitle: `📍 ${w.homeDistrict}, TN • Trade: ${w.skillCategory} • Contact: ${w.phone || 'Verifying'}`,
               badge: 'ON SITE',
-              badgeColor: 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30'
+              badgeColor: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
             });
           }
         });
@@ -183,15 +183,15 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
       
       {/* 1. Header label row */}
       <div className="flex justify-between items-center text-xs text-slate-400 font-bold px-2 mb-2">
-        <span className="flex items-center gap-1.5 text-violet-400">
-          <Sparkles className="w-3.5 h-3.5 animate-pulse text-violet-400" />
+        <span className="flex items-center gap-1.5 text-emerald-400">
+          <Sparkles className="w-3.5 h-3.5 animate-pulse text-emerald-400" />
           Unlock smart insights with Pan-India AI Assistant
         </span>
         <span className="font-medium text-slate-500">Powered by Assistant v2.6</span>
       </div>
 
-      {/* 2. Search input frame (subtle violet glow, not white) */}
-      <div className="relative group rounded-2xl p-[1.5px] bg-gradient-to-r from-white/10 via-violet-500/30 to-white/10 shadow-md shadow-violet-950/30 hover:shadow-violet-500/10 hover:shadow-lg transition-all duration-300">
+      {/* 2. Search input frame (subtle emerald glow, not white) */}
+      <div className="relative group rounded-2xl p-[1.5px] bg-gradient-to-r from-white/10 via-emerald-500/30 to-white/10 shadow-md shadow-emerald-950/30 hover:shadow-emerald-500/10 hover:shadow-lg transition-all duration-300">
         <div className="flex items-center bg-[#1a1623] rounded-[15px] p-2 md:p-3 gap-2">
 
           <div className="p-1.5 text-slate-500 hover:text-slate-300 transition-colors">
@@ -218,7 +218,7 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
             <button
               id="btn-send-ai-query"
               type="button"
-              className="icon-glow-violet w-8 h-8 md:w-9 md:h-9 rounded-full bg-violet-600 hover:bg-violet-500 text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 shrink-0"
+              className="icon-glow-emerald w-8 h-8 md:w-9 md:h-9 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center transition-all cursor-pointer active:scale-95 shrink-0"
               onClick={() => handleSearch(query)}
             >
               <Send className="w-3.5 h-3.5" />
@@ -231,7 +231,7 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
       <div className="flex flex-wrap gap-1.5 mt-3 justify-center sm:justify-start px-1" id="ai-quick-chips">
         <button
           type="button"
-          className="px-2.5 py-1.5 bg-white/5 border border-white/10 hover:bg-violet-500/10 hover:border-violet-500/30 rounded-full text-[10px] font-bold text-slate-300 hover:text-violet-300 transition-all cursor-pointer active:scale-95"
+          className="px-2.5 py-1.5 bg-white/5 border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-500/30 rounded-full text-[10px] font-bold text-slate-300 hover:text-emerald-300 transition-all cursor-pointer active:scale-95"
           onClick={() => {
             setQuery('Show stale profiles');
             handleSearch('Show stale profiles');
@@ -241,7 +241,7 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
         </button>
         <button
           type="button"
-          className="px-2.5 py-1.5 bg-white/5 border border-white/10 hover:bg-violet-500/10 hover:border-violet-500/30 rounded-full text-[10px] font-bold text-slate-300 hover:text-violet-300 transition-all cursor-pointer active:scale-95"
+          className="px-2.5 py-1.5 bg-white/5 border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-500/30 rounded-full text-[10px] font-bold text-slate-300 hover:text-emerald-300 transition-all cursor-pointer active:scale-95"
           onClick={() => {
             setQuery('Find masonry workers');
             handleSearch('Find masonry workers');
@@ -251,7 +251,7 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
         </button>
         <button
           type="button"
-          className="px-2.5 py-1.5 bg-white/5 border border-white/10 hover:bg-violet-500/10 hover:border-violet-500/30 rounded-full text-[10px] font-bold text-slate-300 hover:text-violet-300 transition-all cursor-pointer active:scale-95"
+          className="px-2.5 py-1.5 bg-white/5 border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-500/30 rounded-full text-[10px] font-bold text-slate-300 hover:text-emerald-300 transition-all cursor-pointer active:scale-95"
           onClick={() => {
             setQuery('Show Tamil Nadu registry');
             handleSearch('Show Tamil Nadu registry');
@@ -261,7 +261,7 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
         </button>
         <button
           type="button"
-          className="px-2.5 py-1.5 bg-white/5 border border-white/10 hover:bg-violet-500/10 hover:border-violet-500/30 rounded-full text-[10px] font-bold text-slate-300 hover:text-violet-300 transition-all cursor-pointer active:scale-95"
+          className="px-2.5 py-1.5 bg-white/5 border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-500/30 rounded-full text-[10px] font-bold text-slate-300 hover:text-emerald-300 transition-all cursor-pointer active:scale-95"
           onClick={() => {
             setQuery('View placements');
             handleSearch('View placements');
@@ -271,7 +271,7 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
         </button>
         <button
           type="button"
-          className="px-2.5 py-1.5 bg-white/5 border border-white/10 hover:bg-violet-500/10 hover:border-violet-500/30 rounded-full text-[10px] font-bold text-slate-300 hover:text-violet-300 transition-all cursor-pointer active:scale-95"
+          className="px-2.5 py-1.5 bg-white/5 border border-white/10 hover:bg-emerald-500/10 hover:border-emerald-500/30 rounded-full text-[10px] font-bold text-slate-300 hover:text-emerald-300 transition-all cursor-pointer active:scale-95"
           onClick={() => {
             setQuery('System diagnostics');
             handleSearch('System diagnostics');
@@ -305,12 +305,12 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
             <div className="p-5 overflow-y-auto space-y-4 flex-1">
 
               {/* Natural language response from mascot */}
-              <div className="p-4 bg-violet-500/10 border border-violet-500/20 rounded-2xl flex gap-3 items-start">
-                <div className="icon-glow-violet w-9 h-9 bg-violet-600 rounded-xl flex items-center justify-center text-white shrink-0">
+              <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl flex gap-3 items-start">
+                <div className="icon-glow-emerald w-9 h-9 bg-emerald-600 rounded-xl flex items-center justify-center text-white shrink-0">
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
-                  <h5 className="text-[10px] font-black text-violet-300 uppercase tracking-widest">Milo AI Assistant</h5>
+                  <h5 className="text-[10px] font-black text-emerald-300 uppercase tracking-widest">Milo AI Assistant</h5>
                   <p className="text-xs text-slate-300 font-semibold mt-1 leading-relaxed">{aiMessage}</p>
                 </div>
               </div>
@@ -318,7 +318,7 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
               {/* Loader */}
               {loading && (
                 <div className="flex flex-col items-center justify-center py-10 space-y-2">
-                  <div className="w-8 h-8 border-4 border-violet-500 border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
                   <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Consulting Trade Ledger...</span>
                 </div>
               )}
@@ -330,9 +330,9 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
 
                   <div className="space-y-2.5 max-h-[40vh] overflow-y-auto pr-1">
                     {results.map((item, idx) => (
-                      <div key={item.id} className="p-3 bg-white/5 border border-white/10 rounded-2xl flex justify-between items-center gap-4 hover:border-violet-500/30 transition-all">
+                      <div key={item.id} className="p-3 bg-white/5 border border-white/10 rounded-2xl flex justify-between items-center gap-4 hover:border-emerald-500/30 transition-all">
                         <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-8 h-8 rounded-xl bg-violet-500/15 text-violet-300 flex items-center justify-center shrink-0">
+                          <div className="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-300 flex items-center justify-center shrink-0">
                             {item.type === 'worker' && <User className="w-4 h-4" />}
                             {item.type === 'supervisor' && <User className="w-4 h-4 text-amber-400" />}
                             {item.type === 'deployment' && <Activity className="w-4 h-4 text-emerald-400" />}
@@ -367,7 +367,7 @@ export default function AICommandBar({ lang }: AICommandBarProps) {
             <div className="p-3 bg-black/20 border-t border-white/10 flex justify-end">
               <button
                 type="button"
-                className="px-4 py-1.5 bg-violet-600 hover:bg-violet-500 text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all cursor-pointer active:scale-95"
+                className="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all cursor-pointer active:scale-95"
                 onClick={() => setIsOpen(false)}
               >
                 Close Report

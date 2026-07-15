@@ -83,13 +83,13 @@ export default function App() {
   return (
     <div
       id="app-wrapper"
-      className="min-h-screen bg-gradient-mesh flex items-center justify-center p-2 sm:p-4 md:p-6 font-sans selection:bg-indigo-500/30 overflow-x-hidden relative"
+      className="min-h-screen bg-gradient-mesh flex items-center justify-center p-2 sm:p-4 md:p-6 font-sans selection:bg-emerald-500/30 overflow-x-hidden relative"
     >
-      {/* Ambient decorative background accents — deep violet glow drifting over the dark canvas */}
+      {/* Ambient decorative background accents — deep emerald glow drifting over the dark canvas */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden -z-10">
-        <div className="absolute top-[-10%] left-[-5%] w-[420px] h-[420px] bg-violet-500/15 rounded-full blur-3xl animate-blob" />
-        <div className="absolute bottom-[-15%] right-[-5%] w-[480px] h-[480px] bg-indigo-500/12 rounded-full blur-3xl animate-blob animation-delay-2000" />
-        <div className="absolute top-[40%] right-[15%] w-[320px] h-[320px] bg-fuchsia-500/10 rounded-full blur-3xl animate-blob animation-delay-4000" />
+        <div className="absolute top-[-10%] left-[-5%] w-[420px] h-[420px] bg-emerald-500/15 rounded-full blur-3xl animate-blob" />
+        <div className="absolute bottom-[-15%] right-[-5%] w-[480px] h-[480px] bg-emerald-500/12 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute top-[40%] right-[15%] w-[320px] h-[320px] bg-emerald-500/10 rounded-full blur-3xl animate-blob animation-delay-4000" />
       </div>
 
       {showLanding ? (
@@ -110,7 +110,7 @@ export default function App() {
             {/* Plus / Quick Actions Button */}
             <button
               type="button"
-              className="icon-glow-violet w-11 h-11 rounded-full bg-violet-600 hover:bg-violet-500 text-white flex items-center justify-center shadow-md hover:scale-105 transition-all cursor-pointer active:scale-95"
+              className="icon-glow-emerald w-11 h-11 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-md hover:scale-105 transition-all cursor-pointer active:scale-95"
               onClick={() => setShowInfoModal(true)}
               title="System Overview"
             >
@@ -122,7 +122,7 @@ export default function App() {
               type="button"
               className={`w-11 h-11 rounded-full flex items-center justify-center transition-all cursor-pointer active:scale-95 ${
                 activeTab === 'search'
-                  ? 'icon-glow-violet bg-violet-600 text-white shadow-lg'
+                  ? 'icon-glow-emerald bg-emerald-600 text-white shadow-lg'
                   : 'bg-white/5 hover:bg-white/10 text-slate-300 shadow-sm border border-white/10'
               }`}
               onClick={() => {
@@ -143,7 +143,7 @@ export default function App() {
               onClick={() => setLang(lang === 'en' ? 'ta' : 'en')}
               title="Switch Language"
             >
-              <Compass className="w-5 h-5 text-violet-400" />
+              <Compass className="w-5 h-5 text-emerald-400" />
             </button>
 
             {/* Layout Grid / Active view indicator */}
@@ -151,7 +151,7 @@ export default function App() {
               type="button"
               className={`w-11 h-11 rounded-full flex items-center justify-center transition-all cursor-pointer active:scale-95 ${
                 activeTab === 'dashboard'
-                  ? 'icon-glow-violet bg-violet-600 text-white shadow-lg'
+                  ? 'icon-glow-emerald bg-emerald-600 text-white shadow-lg'
                   : 'bg-white/5 hover:bg-white/10 text-slate-300 shadow-sm border border-white/10'
               }`}
               onClick={() => setActiveTab('dashboard')}
@@ -194,7 +194,7 @@ export default function App() {
               </button>
             )}
 
-            <div className="icon-glow-violet w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-600 to-indigo-700 flex items-center justify-center text-white font-black text-lg tracking-tighter shadow-lg select-none hover:rotate-6 transition-transform">
+            <div className="icon-glow-emerald w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-700 flex items-center justify-center text-white font-black text-lg tracking-tighter shadow-lg select-none hover:rotate-6 transition-transform">
               I
             </div>
           </div>
@@ -206,9 +206,9 @@ export default function App() {
           {/* A. WORKSPACE TOP ACTION BAR */}
           <header id="console-header" className="flex justify-between items-center mb-6 md:mb-10 shrink-0">
             {/* Left: Dropdown picker */}
-            <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-2xl border border-white/10 cursor-pointer shadow-sm hover:bg-white/10 hover:border-violet-500/40 transition-all select-none animate-fadeIn">
-              <span className="icon-glow-violet flex items-center justify-center w-5 h-5 rounded-full bg-violet-500/20">
-                <Sparkles className="w-3 h-3 text-violet-400 animate-pulse" />
+            <div className="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-2xl border border-white/10 cursor-pointer shadow-sm hover:bg-white/10 hover:border-emerald-500/40 transition-all select-none animate-fadeIn">
+              <span className="icon-glow-emerald flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500/20">
+                <Sparkles className="w-3 h-3 text-emerald-400 animate-pulse" />
               </span>
               <span className="text-xs font-extrabold text-slate-100 tracking-tight">IGO Portal v2.6</span>
               <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
@@ -216,7 +216,7 @@ export default function App() {
 
             {/* Center: Title info */}
             <div className="hidden sm:block text-center animate-fadeIn delay-100">
-              <span className="text-[10px] text-violet-400 font-extrabold tracking-widest block uppercase">Agri-Infrastructure System</span>
+              <span className="text-[10px] text-emerald-400 font-extrabold tracking-widest block uppercase">Agri-Infrastructure System</span>
               <span className="text-xs font-black text-slate-100">Pan-India Labor Logistics</span>
             </div>
 
@@ -314,7 +314,7 @@ export default function App() {
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fadeIn">
           <div className="w-full max-w-md glass-card border border-white/10 rounded-3xl shadow-2xl p-6 relative">
             <h3 className="text-lg font-black text-white tracking-tight flex items-center gap-2">
-              <Shield className="w-5 h-5 text-violet-400" />
+              <Shield className="w-5 h-5 text-emerald-400" />
               IGO PAN-INDIA SECURITY COMPLIANCE
             </h3>
 
@@ -322,8 +322,8 @@ export default function App() {
               <p>
                 This terminal runs under fully verified <strong className="text-slate-100">Pan-India Infrastructure Governance</strong> protocols. All data transactions sync in real-time with our secure <strong className="text-slate-100">Google Cloud Firestore</strong> databases in the Mumbai cluster.
               </p>
-              <div className="p-3 bg-violet-500/10 border border-violet-500/20 rounded-2xl">
-                <span className="text-[10px] font-black text-violet-300 block uppercase tracking-widest">Active Network Nodes</span>
+              <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl">
+                <span className="text-[10px] font-black text-emerald-300 block uppercase tracking-widest">Active Network Nodes</span>
                 <ul className="mt-1 space-y-1 text-[11px] text-slate-300">
                   <li>• Tamil Nadu (Madurai District Ledger)</li>
                   <li>• Karnataka (Hubli Agricultural Node)</li>
@@ -338,7 +338,7 @@ export default function App() {
             <div className="mt-6 flex justify-end">
               <button
                 type="button"
-                className="px-5 py-2 bg-violet-600 hover:bg-violet-500 text-white text-xs font-black uppercase tracking-wider rounded-xl cursor-pointer active:scale-95"
+                className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black uppercase tracking-wider rounded-xl cursor-pointer active:scale-95"
                 onClick={() => setShowInfoModal(false)}
               >
                 Acknowledge Safety
