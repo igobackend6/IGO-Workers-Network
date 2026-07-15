@@ -6,7 +6,8 @@ import {
   Shield, Sparkles, ArrowRight, Clock, ShieldCheck, Globe2, Zap,
   Phone, Mail, MapPin, Building2, Languages, Users2, HardHat,
   Hammer, Axe, Wrench, Flame, Cog, Users, Tractor, Truck, BrainCircuit,
-  ChevronLeft, ChevronRight, MousePointer2, Facebook, Instagram, Linkedin, Youtube, Camera
+  ChevronLeft, ChevronRight, MousePointer2, Facebook, Instagram, Linkedin, Youtube, Camera,
+  Menu, X
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -141,6 +142,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
   // Auto-changing photo gallery ("under the home page"), crossfading through real crew photos.
   const [activePhoto, setActivePhoto] = useState(0);
   const [galleryPaused, setGalleryPaused] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const photoCount = GALLERY_PHOTOS.length;
 
   useEffect(() => {
@@ -188,12 +190,46 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             type="button"
             id="btn-portal-login"
             onClick={onEnterPortal}
-            className="btn-sheen px-4 py-2 bg-black hover:bg-slate-900 text-white text-xs font-black uppercase tracking-wider rounded-xl shadow-md transition-colors cursor-pointer flex items-center gap-1.5 active:scale-95"
+            className="btn-sheen px-3 sm:px-4 py-2 bg-black hover:bg-slate-900 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider rounded-xl shadow-md transition-colors cursor-pointer flex items-center gap-1.5 active:scale-95 whitespace-nowrap"
           >
             {getTranslation('landingPortalLogin', lang)}
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3.5 h-3.5 shrink-0" />
+          </button>
+          {/* Mobile nav toggle — the horizontal link row above is md:flex only, so phones need
+              this hamburger to still reach Projects/Services/Brands/Contact. */}
+          <button
+            type="button"
+            id="landing-mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen((v) => !v)}
+            className="md:hidden w-9 h-9 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 flex items-center justify-center transition-all cursor-pointer active:scale-95"
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
           </button>
         </div>
+
+        {mobileMenuOpen && (
+          <div
+            id="landing-mobile-menu"
+            className="md:hidden absolute top-full left-0 right-0 bg-white border-b border-emerald-100 shadow-lg flex flex-col p-4 gap-1 text-sm font-bold text-slate-700"
+          >
+            {([
+              ['#gallery', 'landingNavGallery'],
+              ['#services', 'landingNavServices'],
+              ['#brands', 'landingNavBrands'],
+              ['#contact', 'landingNavContact'],
+            ] as const).map(([href, key]) => (
+              <a
+                key={href}
+                href={href}
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-3 py-2.5 rounded-xl hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
+              >
+                {getTranslation(key, lang)}
+              </a>
+            ))}
+          </div>
+        )}
       </header>
 
       {/* Hero — layout/motion kept exactly as built: left-aligned bold headline + pill CTA,
@@ -468,7 +504,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
           {/* 3D coverflow carousel: a giant glowing horizon arc beneath an elevated,
               perspective-tilted card row. Auto-advances continuously, pauses on hover. */}
           <div
-            className="relative z-10 h-96 sm:h-[30rem] [perspective:1600px]"
+            className="relative z-10 h-96 sm:h-[30rem] overflow-hidden rounded-2xl [perspective:1600px]"
             onMouseEnter={() => setCarouselPaused(true)}
             onMouseLeave={() => setCarouselPaused(false)}
             role="region"
@@ -495,6 +531,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
                     key={skill}
                     onClick={() => setActiveSkill(idx)}
                     className="absolute w-56 sm:w-72 cursor-pointer"
+                    initial={false}
                     animate={{
                       x: offset * 220,
                       scale: isActive ? 1.1 : 0.8,
