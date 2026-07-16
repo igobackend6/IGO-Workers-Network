@@ -7,6 +7,13 @@
   --font-mono: "JetBrains Mono", monospace;
 }
 
+/* Match the app shell's dark canvas so mobile browser overscroll/rubber-band and any
+   momentary layout gap below the page content shows the theme color, not the browser's
+   default white. */
+html, body {
+  background-color: #050505;
+}
+
 /* Dark, modern canvas — deep charcoal with soft emerald ambient glow */
 .bg-gradient-mesh {
   background-color: #050505;
