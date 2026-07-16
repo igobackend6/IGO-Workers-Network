@@ -629,7 +629,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             {[...BRANDS, ...BRANDS].map((brand, idx) => (
               <div
                 key={`${brand.name}-${idx}`}
-                className="w-64 sm:w-72 shrink-0 flex flex-col rounded-3xl bg-white border-2 border-slate-100 hover:border-emerald-300 shadow-sm hover:shadow-[0_0_24px_2px_rgba(16,129,73,0.2)] transition-all duration-300 p-5"
+                className="w-64 sm:w-72 shrink-0 flex flex-col rounded-3xl bg-white border-2 border-amber-300 shadow-[0_0_14px_1px_rgba(245,158,11,0.28)] hover:border-amber-400 hover:shadow-[0_0_26px_3px_rgba(245,158,11,0.45)] transition-all duration-300 p-5"
               >
                 <div className="w-full aspect-square bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-center p-6 mb-4">
                   {brand.file ? (
