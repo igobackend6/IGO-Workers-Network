@@ -295,9 +295,9 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             aria-hidden="true"
           >
             {/* Concentric rings */}
-            <div className="absolute inset-0 rounded-full border border-emerald-100" />
-            <div className="absolute inset-[55px] rounded-full border border-emerald-100" />
-            <div className="absolute inset-[110px] rounded-full border border-emerald-50" />
+            <div className="absolute inset-0 rounded-full border-2 border-emerald-400/70 shadow-[0_0_16px_1px_rgba(16,185,129,0.25)]" />
+            <div className="absolute inset-[55px] rounded-full border-2 border-emerald-400/60 shadow-[0_0_14px_1px_rgba(16,185,129,0.22)]" />
+            <div className="absolute inset-[110px] rounded-full border-2 border-emerald-400/50 shadow-[0_0_12px_1px_rgba(16,185,129,0.18)]" />
 
             {/* Central stat */}
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
