@@ -285,15 +285,20 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
             </motion.div>
           </div>
 
-          {/* Right: orbital ring system around the central stat */}
+          {/* Right: orbital ring system around the central stat.
+              Outer box is sized to the actual visible footprint per breakpoint (prevents the
+              intrinsic 420px inner content from blowing out the grid column / page width on
+              mobile, which was pushing the ring off-center). Inner box stays a fixed 420px and
+              is absolutely centered + scaled down to fit, so the orbit radius math is untouched. */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="relative mx-auto w-[420px] h-[420px] scale-[0.72] sm:scale-90 lg:scale-100 -my-14 sm:-my-4 lg:my-0"
+            className="relative mx-auto w-[260px] h-[260px] sm:w-[340px] sm:h-[340px] lg:w-[420px] lg:h-[420px]"
             id="hero-orbit"
             aria-hidden="true"
           >
+            <div className="absolute top-1/2 left-1/2 w-[420px] h-[420px] -translate-x-1/2 -translate-y-1/2 scale-[0.619] sm:scale-[0.81] lg:scale-100">
             {/* Concentric rings */}
             <div className="absolute inset-0 rounded-full border-2 border-emerald-400/70 shadow-[0_0_16px_1px_rgba(16,185,129,0.25)]" />
             <div className="absolute inset-[55px] rounded-full border-2 border-emerald-400/60 shadow-[0_0_14px_1px_rgba(16,185,129,0.22)]" />
@@ -336,6 +341,7 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
                   </div>
                 </div>
               ))}
+            </div>
             </div>
           </motion.div>
         </div>
