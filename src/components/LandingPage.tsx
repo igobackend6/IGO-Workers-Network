@@ -106,6 +106,15 @@ const BRANDS: Array<{ category: string; name: string; file: string | null; desc:
   { category: 'Energy', name: 'IGO Green Energy', file: null, desc: 'Renewable energy solutions for farms, including solar water pumps and solar agri-grid integration.' },
 ];
 
+// Cycling glow-border accents for the brand marquee cards — each card in the strip picks up
+// the next color in the loop so the row reads as a rainbow of glowing outlines (per reference
+// screenshot) instead of one flat color repeated on every card.
+const BRAND_ACCENTS: Array<{ border: string; shadow: string; hoverBorder: string; hoverShadow: string }> = [
+  { border: 'border-emerald-300', shadow: 'shadow-[0_0_14px_1px_rgba(16,185,129,0.35)]', hoverBorder: 'hover:border-emerald-400', hoverShadow: 'hover:shadow-[0_0_26px_3px_rgba(16,185,129,0.5)]' },
+  { border: 'border-amber-300', shadow: 'shadow-[0_0_14px_1px_rgba(245,158,11,0.32)]', hoverBorder: 'hover:border-amber-400', hoverShadow: 'hover:shadow-[0_0_26px_3px_rgba(245,158,11,0.45)]' },
+  { border: 'border-rose-300', shadow: 'shadow-[0_0_14px_1px_rgba(244,63,94,0.32)]', hoverBorder: 'hover:border-rose-400', hoverShadow: 'hover:shadow-[0_0_26px_3px_rgba(244,63,94,0.45)]' },
+];
+
 // Orbit system for the hero (Nixtio marketing-agency reference): worker avatars and
 // dark skill-icon tiles circling a central headline stat on concentric rings.
 // Structure/motion kept exactly as originally built — only recolored to the white/green/black
@@ -626,10 +635,12 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
           id="landing-brands-grid"
         >
           <div className="flex gap-5 w-max animate-marquee">
-            {[...BRANDS, ...BRANDS].map((brand, idx) => (
+            {[...BRANDS, ...BRANDS].map((brand, idx) => {
+              const accent = BRAND_ACCENTS[idx % BRAND_ACCENTS.length];
+              return (
               <div
                 key={`${brand.name}-${idx}`}
-                className="w-64 sm:w-72 shrink-0 flex flex-col rounded-3xl bg-white border-2 border-amber-300 shadow-[0_0_14px_1px_rgba(245,158,11,0.28)] hover:border-amber-400 hover:shadow-[0_0_26px_3px_rgba(245,158,11,0.45)] transition-all duration-300 p-5"
+                className={`w-64 sm:w-72 shrink-0 flex flex-col rounded-3xl bg-white border-2 ${accent.border} ${accent.shadow} ${accent.hoverBorder} ${accent.hoverShadow} transition-all duration-300 p-5`}
               >
                 <div className="w-full aspect-square bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-center p-6 mb-4">
                   {brand.file ? (
@@ -658,7 +669,8 @@ export default function LandingPage({ lang, setLang, onEnterPortal }: LandingPag
                   <ArrowRight className="w-3.5 h-3.5 text-amber-600" />
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
