@@ -1,9 +1,10 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { initializeApp, type FirebaseApp } from 'firebase/app';
+import { getAuth, type Auth } from 'firebase/auth';
 import {
   initializeFirestore,
   persistentLocalCache,
   persistentMultipleTabManager,
+  type Firestore,
   collection as fsCollection,
   doc as fsDoc,
   query as fsQuery,
@@ -25,16 +26,50 @@ const firebaseConfig = {
 };
 const firestoreDatabaseId = import.meta.env.VITE_FIREBASE_FIRESTORE_DATABASE_ID || '(default)';
 
-const app = initializeApp(firebaseConfig);
+// A missing/invalid config (e.g. no .env file locally) makes initializeApp/getAuth throw
+// synchronously at module-evaluation time. Left unguarded, that exception propagates up
+// through the entire static import graph and aborts main.tsx before it ever calls
+// createRoot().render() — the whole page silently goes blank with no error in the console,
+// since it's a module-instantiation failure rather than a caught runtime error.
+// Catching it here and exposing `firebaseInitError` lets main.tsx render a real error
+// screen instead.
+export let firebaseInitError: string | null = null;
 
-// Initialize Firestore with robust multi-tab offline persistence enabled
-export const db = initializeFirestore(app, {
-  localCache: persistentLocalCache({
-    tabManager: persistentMultipleTabManager()
-  })
-}, firestoreDatabaseId);
+const REQUIRED_KEYS: (keyof typeof firebaseConfig)[] = ['projectId', 'appId', 'apiKey', 'authDomain'];
+const missingKeys = REQUIRED_KEYS.filter((key) => !firebaseConfig[key]);
 
-export const auth = getAuth(app);
+let app: FirebaseApp | undefined;
+let dbInstance: Firestore | undefined;
+let authInstance: Auth | undefined;
+
+if (missingKeys.length > 0) {
+  firebaseInitError =
+    `Missing Firebase config: ${missingKeys.map((k) => `VITE_FIREBASE_${k.replace(/[A-Z]/g, (c) => '_' + c).toUpperCase()}`).join(', ')}. ` +
+    `Create a .env file (see .env.example) with your Firebase project's SDK config.`;
+} else {
+  try {
+    app = initializeApp(firebaseConfig);
+    // Initialize Firestore with robust multi-tab offline persistence enabled
+    dbInstance = initializeFirestore(app, {
+      localCache: persistentLocalCache({
+        tabManager: persistentMultipleTabManager()
+      })
+    }, firestoreDatabaseId);
+    authInstance = getAuth(app);
+  } catch (e) {
+    firebaseInitError = e instanceof Error ? e.message : String(e);
+  }
+}
+
+if (firebaseInitError) {
+  console.error('[firebase] Initialization failed:', firebaseInitError);
+}
+
+// db/auth are asserted non-null: every consumer only runs once App.tsx has confirmed
+// firebaseInitError is null (see main.tsx), so these are always populated by the time
+// anything actually calls into them.
+export const db = dbInstance as Firestore;
+export const auth = authInstance as Auth;
 
 export const collection = fsCollection;
 export const doc = fsDoc;

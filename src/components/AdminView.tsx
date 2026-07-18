@@ -129,28 +129,27 @@ export default function AdminView({ user, lang }: AdminViewProps) {
   ];
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-4 md:p-6 text-slate-100 font-sans" id="admin-portal-root">
+    <div className="w-full max-w-6xl mx-auto p-4 md:p-6 text-slate-900 font-sans" id="admin-portal-root">
 
       {/* Header Banner */}
       <motion.div
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: 'easeOut' }}
-        className="relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900 text-white p-5 rounded-3xl border-b-4 border-rose-500 mb-6 shadow-lg"
+        className="relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bento-surface text-slate-900 p-5 rounded-3xl mb-6"
       >
-        <div className="pointer-events-none absolute -top-12 -left-8 w-48 h-48 bg-rose-500/20 rounded-full blur-3xl animate-blob" />
-        <div className="pointer-events-none absolute -bottom-16 right-10 w-52 h-52 bg-emerald-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="pointer-events-none absolute -bottom-16 right-10 w-52 h-52 bg-emerald-400/8 rounded-full blur-3xl animate-blob animation-delay-2000" />
 
         <div className="relative z-10">
-          <span className="text-xs font-black text-rose-400 uppercase tracking-widest block">Pan-India Oversight</span>
-          <h1 className="text-2xl font-black text-white flex items-center gap-2.5 mt-1 uppercase tracking-tight">
-            <span className="icon-glow-rose inline-flex p-2 bg-rose-500/15 rounded-xl border border-rose-500/30">
-              <Crown className="w-5 h-5 text-rose-400 shrink-0" />
+          <span className="text-xs font-black text-emerald-700 uppercase tracking-widest block">Pan-India Oversight</span>
+          <h1 className="text-2xl font-black text-slate-900 flex items-center gap-2.5 mt-1 uppercase tracking-tight">
+            <span className="icon-badge-emerald inline-flex p-2 rounded-xl">
+              <Crown className="w-5 h-5 shrink-0" strokeWidth={1.5} />
             </span>
             {getTranslation('adminOverviewTitle', lang)}
           </h1>
-          <p className="text-xs text-slate-400 mt-1.5 font-medium">
-            Logged in: <strong className="text-rose-400 font-bold">{user.name}</strong> • Cross-portal overview.
+          <p className="text-xs text-slate-500 mt-1.5 font-medium">
+            Logged in: <strong className="text-emerald-700 font-bold">{user.name}</strong> • Cross-portal overview.
           </p>
         </div>
       </motion.div>
@@ -164,10 +163,10 @@ export default function AdminView({ user, lang }: AdminViewProps) {
               type="button"
               id={`admin-nav-${item.tab}`}
               onClick={() => setActiveTab(item.tab)}
-              className={`flex-1 md:flex-none flex items-center gap-2 px-4 py-3 rounded-2xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer border-2 ${
+              className={`flex-1 md:flex-none flex items-center gap-2 px-4 py-3 rounded-2xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer border ${
                 activeTab === item.tab
-                  ? 'icon-glow-rose bg-rose-500 text-white border-rose-500 shadow-md'
-                  : 'bg-white/5 text-slate-400 border-white/10 hover:text-slate-200 hover:border-white/20'
+                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                  : 'bg-white text-slate-500 border-slate-900/8 hover:text-slate-800 hover:border-slate-900/15'
               }`}
             >
               {item.icon}
@@ -181,15 +180,15 @@ export default function AdminView({ user, lang }: AdminViewProps) {
           {activeTab === 'supervisor' && (
             <div className="space-y-4" id="admin-tab-supervisor">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-4 flex items-center gap-4 shadow-sm shrink-0">
-                  <div className="icon-glow-emerald p-3 bg-emerald-500/15 text-emerald-300 rounded-2xl border border-emerald-500/30">
+                <div className="bg-white border border-slate-900/8 rounded-2xl p-4 flex items-center gap-4 shadow-sm shrink-0">
+                  <div className="p-3 bg-emerald-100 text-emerald-700 rounded-2xl border border-emerald-200">
                     <Users2 className="w-6 h-6" />
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-400 font-black uppercase tracking-wider block">
                       {getTranslation('totalSupervisorsRegistered', lang)}
                     </span>
-                    <span className="text-2xl font-black text-white" id="admin-supervisor-count">{supervisors.length}</span>
+                    <span className="text-2xl font-black text-slate-900 font-mono" id="admin-supervisor-count">{supervisors.length}</span>
                   </div>
                 </div>
                 <div className="relative flex-1">
@@ -198,7 +197,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                     id="admin-supervisor-search"
                     type="text"
                     placeholder="Search supervisors by name, phone or area..."
-                    className="w-full pl-10 pr-4 py-3 bg-white/5 border-2 border-white/10 rounded-2xl text-xs font-bold text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 transition-all"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-slate-900/8 rounded-2xl text-xs font-bold text-slate-900 placeholder-slate-500 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 transition-all"
                     value={supervisorSearchQuery}
                     onChange={(e) => setSupervisorSearchQuery(e.target.value)}
                   />
@@ -208,7 +207,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-2 space-y-2.5" id="admin-supervisor-list">
                   {filteredSupervisors.length === 0 ? (
-                    <div className="text-center py-10 bg-white/5 rounded-2xl border-2 border-dashed border-white/10 text-xs font-bold text-slate-400">
+                    <div className="text-center py-10 bg-white rounded-2xl border border-dashed border-slate-900/8 text-xs font-bold text-slate-400">
                       {supervisors.length === 0 ? 'No supervisors registered yet.' : 'No supervisors match your search.'}
                     </div>
                   ) : (
@@ -217,21 +216,21 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                         key={sup.id}
                         type="button"
                         onClick={() => setSelectedSupervisorId(sup.id)}
-                        className={`w-full flex items-center gap-3 p-3 rounded-2xl border-2 text-left transition-all cursor-pointer ${
+                        className={`w-full flex items-center gap-3 p-3 rounded-2xl border text-left transition-all cursor-pointer ${
                           selectedSupervisorId === sup.id
-                            ? 'bg-emerald-500/10 border-emerald-500/40'
-                            : 'bg-white/[0.03] border-white/5 hover:border-white/15'
+                            ? 'bg-emerald-50 border-emerald-300'
+                            : 'bg-slate-50 border-slate-900/6 hover:border-slate-900/10'
                         }`}
                       >
                         {sup.profilePhotoUrl ? (
-                          <img src={sup.profilePhotoUrl} alt={sup.name} className="w-10 h-10 rounded-full object-cover shrink-0 border-2 border-white/10" referrerPolicy="no-referrer" />
+                          <img src={sup.profilePhotoUrl} alt={sup.name} className="w-10 h-10 rounded-full object-cover shrink-0 border border-slate-900/8" referrerPolicy="no-referrer" />
                         ) : (
-                          <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-300 flex items-center justify-center font-black shrink-0">
+                          <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-black shrink-0">
                             {sup.name.charAt(0)}
                           </div>
                         )}
                         <div className="flex-1 min-w-0">
-                          <h4 className="font-extrabold text-xs text-slate-100 truncate">{sup.name}</h4>
+                          <h4 className="font-extrabold text-xs text-slate-900 truncate">{sup.name}</h4>
                           <p className="text-[10px] text-slate-500 font-bold truncate flex items-center gap-1">
                             <MapPin className="w-3 h-3" /> {sup.assignedDistrict}, {sup.assignedState}
                           </p>
@@ -244,14 +243,14 @@ export default function AdminView({ user, lang }: AdminViewProps) {
 
                 <div id="admin-supervisor-detail">
                   {!selectedSupervisor ? (
-                    <div className="bg-white/5 border-2 border-dashed border-white/10 rounded-3xl p-8 text-center text-slate-400 shadow-sm">
-                      <Users2 className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+                    <div className="bg-white border border-dashed border-slate-900/8 rounded-3xl p-8 text-center text-slate-400 shadow-sm">
+                      <Users2 className="w-10 h-10 text-slate-600 mx-auto mb-2" />
                       <p className="text-xs font-bold leading-relaxed">Select a supervisor to view their assigned project and worker counts.</p>
                     </div>
                   ) : (
-                    <div className="bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-4 shadow-sm">
+                    <div className="bg-white border border-slate-900/8 rounded-3xl p-5 space-y-4 shadow-sm">
                       <div>
-                        <h3 className="text-sm font-black text-white">{selectedSupervisor.name}</h3>
+                        <h3 className="text-sm font-black text-slate-900">{selectedSupervisor.name}</h3>
                         <p className="text-[10px] text-slate-400 font-bold flex items-center gap-1 mt-1">
                           <Phone className="w-3 h-3" /> +91 {selectedSupervisor.phone}
                         </p>
@@ -260,20 +259,20 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                         </p>
                       </div>
 
-                      <div className="pt-3 border-t-2 border-white/5">
+                      <div className="pt-3 border-t-2 border-slate-900/6">
                         <span className="text-[9px] text-slate-400 uppercase tracking-wider block font-black mb-2">Assigned Projects ({selectedSupervisorProjects.length})</span>
                         {selectedSupervisorProjects.length === 0 ? (
                           <p className="text-[11px] text-slate-500 font-semibold">No project currently assigned to this supervisor.</p>
                         ) : (
                           <div className="space-y-2" id="admin-supervisor-assigned-projects">
                             {selectedSupervisorProjects.map((proj) => (
-                              <div key={proj.id} className="p-3 bg-white/[0.03] rounded-2xl border-2 border-white/5">
+                              <div key={proj.id} className="p-3 bg-slate-50 rounded-2xl border border-slate-900/6">
                                 <div className="flex justify-between items-start gap-2">
-                                  <h4 className="font-extrabold text-xs text-slate-100">{proj.name}</h4>
-                                  <span className="text-[9px] font-black text-emerald-400 uppercase">{proj.status}</span>
+                                  <h4 className="font-extrabold text-xs text-slate-900">{proj.name}</h4>
+                                  <span className="text-[9px] font-black text-emerald-600 uppercase">{proj.status}</span>
                                 </div>
-                                <p className="text-[10px] text-slate-500 font-bold mt-0.5">📍 {proj.locationDistrict}, {proj.locationState}</p>
-                                <p className="text-[10px] text-emerald-300 font-black mt-1">
+                                <p className="text-[10px] text-slate-500 font-bold mt-0.5 flex items-center gap-1"><MapPin className="w-3 h-3" strokeWidth={1.5} />{proj.locationDistrict}, {proj.locationState}</p>
+                                <p className="text-[10px] text-emerald-700 font-black mt-1">
                                   {getTranslation('assignedProjectWorkers', lang)}: {workersAssignedToProject(proj.id)}
                                 </p>
                               </div>
@@ -292,35 +291,35 @@ export default function AdminView({ user, lang }: AdminViewProps) {
           {activeTab === 'hr' && (
             <div className="space-y-4" id="admin-tab-hr">
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
-                  <div className="icon-glow-emerald p-3 bg-emerald-500/15 text-emerald-300 rounded-2xl border border-emerald-500/30">
+                <div className="bg-white border border-slate-900/8 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
+                  <div className="p-3 bg-emerald-100 text-emerald-700 rounded-2xl border border-emerald-200">
                     <Briefcase className="w-6 h-6" />
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-400 font-black uppercase tracking-wider block">
                       {getTranslation('totalSupervisorsRegistered', lang)}
                     </span>
-                    <span className="text-2xl font-black text-white">{supervisors.length}</span>
+                    <span className="text-2xl font-black text-slate-900 font-mono">{supervisors.length}</span>
                   </div>
                 </div>
-                <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
-                  <div className="icon-glow-emerald p-3 bg-emerald-500/15 text-emerald-300 rounded-2xl border border-emerald-500/30">
+                <div className="bg-white border border-slate-900/8 rounded-2xl p-4 flex items-center gap-4 shadow-sm">
+                  <div className="p-3 bg-emerald-100 text-emerald-700 rounded-2xl border border-emerald-200">
                     <MapPin className="w-6 h-6" />
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-400 font-black uppercase tracking-wider block">Ongoing Projects</span>
-                    <span className="text-2xl font-black text-white">{projects.filter(p => p.status === 'active').length}</span>
+                    <span className="text-2xl font-black text-slate-900 font-mono">{projects.filter(p => p.status === 'active').length}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-white/5 border-2 border-white/10 rounded-3xl p-5 shadow-sm">
+              <div className="bg-white border border-slate-900/8 rounded-3xl p-5 shadow-sm">
                 <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">
                   {getTranslation('supervisorProjectOverview', lang)}
                 </h3>
                 <div className="space-y-3" id="admin-hr-projects-list">
                   {projects.length === 0 ? (
-                    <div className="text-center py-10 bg-white/[0.03] rounded-2xl border-2 border-dashed border-white/10 text-xs font-bold text-slate-400">
+                    <div className="text-center py-10 bg-slate-50 rounded-2xl border border-dashed border-slate-900/8 text-xs font-bold text-slate-400">
                       No projects created yet.
                     </div>
                   ) : (
@@ -328,22 +327,22 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                       const supervisor = supervisors.find(s => s.id === proj.assignedSupervisorId) || null;
                       const assignedWorkers = deployedWorkersForProject(proj.id);
                       return (
-                        <div key={proj.id} className="p-4 bg-white/[0.03] rounded-2xl border-2 border-white/5">
+                        <div key={proj.id} className="p-4 bg-slate-50 rounded-2xl border border-slate-900/6">
                           <div className="flex justify-between items-start gap-2">
                             <div>
-                              <h4 className="font-extrabold text-xs text-slate-100">{proj.name}</h4>
+                              <h4 className="font-extrabold text-xs text-slate-900">{proj.name}</h4>
                               <p className="text-[10px] text-slate-500 font-bold mt-0.5 flex items-center gap-1">
                                 <MapPin className="w-3 h-3" /> {proj.locationDistrict}, {proj.locationState}
                               </p>
                             </div>
-                            <span className="text-[9px] font-black text-emerald-400 uppercase shrink-0">{proj.status}</span>
+                            <span className="text-[9px] font-black text-emerald-600 uppercase shrink-0">{proj.status}</span>
                           </div>
 
-                          <p className="text-[10px] text-emerald-300 font-black mt-2">
-                            Supervisor: <span className="text-slate-100 font-bold">{supervisor ? supervisor.name : 'Unassigned'}</span>
+                          <p className="text-[10px] text-emerald-700 font-black mt-2">
+                            Supervisor: <span className="text-slate-900 font-bold">{supervisor ? supervisor.name : 'Unassigned'}</span>
                           </p>
 
-                          <div className="pt-2 mt-2 border-t border-white/5">
+                          <div className="pt-2 mt-2 border-t border-slate-900/6">
                             <span className="text-[9px] text-slate-400 uppercase tracking-wider font-black block mb-1.5">
                               {getTranslation('assignedProjectWorkers', lang)} ({assignedWorkers.length})
                             </span>
@@ -352,7 +351,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                             ) : (
                               <div className="flex flex-wrap gap-1.5">
                                 {assignedWorkers.map((w) => (
-                                  <span key={w.id} className="text-[10px] font-bold text-slate-200 bg-white/5 border border-white/10 rounded-lg px-2 py-1">
+                                  <span key={w.id} className="text-[10px] font-bold text-slate-700 bg-white border border-slate-900/8 rounded-lg px-2 py-1">
                                     {w.name} <span className="text-slate-500">· {w.skill}</span>
                                   </span>
                                 ))}
@@ -372,15 +371,15 @@ export default function AdminView({ user, lang }: AdminViewProps) {
           {activeTab === 'workers' && (
             <div className="space-y-4" id="admin-tab-workers">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-4 flex items-center gap-4 shadow-sm shrink-0">
-                  <div className="icon-glow-amber p-3 bg-amber-500/15 text-amber-300 rounded-2xl border border-amber-500/30">
+                <div className="bg-white border border-slate-900/8 rounded-2xl p-4 flex items-center gap-4 shadow-sm shrink-0">
+                  <div className="icon-badge-emerald p-3 rounded-2xl">
                     <HardHat className="w-6 h-6" />
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-400 font-black uppercase tracking-wider block">
                       {getTranslation('totalWorkersRegisteredSoFar', lang)}
                     </span>
-                    <span className="text-2xl font-black text-white" id="admin-workers-count">{workers.length}</span>
+                    <span className="text-2xl font-black text-slate-900 font-mono" id="admin-workers-count">{workers.length}</span>
                   </div>
                 </div>
                 <div className="relative flex-1">
@@ -389,7 +388,7 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                     id="admin-workers-search"
                     type="text"
                     placeholder="Search workers by name, skill, phone or location..."
-                    className="w-full pl-10 pr-4 py-3 bg-white/5 border-2 border-white/10 rounded-2xl text-xs font-bold text-slate-100 placeholder-slate-500 focus:outline-none focus:border-amber-500 focus:ring-4 focus:ring-amber-500/20 transition-all"
+                    className="w-full pl-10 pr-4 py-3 bg-white border border-slate-900/8 rounded-2xl text-xs font-bold text-slate-900 placeholder-slate-500 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 transition-all"
                     value={workerSearchQuery}
                     onChange={(e) => setWorkerSearchQuery(e.target.value)}
                   />
@@ -397,26 +396,26 @@ export default function AdminView({ user, lang }: AdminViewProps) {
               </div>
 
               <div className="grid grid-cols-3 gap-3">
-                <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-3 text-center">
-                  <span className="text-lg font-black text-emerald-400 block">{availableCount}</span>
+                <div className="bg-white border border-slate-900/8 rounded-2xl p-3 text-center">
+                  <span className="text-lg font-black text-emerald-600 block">{availableCount}</span>
                   <span className="text-[9px] text-slate-400 font-black uppercase tracking-wider">Available</span>
                 </div>
-                <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-3 text-center">
-                  <span className="text-lg font-black text-emerald-300 block">{deployedCount}</span>
+                <div className="bg-white border border-slate-900/8 rounded-2xl p-3 text-center">
+                  <span className="text-lg font-black text-emerald-700 block">{deployedCount}</span>
                   <span className="text-[9px] text-slate-400 font-black uppercase tracking-wider">Deployed</span>
                 </div>
-                <div className="bg-white/5 border-2 border-white/10 rounded-2xl p-3 text-center">
+                <div className="bg-white border border-slate-900/8 rounded-2xl p-3 text-center">
                   <span className="text-lg font-black text-slate-400 block">{unavailableCount}</span>
                   <span className="text-[9px] text-slate-400 font-black uppercase tracking-wider">Unavailable</span>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="lg:col-span-2 bg-white/5 border-2 border-white/10 rounded-3xl p-5 shadow-sm">
+                <div className="lg:col-span-2 bg-white border border-slate-900/8 rounded-3xl p-5 shadow-sm">
                   <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">All Registered Workers</h3>
                   <div className="space-y-2 max-h-[28rem] overflow-y-auto pr-1" id="admin-workers-list">
                     {filteredWorkers.length === 0 ? (
-                      <div className="text-center py-10 bg-white/[0.03] rounded-2xl border-2 border-dashed border-white/10 text-xs font-bold text-slate-400">
+                      <div className="text-center py-10 bg-slate-50 rounded-2xl border border-dashed border-slate-900/8 text-xs font-bold text-slate-400">
                         {workers.length === 0 ? 'No workers registered yet.' : 'No workers match your search.'}
                       </div>
                     ) : filteredWorkers.map((w) => (
@@ -424,21 +423,21 @@ export default function AdminView({ user, lang }: AdminViewProps) {
                         key={w.id}
                         type="button"
                         onClick={() => setSelectedWorkerId(w.id)}
-                        className={`w-full flex items-center gap-2.5 p-2.5 rounded-2xl border-2 text-left transition-all cursor-pointer ${
+                        className={`w-full flex items-center gap-2.5 p-2.5 rounded-2xl border text-left transition-all cursor-pointer ${
                           selectedWorkerId === w.id
-                            ? 'bg-emerald-500/10 border-emerald-500/40'
-                            : 'bg-white/[0.03] border-white/5 hover:border-white/15'
+                            ? 'bg-emerald-50 border-emerald-300'
+                            : 'bg-slate-50 border-slate-900/6 hover:border-slate-900/10'
                         }`}
                       >
-                        <img src={w.profilePhotoUrl} alt={w.name} className="w-8 h-8 rounded-lg object-cover shrink-0 border border-white/10" referrerPolicy="no-referrer" />
+                        <img src={w.profilePhotoUrl} alt={w.name} className="w-8 h-8 rounded-lg object-cover shrink-0 border border-slate-900/8" referrerPolicy="no-referrer" />
                         <div className="flex-1 min-w-0">
-                          <span className="font-extrabold text-xs text-white block truncate">{w.name}</span>
+                          <span className="font-extrabold text-xs text-slate-900 block truncate">{w.name}</span>
                           <span className="text-[10px] text-slate-500 block truncate">{w.skill} • {w.homeDistrict}, {w.homeState}</span>
                         </div>
                         <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-1 rounded-lg shrink-0 ${
-                          w.availability === 'available' ? 'bg-emerald-500/15 text-emerald-300' :
-                          w.availability === 'deployed' ? 'bg-emerald-500/15 text-emerald-300' :
-                          'bg-white/10 text-slate-400'
+                          w.availability === 'available' ? 'bg-emerald-100 text-emerald-700' :
+                          w.availability === 'deployed' ? 'bg-emerald-100 text-emerald-700' :
+                          'bg-slate-100 text-slate-400'
                         }`}>
                           {w.availability}
                         </span>
@@ -449,44 +448,44 @@ export default function AdminView({ user, lang }: AdminViewProps) {
 
                 <div id="admin-worker-detail">
                   {!selectedWorker ? (
-                    <div className="bg-white/5 border-2 border-dashed border-white/10 rounded-3xl p-8 text-center text-slate-400 shadow-sm">
-                      <HardHat className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+                    <div className="bg-white border border-dashed border-slate-900/8 rounded-3xl p-8 text-center text-slate-400 shadow-sm">
+                      <HardHat className="w-10 h-10 text-slate-600 mx-auto mb-2" />
                       <p className="text-xs font-bold leading-relaxed">Select a worker to view their full details.</p>
                     </div>
                   ) : (
-                    <div className="bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-4 shadow-sm">
-                      <div className="flex items-center gap-3 border-b-2 border-white/5 pb-3">
-                        <img src={selectedWorker.profilePhotoUrl} alt={selectedWorker.name} className="w-14 h-14 rounded-xl object-cover shrink-0 border-2 border-white/10" referrerPolicy="no-referrer" />
+                    <div className="bg-white border border-slate-900/8 rounded-3xl p-5 space-y-4 shadow-sm">
+                      <div className="flex items-center gap-3 border-b border-slate-900/6 pb-3">
+                        <img src={selectedWorker.profilePhotoUrl} alt={selectedWorker.name} className="w-14 h-14 rounded-xl object-cover shrink-0 border border-slate-900/8" referrerPolicy="no-referrer" />
                         <div className="min-w-0">
-                          <h3 className="text-sm font-black text-white truncate">{selectedWorker.name}</h3>
-                          <span className="text-[10px] text-emerald-300 font-bold uppercase tracking-wider">{selectedWorker.skill}</span>
+                          <h3 className="text-sm font-black text-slate-900 truncate">{selectedWorker.name}</h3>
+                          <span className="text-[10px] text-emerald-700 font-bold uppercase tracking-wider">{selectedWorker.skill}</span>
                         </div>
                       </div>
 
                       <div className="space-y-1.5">
-                        <p className="text-[11px] text-slate-300 font-bold flex items-center gap-1.5">
+                        <p className="text-[11px] text-slate-600 font-bold flex items-center gap-1.5">
                           <Phone className="w-3.5 h-3.5 text-slate-500" /> +91 {selectedWorker.phone}
                         </p>
-                        <p className="text-[11px] text-slate-300 font-bold flex items-center gap-1.5">
+                        <p className="text-[11px] text-slate-600 font-bold flex items-center gap-1.5">
                           <Cake className="w-3.5 h-3.5 text-slate-500" /> {selectedWorker.age} years
                         </p>
-                        <p className="text-[11px] text-slate-300 font-bold flex items-center gap-1.5">
+                        <p className="text-[11px] text-slate-600 font-bold flex items-center gap-1.5">
                           <MapPin className="w-3.5 h-3.5 text-slate-500" /> {selectedWorker.homeDistrict}, {selectedWorker.homeState}
                         </p>
-                        <p className="text-[11px] text-slate-300 font-bold flex items-center gap-1.5">
+                        <p className="text-[11px] text-slate-600 font-bold flex items-center gap-1.5">
                           <IdCard className="w-3.5 h-3.5 text-slate-500" /> {selectedWorker.idProofType}
                         </p>
                       </div>
 
-                      <div className="pt-3 border-t-2 border-white/5 space-y-1.5">
+                      <div className="pt-3 border-t-2 border-slate-900/6 space-y-1.5">
                         <p className="text-[10px] text-slate-500 font-bold">
-                          Registered by supervisor: <span className="text-slate-200 font-extrabold">{selectedWorkerSupervisor ? selectedWorkerSupervisor.name : 'Unknown'}</span>
+                          Registered by supervisor: <span className="text-slate-700 font-extrabold">{selectedWorkerSupervisor ? selectedWorkerSupervisor.name : 'Unknown'}</span>
                         </p>
                         <span className="text-[9px] text-slate-400 uppercase tracking-wider block font-black pt-1">Currently Assigned Project</span>
                         {selectedWorkerProject ? (
-                          <div className="p-3 bg-white/[0.03] rounded-2xl border-2 border-white/5">
-                            <h4 className="font-extrabold text-xs text-slate-100">{selectedWorkerProject.name}</h4>
-                            <p className="text-[10px] text-slate-500 font-bold mt-0.5">📍 {selectedWorkerProject.locationDistrict}, {selectedWorkerProject.locationState}</p>
+                          <div className="p-3 bg-slate-50 rounded-2xl border border-slate-900/6">
+                            <h4 className="font-extrabold text-xs text-slate-900">{selectedWorkerProject.name}</h4>
+                            <p className="text-[10px] text-slate-500 font-bold mt-0.5 flex items-center gap-1"><MapPin className="w-3 h-3" strokeWidth={1.5} />{selectedWorkerProject.locationDistrict}, {selectedWorkerProject.locationState}</p>
                           </div>
                         ) : (
                           <p className="text-[11px] text-slate-500 font-semibold">Not currently assigned to any project.</p>

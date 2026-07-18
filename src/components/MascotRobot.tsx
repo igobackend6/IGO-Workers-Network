@@ -28,8 +28,8 @@ export default function MascotRobot({ message = "Need a boost?" }: MascotRobotPr
           <rect x="160" y="85" width="15" height="30" rx="7" fill="#64748b" />
           
           {/* Ear Lights */}
-          <circle cx="32" cy="100" r="4" fill="#06b6d4" className="animate-ping" />
-          <circle cx="168" cy="100" r="4" fill="#06b6d4" className="animate-ping" />
+          <circle cx="32" cy="100" r="4" fill="#059669" className="animate-ping" />
+          <circle cx="168" cy="100" r="4" fill="#059669" className="animate-ping" />
 
           {/* Head Joint / Neck */}
           <ellipse cx="100" cy="135" rx="20" ry="10" fill="#cbd5e1" />
@@ -43,19 +43,19 @@ export default function MascotRobot({ message = "Need a boost?" }: MascotRobotPr
           {/* Glowing Eyes Screen */}
           <g className="animate-pulse">
             {/* Left Eye */}
-            <path d="M 72 82 Q 82 72 92 82" stroke="#06b6d4" strokeWidth="6" strokeLinecap="round" fill="none" />
-            <circle cx="82" cy="94" r="5" fill="#22d3ee" />
+            <path d="M 72 82 Q 82 72 92 82" stroke="#059669" strokeWidth="6" strokeLinecap="round" fill="none" />
+            <circle cx="82" cy="94" r="5" fill="#34d399" />
             
             {/* Right Eye */}
-            <path d="M 108 82 Q 118 72 128 82" stroke="#06b6d4" strokeWidth="6" strokeLinecap="round" fill="none" />
-            <circle cx="118" cy="94" r="5" fill="#22d3ee" />
+            <path d="M 108 82 Q 118 72 128 82" stroke="#059669" strokeWidth="6" strokeLinecap="round" fill="none" />
+            <circle cx="118" cy="94" r="5" fill="#34d399" />
 
             {/* Cute rosy cheeks */}
             <circle cx="68" cy="105" r="4" fill="#f43f5e" opacity="0.6" />
             <circle cx="132" cy="105" r="4" fill="#f43f5e" opacity="0.6" />
             
             {/* Happy Smile */}
-            <path d="M 94 105 Q 100 112 106 105" stroke="#22d3ee" strokeWidth="3" strokeLinecap="round" fill="none" />
+            <path d="M 94 105 Q 100 112 106 105" stroke="#34d399" strokeWidth="3" strokeLinecap="round" fill="none" />
           </g>
 
           {/* Subtle Reflection Highlights */}
@@ -64,8 +64,8 @@ export default function MascotRobot({ message = "Need a boost?" }: MascotRobotPr
           {/* Definitions */}
           <defs>
             <radialGradient id="roboGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#22d3ee" />
-              <stop offset="100%" stopColor="#22d3ee" stopOpacity="0" />
+              <stop offset="0%" stopColor="#34d399" />
+              <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
             </radialGradient>
             <linearGradient id="headBody" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#ffffff" />

@@ -348,24 +348,24 @@ export const translations: TranslationDictionary = {
     ta: "ஐஜிஓ தொழிலாளர் வலைப்பின்னலை வேலையில் காணுங்கள்"
   },
   landingGallerySubtitle: {
-    en: "Real crews, real sites — a glimpse of the skilled and general labour we deploy across India.",
-    ta: "உண்மையான குழுக்கள், உண்மையான தளங்கள் — இந்தியா முழுவதும் நாங்கள் வழங்கும் தொழிலாளர்களின் ஒரு காட்சி."
+    en: "Real crews, real sites. A glimpse of the skilled and general labour we deploy across India.",
+    ta: "உண்மையான குழுக்கள், உண்மையான தளங்கள். இந்தியா முழுவதும் நாங்கள் வழங்கும் தொழிலாளர்களின் ஒரு காட்சி."
   },
   landingPortalLogin: {
     en: "Portal Login",
     ta: "போர்டல் உள்நுழைவு"
   },
   landingHeroHeadline: {
-    en: "Unlock Trusted Labour You Thought Was Out of Reach — Now Just One Call Away!",
-    ta: "கிடைக்காது என்று நினைத்த நம்பகமான தொழிலாளர்கள் — இப்போது ஒரே அழைப்பில்!"
+    en: "Trusted Labour, Just One Call Away",
+    ta: "நம்பகமான தொழிலாளர்கள், ஒரே அழைப்பில்"
   },
   landingHeroCursorTag: {
     en: "IGO Team",
     ta: "ஐஜிஓ குழு"
   },
   landingHeroSubheadline: {
-    en: "Verified, skilled and general labour — sourced, deployed and managed across India, 24 hours a day, for any industry.",
-    ta: "சரிபார்க்கப்பட்ட, திறமையான மற்றும் பொது தொழிலாளர்கள் — இந்தியா முழுவதும் எந்த தொழிலுக்கும், 24 மணி நேரமும் வழங்கப்பட்டு நிர்வகிக்கப்படுகிறார்கள்."
+    en: "Verified, skilled and general labour. Sourced, deployed and managed across India, 24 hours a day, for any industry.",
+    ta: "சரிபார்க்கப்பட்ட, திறமையான மற்றும் பொது தொழிலாளர்கள். இந்தியா முழுவதும் எந்த தொழிலுக்கும், 24 மணி நேரமும் வழங்கப்பட்டு நிர்வகிக்கப்படுகிறார்கள்."
   },
   landingHeroCtaPrimary: {
     en: "Request Workers",
@@ -396,16 +396,16 @@ export const translations: TranslationDictionary = {
     ta: "24/7 தொழிலாளர் ஆதரவு, எந்த தொழிலுக்கும்"
   },
   landingServicesSubtitle: {
-    en: "Whatever your business needs — from a single skilled tradesperson to a full site crew — we source, verify and deploy the right workforce, day or night.",
-    ta: "உங்கள் வணிகத்திற்கு என்ன தேவைப்பட்டாலும் — ஒரு திறமையான தொழிலாளியிலிருந்து முழு தள குழு வரை — நாங்கள் சரியான பணியாளர்களை பகல் இரவு என்று பாராமல் வழங்குகிறோம்."
+    en: "Whatever your business needs, from a single skilled tradesperson to a full site crew, we source, verify and deploy the right workforce, day or night.",
+    ta: "உங்கள் வணிகத்திற்கு என்ன தேவைப்பட்டாலும், ஒரு திறமையான தொழிலாளியிலிருந்து முழு தள குழு வரை, நாங்கள் சரியான பணியாளர்களை பகல் இரவு என்று பாராமல் வழங்குகிறோம்."
   },
   landingFeature247Title: {
     en: "24/7 Availability",
     ta: "24/7 கிடைக்கும் தன்மை"
   },
   landingFeature247Desc: {
-    en: "Round-the-clock request and deployment desk — no waiting for business hours.",
-    ta: "இடைவிடாத கோரிக்கை மற்றும் பணி அமர்த்தல் பிரிவு — வேலை நேரத்திற்காக காத்திருக்க தேவையில்லை."
+    en: "Round-the-clock request and deployment desk. No waiting for business hours.",
+    ta: "இடைவிடாத கோரிக்கை மற்றும் பணி அமர்த்தல் பிரிவு. வேலை நேரத்திற்காக காத்திருக்க தேவையில்லை."
   },
   landingFeatureVerifiedTitle: {
     en: "Verified Workforce",
@@ -452,8 +452,8 @@ export const translations: TranslationDictionary = {
     ta: "தொடர்பு கொள்ளுங்கள்"
   },
   landingContactSubtitle: {
-    en: "Need workers for your site or business? Reach out any time — we're available 24/7.",
-    ta: "உங்கள் தளத்திற்கு அல்லது வணிகத்திற்கு தொழிலாளர்கள் தேவையா? எப்போது வேண்டுமானாலும் தொடர்பு கொள்ளுங்கள் — நாங்கள் 24/7 கிடைக்கிறோம்."
+    en: "Need workers for your site or business? Reach out any time. We're available 24/7.",
+    ta: "உங்கள் தளத்திற்கு அல்லது வணிகத்திற்கு தொழிலாளர்கள் தேவையா? எப்போது வேண்டுமானாலும் தொடர்பு கொள்ளுங்கள். நாங்கள் 24/7 கிடைக்கிறோம்."
   },
   landingContactPhone: {
     en: "Phone",
@@ -476,8 +476,8 @@ export const translations: TranslationDictionary = {
     ta: "பார்வை"
   },
   landingFooterVisionText: {
-    en: "To be Pan-India's most trusted labour workforce partner, connecting verified, skilled and general labour with every industry that needs them — any time, anywhere.",
-    ta: "அகில இந்தியாவின் மிகவும் நம்பகமான தொழிலாளர் பணியாளர் கூட்டாளராக இருப்பது, சரிபார்க்கப்பட்ட தொழிலாளர்களை தேவைப்படும் ஒவ்வொரு தொழிலுடனும் இணைப்பது — எப்போது வேண்டுமானாலும், எங்கு வேண்டுமானாலும்."
+    en: "To be Pan-India's most trusted labour workforce partner, connecting verified, skilled and general labour with every industry that needs them, any time, anywhere.",
+    ta: "அகில இந்தியாவின் மிகவும் நம்பகமான தொழிலாளர் பணியாளர் கூட்டாளராக இருப்பது, சரிபார்க்கப்பட்ட தொழிலாளர்களை தேவைப்படும் ஒவ்வொரு தொழிலுடனும் இணைப்பது, எப்போது வேண்டுமானாலும், எங்கு வேண்டுமானாலும்."
   },
   landingFooterMissionLabel: {
     en: "Mission",
