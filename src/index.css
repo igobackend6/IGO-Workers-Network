@@ -7,67 +7,62 @@
   --font-mono: "JetBrains Mono", monospace;
 }
 
-/* Match the app shell's dark canvas so mobile browser overscroll/rubber-band and any
-   momentary layout gap below the page content shows the theme color, not the browser's
-   default white. */
+/* Light Bento canvas — off-white, not pure white, so cards can read as elevated surfaces. */
 html, body {
-  background-color: #050505;
+  background-color: #f9fafb;
 }
 
-/* Dark, modern canvas — deep charcoal with soft emerald ambient glow */
-.bg-gradient-mesh {
-  background-color: #050505;
+.bg-app-canvas {
+  background-color: #f9fafb;
   background-image:
-    radial-gradient(circle at 12% 8%, rgba(16, 185, 129, 0.10) 0%, transparent 42%),
-    radial-gradient(circle at 92% 15%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.06) 0%, transparent 55%),
-    linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
-  background-size: 200% 200%;
-  animation: meshShift 30s ease-in-out infinite;
+    radial-gradient(circle at 8% 0%, rgba(16, 185, 129, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 100% 20%, rgba(16, 185, 129, 0.05) 0%, transparent 42%);
 }
 
-@keyframes meshShift {
-  0%, 100% { background-position: 0% 0%; }
-  50% { background-position: 60% 40%; }
+/* Bento surface — the base card treatment used everywhere: pure white, hairline border,
+   wide soft "diffusion" shadow instead of a tight drop shadow, for a floating, weightless feel. */
+.bento-surface {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
 }
 
-/* Dark surfaces — high-contrast against light text */
-.glass-panel {
-  background: rgba(23, 20, 31, 0.96);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.bento-surface-hover {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+.bento-surface-hover:hover {
+  box-shadow: 0 28px 56px -18px rgba(0, 0, 0, 0.09);
+  border-color: rgba(16, 185, 129, 0.35);
 }
 
-.glass-card {
-  background: rgba(26, 22, 35, 0.98);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+/* Spotlight border — illuminates under the cursor via a radial gradient tracked with
+   --spot-x/--spot-y custom properties set from a mousemove handler. */
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
 }
-
-.glass-card-dark {
-  background: rgba(10, 9, 15, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(280px circle at var(--spot-x, -200px) var(--spot-y, -200px), rgba(16, 185, 129, 0.55), transparent 70%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
 }
-
-.glass-input {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid rgba(255, 255, 255, 0.12);
-}
-.glass-input:focus {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: #7c6ef6;
-  box-shadow: 0 0 0 4px rgba(124, 110, 246, 0.18);
+.spotlight-card:hover::before {
+  opacity: 1;
 }
 
 /* Native <select> dropdown popups are rendered by the OS/browser with a
-   white background, and Chromium carries the select's own (light) text
-   color into that popup — which made option text invisible on white.
-   Force readable dark text + white background explicitly on every option
-   across the whole app. */
+   white background, and Chromium carries the select's own text color into
+   that popup. Force readable dark text + white background on every option. */
 select option {
   color: #1e293b;
   background-color: #ffffff;
@@ -77,39 +72,35 @@ select optgroup {
   background-color: #ffffff;
 }
 
-/* Reusable dark surface helpers for component-level cards */
+/* Reusable light surface helpers for component-level cards */
 .surface-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
 }
 .surface-muted {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(15, 23, 42, 0.03);
 }
 .surface-input {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+}
+.surface-input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.14);
 }
 
 /* ---------------------------------------------- */
-/* Soft outer-glow rings for icon badges           */
+/* Single-accent icon badges (emerald only)        */
 /* ---------------------------------------------- */
-.icon-glow-emerald {
-  box-shadow: 0 0 0 5px rgba(124, 110, 246, 0.14), 0 0 24px 4px rgba(124, 110, 246, 0.45);
+.icon-badge-emerald {
+  background: rgba(16, 185, 129, 0.10);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.22);
 }
-.icon-glow-emerald {
-  box-shadow: 0 0 0 5px rgba(139, 92, 246, 0.14), 0 0 24px 4px rgba(139, 92, 246, 0.45);
-}
-.icon-glow-rose {
-  box-shadow: 0 0 0 5px rgba(244, 63, 94, 0.10), 0 0 22px 3px rgba(244, 63, 94, 0.32);
-}
-.icon-glow-amber {
-  box-shadow: 0 0 0 5px rgba(245, 158, 11, 0.10), 0 0 22px 3px rgba(245, 158, 11, 0.32);
-}
-.icon-glow-emerald {
-  box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.10), 0 0 22px 3px rgba(16, 185, 129, 0.30);
-}
-.icon-glow-slate {
-  box-shadow: 0 0 0 5px rgba(30, 41, 59, 0.08), 0 0 18px 2px rgba(30, 41, 59, 0.22);
+.icon-badge-slate {
+  background: rgba(15, 23, 42, 0.05);
+  color: #334155;
+  border: 1px solid rgba(15, 23, 42, 0.10);
 }
 
 /* ---------------------------------------------- */
@@ -152,30 +143,16 @@ select optgroup {
 .animation-delay-2000 { animation-delay: -4s; }
 .animation-delay-4000 { animation-delay: -8s; }
 
-/* Shimmering gradient text, used for headline accents */
-@keyframes shimmerText {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-.text-shimmer {
-  background: linear-gradient(90deg, #ffffff 0%, #a5b4fc 25%, #ffffff 50%, #a5b4fc 75%, #ffffff 100%);
-  background-size: 220% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: shimmerText 4.5s linear infinite;
-}
-
-/* Landing hero background — white/light-green canvas matching igoagritechfarms.in's
-   palette (white sections, deep forest-green accents), with two soft green glows. */
-.hero-nixtio-glow {
+/* Landing hero background — soft off-white canvas with a single emerald ambient glow,
+   asymmetric (top-left weighted) rather than centered. */
+.hero-glow {
   background-color: #ffffff;
   background-image:
-    radial-gradient(ellipse 900px 700px at -5% -8%, rgba(16, 129, 73, 0.14) 0%, rgba(16, 129, 73, 0.06) 30%, transparent 60%),
-    radial-gradient(ellipse 620px 480px at 104% 108%, rgba(16, 129, 73, 0.10) 0%, transparent 55%);
+    radial-gradient(ellipse 900px 700px at -5% -8%, rgba(16, 129, 73, 0.12) 0%, rgba(16, 129, 73, 0.05) 30%, transparent 60%),
+    radial-gradient(ellipse 620px 480px at 104% 108%, rgba(16, 129, 73, 0.08) 0%, transparent 55%);
 }
 
-/* Headline text — solid deep-green-to-black gradient, readable on the white hero background. */
+/* Headline text — deep-green-to-black gradient, readable on the white hero background. */
 .text-fade-dark-light {
   background: linear-gradient(125deg, #0a1510 0%, #10633a 55%, #0a1510 100%);
   -webkit-background-clip: text;
@@ -183,10 +160,10 @@ select optgroup {
   color: transparent;
 }
 
-/* Soft pulsing glow ring, useful behind icons/badges */
+/* Soft pulsing ring, useful behind icons/badges */
 @keyframes glowRing {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.35); }
-  50% { box-shadow: 0 0 0 10px rgba(79, 70, 229, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.30); }
+  50% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
 }
 .animate-glow-ring {
   animation: glowRing 2.4s ease-in-out infinite;
@@ -225,9 +202,8 @@ select optgroup {
   animation: orbitSpin 48s linear infinite reverse;
 }
 
-/* Continuous left-to-right (well, right-scrolling-left) marquee for the brands strip.
-   The track renders its item list twice back to back and scrolls exactly -50%,
-   which loops seamlessly since that's precisely one full copy of the content. */
+/* Continuous marquee — the track renders its item list twice back to back and scrolls
+   exactly -50%, which loops seamlessly since that's precisely one full copy of the content. */
 @keyframes marqueeScroll {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
@@ -250,6 +226,17 @@ select optgroup {
   animation: shakeX 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
+/* Skeleton shimmer for loading states */
+@keyframes shimmerSweep {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+.animate-shimmer {
+  background-image: linear-gradient(100deg, rgba(15,23,42,0.04) 20%, rgba(15,23,42,0.09) 40%, rgba(15,23,42,0.04) 60%);
+  background-size: 200% 100%;
+  animation: shimmerSweep 1.6s ease-in-out infinite;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;
@@ -259,9 +246,9 @@ select optgroup {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.3);
+  background: rgba(15, 23, 42, 0.18);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.5);
+  background: rgba(15, 23, 42, 0.32);
 }

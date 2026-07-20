@@ -75,12 +75,12 @@ export default function CameraCaptureModal({ lang, facingMode = 'user', onCaptur
   return (
     <div className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4" onClick={onClose}>
       <div
-        className="bg-slate-900 border-2 border-white/10 rounded-3xl p-4 w-full max-w-sm shadow-2xl"
+        className="bg-slate-900 border border-white/10 rounded-3xl p-4 w-full max-w-sm shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-1.5">
-            <Camera className="w-4 h-4 text-amber-400" />
+            <Camera className="w-4 h-4 text-emerald-400" strokeWidth={1.5} />
             {lang === 'en' ? 'Camera Capture' : 'கேமரா படம்'}
           </h3>
           <button
@@ -126,7 +126,7 @@ export default function CameraCaptureModal({ lang, facingMode = 'user', onCaptur
               type="button"
               disabled={!ready}
               onClick={handleCapture}
-              className="w-full py-3 bg-amber-500 hover:bg-amber-600 border-b-4 border-amber-700 text-slate-950 font-black uppercase tracking-wider text-xs rounded-xl shadow-md transition-all active:translate-y-0.5 active:border-b-0 cursor-pointer disabled:opacity-50"
+              className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black uppercase tracking-wider text-xs rounded-xl shadow-sm transition-all active:scale-[0.98] cursor-pointer disabled:opacity-50"
             >
               {lang === 'en' ? 'Capture Photo' : 'படம் எடு'}
             </button>

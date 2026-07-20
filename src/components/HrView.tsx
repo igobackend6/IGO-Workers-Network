@@ -297,61 +297,60 @@ export default function HrView({ user, lang }: HrViewProps) {
   });
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-4 md:p-6 text-slate-100 font-sans" id="hr-portal-root">
+    <div className="w-full max-w-6xl mx-auto p-4 md:p-6 text-slate-900 font-sans" id="hr-portal-root">
       {/* Top Welcome Panel */}
       <motion.div
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: 'easeOut' }}
-        className="relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900 text-white p-5 rounded-3xl border-b-4 border-amber-500 mb-6 shadow-lg"
+        className="relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bento-surface text-slate-900 p-5 rounded-3xl mb-6"
       >
-        {/* Decorative ambient glow orbs, matching the login/app header language */}
-        <div className="pointer-events-none absolute -top-12 -left-8 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl animate-blob" />
-        <div className="pointer-events-none absolute -bottom-16 right-10 w-52 h-52 bg-emerald-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        {/* Decorative ambient glow orb, single accent */}
+        <div className="pointer-events-none absolute -bottom-16 right-10 w-52 h-52 bg-emerald-400/8 rounded-full blur-3xl animate-blob animation-delay-2000" />
 
         <div className="relative z-10">
-          <span className="text-xs font-black text-amber-400 uppercase tracking-widest block">IGO Group Pan-India System</span>
-          <h1 className="text-2xl font-black text-white flex items-center gap-2.5 mt-1 uppercase tracking-tight">
-            <span className="icon-glow-amber inline-flex p-2 bg-amber-500/15 rounded-xl border border-amber-500/30">
-              <Briefcase className="w-5 h-5 text-amber-400 shrink-0" />
+          <span className="text-xs font-black text-emerald-700 uppercase tracking-widest block">IGO Group Pan-India System</span>
+          <h1 className="text-2xl font-black text-slate-900 flex items-center gap-2.5 mt-1 uppercase tracking-tight">
+            <span className="icon-badge-emerald inline-flex p-2 rounded-xl">
+              <Briefcase className="w-5 h-5 shrink-0" strokeWidth={1.5} />
             </span>
             {getTranslation('roleHR', lang)} Portal
           </h1>
-          <p className="text-xs text-slate-400 mt-1.5 font-medium">
-            Logged in as <strong className="text-amber-400 font-bold">{user.name}</strong> • Active registry overview.
+          <p className="text-xs text-slate-500 mt-1.5 font-medium">
+            Logged in as <strong className="text-emerald-700 font-bold">{user.name}</strong> • Active registry overview.
           </p>
         </div>
 
         {/* View switcher tabs */}
-        <div className="relative z-10 flex bg-slate-950/80 p-1 rounded-2xl border border-slate-800 self-stretch md:self-auto shrink-0 shadow-inner">
+        <div className="relative z-10 flex bg-slate-50 p-1 rounded-2xl border border-slate-900/8 self-stretch md:self-auto shrink-0">
           <button
             type="button"
             className={`flex-1 md:flex-none px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              viewMode === 'workers' ? 'icon-glow-amber bg-amber-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'
+              viewMode === 'workers' ? 'bg-emerald-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'
             }`}
             onClick={() => { setViewMode('workers'); setSelectedWorker(null); }}
           >
-            <User className="w-4 h-4" />
+            <User className="w-4 h-4" strokeWidth={1.5} />
             Workers Pool
           </button>
           <button
             type="button"
             className={`flex-1 md:flex-none px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              viewMode === 'addSupervisor' ? 'icon-glow-amber bg-amber-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'
+              viewMode === 'addSupervisor' ? 'bg-emerald-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'
             }`}
             onClick={() => { setViewMode('addSupervisor'); setSelectedWorker(null); }}
           >
-            <UserCog className="w-4 h-4" />
+            <UserCog className="w-4 h-4" strokeWidth={1.5} />
             Add Supervisor
           </button>
           <button
             type="button"
             className={`flex-1 md:flex-none px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-              viewMode === 'projects' ? 'icon-glow-amber bg-amber-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-slate-200'
+              viewMode === 'projects' ? 'bg-emerald-600 text-white shadow-sm' : 'text-slate-500 hover:text-slate-800'
             }`}
             onClick={() => { setViewMode('projects'); setSelectedWorker(null); }}
           >
-            <MapPin className="w-4 h-4" />
+            <MapPin className="w-4 h-4" strokeWidth={1.5} />
             IGO Projects
           </button>
         </div>
@@ -372,14 +371,14 @@ export default function HrView({ user, lang }: HrViewProps) {
           {/* Filters & Results Column */}
           <div className="lg:col-span-2 space-y-4">
             {/* Search and Filters Bar */}
-            <div className="bg-white/5 p-4 rounded-2xl border-2 border-white/10 space-y-4 shadow-sm">
+            <div className="bg-white p-4 rounded-2xl border border-slate-900/8 space-y-4 shadow-sm">
               <div className="flex gap-2.5">
                 <div className="relative flex-1">
                   <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
                   <input
                     type="text"
                     placeholder={getTranslation('searchPlaceholder', lang)}
-                    className="w-full pl-10 pr-4 py-3 bg-white/[0.03] border-2 border-white/10 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-xs font-bold text-slate-100 placeholder-slate-400 focus:outline-none transition-all"
+                    className="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-900/8 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-xs font-bold text-slate-900 placeholder-slate-400 focus:outline-none transition-all"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
@@ -391,7 +390,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                 <div>
                   <label className="block text-[10px] text-slate-400 uppercase font-black tracking-wider mb-1">Skill</label>
                   <select
-                    className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
+                    className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                     value={filterSkill}
                     onChange={(e) => setFilterSkill(e.target.value)}
                   >
@@ -402,7 +401,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                 <div>
                   <label className="block text-[10px] text-slate-400 uppercase font-black tracking-wider mb-1">Home State</label>
                   <select
-                    className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
+                    className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                     value={filterState}
                     onChange={(e) => setFilterState(e.target.value)}
                   >
@@ -413,7 +412,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                 <div>
                   <label className="block text-[10px] text-slate-400 uppercase font-black tracking-wider mb-1">Status</label>
                   <select
-                    className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
+                    className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                     value={filterAvailability}
                     onChange={(e) => setFilterAvailability(e.target.value)}
                   >
@@ -442,22 +441,22 @@ export default function HrView({ user, lang }: HrViewProps) {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.25, delay: Math.min(idx, 8) * 0.03, ease: 'easeOut' }}
                       whileHover={{ y: -2 }}
-                      className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex gap-3 items-center relative ${
+                      className={`p-4 rounded-2xl border cursor-pointer transition-all flex gap-3 items-center relative ${
                         isSel
-                          ? 'icon-glow-emerald bg-emerald-500/10 border-emerald-500 shadow-md'
-                          : 'bg-white/5 border-white/10 hover:border-white/20 hover:shadow-md'
+                          ? 'bg-emerald-50 border-emerald-500 shadow-md'
+                          : 'bg-white border-slate-900/8 hover:border-slate-900/12 hover:shadow-md'
                       }`}
                       onClick={() => { setSelectedWorker(worker); setIsDeploying(false); }}
                     >
                       <img
                         src={worker.profilePhotoUrl}
                         alt={worker.name}
-                        className="w-12 h-12 rounded-xl object-cover border-2 border-white/10 shadow-sm"
+                        className="w-12 h-12 rounded-xl object-cover border border-slate-900/8 shadow-sm"
                         referrerPolicy="no-referrer"
                       />
                       <div className="flex-1 min-w-0">
-                        <h4 className={`font-extrabold text-sm truncate ${isSel ? 'text-emerald-200' : 'text-white'}`}>{worker.name}</h4>
-                        <p className="text-xs text-emerald-400 font-bold uppercase tracking-wider mt-0.5 truncate">{worker.skill}</p>
+                        <h4 className={`font-extrabold text-sm truncate ${isSel ? 'text-emerald-700' : 'text-slate-900'}`}>{worker.name}</h4>
+                        <p className="text-xs text-emerald-600 font-bold uppercase tracking-wider mt-0.5 truncate">{worker.skill}</p>
                         <p className="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5 font-semibold">
                           <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
                           {worker.homeDistrict}, {worker.homeState}
@@ -467,11 +466,11 @@ export default function HrView({ user, lang }: HrViewProps) {
                       {/* Availability status */}
                       <div className="shrink-0">
                         {worker.availability === 'available' ? (
-                          <span className="inline-block px-2 py-0.5 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[9px] font-black uppercase tracking-wider rounded-lg">Available</span>
+                          <span className="inline-block px-2 py-0.5 bg-emerald-100 border border-emerald-200 text-emerald-700 text-[9px] font-black uppercase tracking-wider rounded-lg">Available</span>
                         ) : worker.availability === 'deployed' ? (
-                          <span className="inline-block px-2 py-0.5 bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[9px] font-black uppercase tracking-wider rounded-lg">Deployed</span>
+                          <span className="inline-block px-2 py-0.5 bg-emerald-100 border border-emerald-200 text-emerald-700 text-[9px] font-black uppercase tracking-wider rounded-lg">Deployed</span>
                         ) : (
-                          <span className="inline-block px-2 py-0.5 bg-white/10 border border-white/10 text-slate-300 text-[9px] font-black uppercase tracking-wider rounded-lg">Unavailable</span>
+                          <span className="inline-block px-2 py-0.5 bg-slate-100 border border-slate-900/8 text-slate-600 text-[9px] font-black uppercase tracking-wider rounded-lg">Unavailable</span>
                         )}
                       </div>
                     </motion.div>
@@ -491,36 +490,36 @@ export default function HrView({ user, lang }: HrViewProps) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.97 }}
                 transition={{ duration: 0.25, ease: 'easeOut' }}
-                className="icon-glow-emerald bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md" id="hr-worker-detail-pane">
+                className="bg-white border border-slate-900/8 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md" id="hr-worker-detail-pane">
 
                 {/* Visual Header */}
-                <div className="flex items-start gap-3 border-b-2 border-white/5 pb-4">
+                <div className="flex items-start gap-3 border-b border-slate-900/6 pb-4">
                   <img
                     src={selectedWorker.profilePhotoUrl}
                     alt={selectedWorker.name}
-                    className="w-16 h-16 rounded-xl object-cover border-2 border-white/10 shadow-md"
+                    className="w-16 h-16 rounded-xl object-cover border border-slate-900/8 shadow-md"
                     referrerPolicy="no-referrer"
                   />
                   <div>
-                    <h2 className="text-base font-black text-white leading-tight">{selectedWorker.name}</h2>
-                    <span className="text-xs font-black text-emerald-400 uppercase tracking-widest mt-0.5 block">{selectedWorker.skill}</span>
+                    <h2 className="text-base font-black text-slate-900 leading-tight">{selectedWorker.name}</h2>
+                    <span className="text-xs font-black text-emerald-600 uppercase tracking-widest mt-0.5 block">{selectedWorker.skill}</span>
                     <p className="text-[11px] text-slate-500 mt-0.5 font-bold">Native: {selectedWorker.homeDistrict}, {selectedWorker.homeState}</p>
                   </div>
                 </div>
 
                 {/* Personal particulars */}
                 <div className="space-y-2 text-xs">
-                  <div className="flex justify-between py-1 border-b-2 border-white/5">
+                  <div className="flex justify-between py-1 border-b border-slate-900/6">
                     <span className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Phone:</span>
-                    <span className="font-extrabold font-mono text-slate-100">+91 {selectedWorker.phone}</span>
+                    <span className="font-extrabold font-mono text-slate-900">+91 {selectedWorker.phone}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b-2 border-white/5">
+                  <div className="flex justify-between py-1 border-b border-slate-900/6">
                     <span className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Age:</span>
-                    <span className="font-extrabold text-slate-100">{selectedWorker.age} years</span>
+                    <span className="font-extrabold text-slate-900">{selectedWorker.age} years</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b-2 border-white/5 font-semibold">
+                  <div className="flex justify-between py-1 border-b border-slate-900/6 font-semibold">
                     <span className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">ID proof verified:</span>
-                    <span className="font-extrabold text-emerald-400 flex items-center gap-1 uppercase tracking-wider text-[10px]">
+                    <span className="font-extrabold text-emerald-600 flex items-center gap-1 uppercase tracking-wider text-[10px]">
                       <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                       {selectedWorker.idProofType}
                     </span>
@@ -531,10 +530,10 @@ export default function HrView({ user, lang }: HrViewProps) {
                 {(() => {
                   const sup = supervisors.find(s => s.id === selectedWorker.supervisorId);
                   return (
-                    <div className="p-3.5 bg-white/[0.03] rounded-2xl border-2 border-white/10 space-y-1 shadow-inner">
+                    <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-900/8 space-y-1 ">
                       <span className="text-[9px] text-slate-400 uppercase tracking-wider block font-black">Captured By Supervisor</span>
-                      <div className="text-xs font-black text-slate-100 flex items-center gap-1">
-                        <User className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <div className="text-xs font-black text-slate-900 flex items-center gap-1">
+                        <User className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                         {sup ? sup.name : 'Selvam Swamy'}
                       </div>
                       <div className="text-[11px] text-slate-500 flex items-center gap-1 font-mono font-bold">
@@ -551,16 +550,16 @@ export default function HrView({ user, lang }: HrViewProps) {
                     id="btn-trigger-deploy-form"
                     type="button"
                     disabled={selectedWorker.availability !== 'available'}
-                    className="w-full py-3.5 bg-amber-500 hover:bg-amber-600 border-b-4 border-amber-700 text-slate-950 font-black uppercase tracking-wider text-xs rounded-xl transition-all shadow-md active:translate-y-0.5 active:border-b-0 cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-40"
+                    className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black uppercase tracking-wider text-xs rounded-xl transition-all shadow-sm active:scale-[0.98] cursor-pointer flex items-center justify-center gap-1.5 disabled:opacity-40"
                     onClick={() => setIsDeploying(true)}
                   >
                     <Calendar className="w-4 h-4 stroke-[2.5]" />
                     {getTranslation('requestWorkerBtn', lang)}
                   </button>
                 ) : (
-                  <form onSubmit={handleSubmitDeploymentRequest} className="space-y-4 pt-4 border-t-2 border-white/5 animate-fadeIn" id="deployment-form">
-                    <h3 className="text-xs font-black text-slate-100 uppercase tracking-widest flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+                  <form onSubmit={handleSubmitDeploymentRequest} className="space-y-4 pt-4 border-t-2 border-slate-900/6 animate-fadeIn" id="deployment-form">
+                    <h3 className="text-xs font-black text-slate-900 uppercase tracking-widest flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5 text-emerald-600" />
                       Assign Travel & Projects
                     </h3>
 
@@ -572,11 +571,11 @@ export default function HrView({ user, lang }: HrViewProps) {
                     )}
 
                     <div>
-                      <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1">
+                      <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1">
                         Select IGO Project
                       </label>
                       <select
-                        className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
+                        className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                         value={selectedProjectId}
                         onChange={(e) => setSelectedProjectId(e.target.value)}
                       >
@@ -588,25 +587,25 @@ export default function HrView({ user, lang }: HrViewProps) {
 
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1">
+                        <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1">
                           {getTranslation('startDate', lang)}
                         </label>
                         <input
                           type="date"
                           required
-                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 font-mono"
+                          className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 font-mono"
                           value={startDate}
                           onChange={(e) => setStartDate(e.target.value)}
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1">
+                        <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1">
                           {getTranslation('endDate', lang)}
                         </label>
                         <input
                           type="date"
                           required
-                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 font-mono"
+                          className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 font-mono"
                           value={endDate}
                           onChange={(e) => setEndDate(e.target.value)}
                         />
@@ -624,7 +623,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                       </button>
                       <button
                         type="button"
-                        className="px-4 py-3 bg-white/10 hover:bg-white/15 border-2 border-white/10 text-slate-300 font-black uppercase tracking-wider text-xs rounded-xl transition-all cursor-pointer"
+                        className="px-4 py-3 bg-slate-100 hover:bg-slate-200 border border-slate-900/8 text-slate-600 font-black uppercase tracking-wider text-xs rounded-xl transition-all cursor-pointer"
                         onClick={() => setIsDeploying(false)}
                       >
                         Cancel
@@ -640,8 +639,8 @@ export default function HrView({ user, lang }: HrViewProps) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="bg-white/5 border-2 border-dashed border-white/10 rounded-3xl p-8 text-center text-slate-400 shadow-sm">
-                <User className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+                className="bg-white border border-dashed border-slate-900/8 rounded-3xl p-8 text-center text-slate-400 shadow-sm">
+                <User className="w-10 h-10 text-slate-600 mx-auto mb-2" />
                 <p className="text-xs font-bold leading-relaxed">Select any worker from the pool to view details, supervisor contact info, and submit deployment requests.</p>
               </motion.div>
             )}
@@ -679,8 +678,8 @@ export default function HrView({ user, lang }: HrViewProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3" id="hr-supervisors-grid">
               {supervisors.length === 0 ? (
-                <div className="sm:col-span-2 text-center py-12 bg-white/5 rounded-2xl border-2 border-dashed border-white/10">
-                  <UserCog className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+                <div className="sm:col-span-2 text-center py-12 bg-white rounded-2xl border border-dashed border-slate-900/8">
+                  <UserCog className="w-8 h-8 text-slate-600 mx-auto mb-2" />
                   <p className="text-xs font-bold text-slate-400">No supervisors registered yet.</p>
                 </div>
               ) : (
@@ -693,22 +692,22 @@ export default function HrView({ user, lang }: HrViewProps) {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.25, delay: Math.min(idx, 8) * 0.03, ease: 'easeOut' }}
                       whileHover={{ y: -2 }}
-                      className={`p-4 rounded-2xl border-2 cursor-pointer transition-all flex gap-3 items-center ${
+                      className={`p-4 rounded-2xl border cursor-pointer transition-all flex gap-3 items-center ${
                         isSel
-                          ? 'icon-glow-emerald bg-emerald-500/10 border-emerald-500 shadow-md'
-                          : 'bg-white/5 border-white/10 hover:border-white/20 hover:shadow-md'
+                          ? 'bg-emerald-50 border-emerald-500 shadow-md'
+                          : 'bg-white border-slate-900/8 hover:border-slate-900/12 hover:shadow-md'
                       }`}
                       onClick={() => { setSelectedSupervisor(sup); setIsAddingSupervisor(false); }}
                     >
                       <img
                         src={sup.profilePhotoUrl}
                         alt={sup.name}
-                        className="w-12 h-12 rounded-xl object-cover border-2 border-white/10 shadow-sm"
+                        className="w-12 h-12 rounded-xl object-cover border border-slate-900/8 shadow-sm"
                         referrerPolicy="no-referrer"
                       />
                       <div className="flex-1 min-w-0">
-                        <h4 className={`font-extrabold text-sm truncate ${isSel ? 'text-emerald-200' : 'text-white'}`}>{sup.name}</h4>
-                        <p className="text-xs text-emerald-400 font-bold uppercase tracking-wider mt-0.5 truncate">Area Supervisor</p>
+                        <h4 className={`font-extrabold text-sm truncate ${isSel ? 'text-emerald-700' : 'text-slate-900'}`}>{sup.name}</h4>
+                        <p className="text-xs text-emerald-600 font-bold uppercase tracking-wider mt-0.5 truncate">Area Supervisor</p>
                         <p className="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5 font-semibold">
                           <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
                           {sup.assignedDistrict}, {sup.assignedState}
@@ -731,11 +730,11 @@ export default function HrView({ user, lang }: HrViewProps) {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.25, ease: 'easeOut' }}
-                  className="bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-4 sticky top-6 shadow-md"
+                  className="bg-white border border-slate-900/8 rounded-3xl p-5 space-y-4 sticky top-6 shadow-md"
                   id="add-supervisor-form-container"
                 >
-                  <h3 className="text-sm font-black text-white border-b-2 border-white/5 pb-2 uppercase tracking-tight">
-                    🧑‍💼 Register New Supervisor
+                  <h3 className="text-sm font-black text-slate-900 border-b border-slate-900/6 pb-2 uppercase tracking-tight">
+                    Register New Supervisor
                   </h3>
 
                   <form onSubmit={handleAddSupervisor} className="space-y-4" id="add-supervisor-form">
@@ -747,22 +746,22 @@ export default function HrView({ user, lang }: HrViewProps) {
                     )}
 
                     {/* Photo Upload */}
-                    <div className="bg-white/[0.03] p-3.5 rounded-xl border-2 border-white/10">
-                      <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-2">
+                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-900/8">
+                      <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-2">
                         Photo Upload
                       </label>
                       <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 bg-white/5 border-2 border-white/10 rounded-xl flex items-center justify-center overflow-hidden shrink-0 shadow-inner">
+                        <div className="w-16 h-16 bg-white border border-slate-900/8 rounded-xl flex items-center justify-center overflow-hidden shrink-0 ">
                           {supProfilePhoto ? (
                             <img src={supProfilePhoto} alt="Profile Preview" className="w-full h-full object-cover" />
                           ) : (
-                            <Camera className="w-6 h-6 text-slate-300" />
+                            <Camera className="w-6 h-6 text-slate-600" />
                           )}
                         </div>
                         <div className="flex flex-col gap-2 flex-1">
                           <button
                             type="button"
-                            className="py-2 px-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-bold text-slate-200 flex items-center justify-center gap-1 shadow cursor-pointer"
+                            className="py-2 px-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-bold text-slate-600 flex items-center justify-center gap-1 shadow cursor-pointer"
                             onClick={() => setSupCameraTarget('profile')}
                           >
                             <Camera className="w-3.5 h-3.5" />
@@ -777,7 +776,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                           />
                           <button
                             type="button"
-                            className="py-2 px-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs font-bold text-slate-300 flex items-center justify-center gap-1 shadow cursor-pointer"
+                            className="py-2 px-3 bg-white hover:bg-slate-100 border border-slate-900/8 rounded-lg text-xs font-bold text-slate-600 flex items-center justify-center gap-1 shadow cursor-pointer"
                             onClick={() => supProfileFileInputRef.current?.click()}
                           >
                             <Upload className="w-3.5 h-3.5" />
@@ -789,7 +788,7 @@ export default function HrView({ user, lang }: HrViewProps) {
 
                     {/* Name */}
                     <div>
-                      <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1">
+                      <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1">
                         Name
                       </label>
                       <input
@@ -797,7 +796,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                         type="text"
                         required
                         placeholder="eg. Ganesh Prasad"
-                        className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all"
+                        className="w-full px-3 py-2.5 bg-slate-50 border border-slate-900/8 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-slate-900 font-bold text-sm focus:outline-none transition-all"
                         value={supName}
                         onChange={(e) => setSupName(e.target.value)}
                       />
@@ -806,11 +805,11 @@ export default function HrView({ user, lang }: HrViewProps) {
                     {/* Location */}
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1">
+                        <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1">
                           Location (State)
                         </label>
                         <select
-                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
+                          className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                           value={supState}
                           onChange={(e) => {
                             setSupState(e.target.value);
@@ -821,11 +820,11 @@ export default function HrView({ user, lang }: HrViewProps) {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1">
+                        <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1">
                           Location (District)
                         </label>
                         <select
-                          className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
+                          className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                           value={supDistrict}
                           onChange={(e) => setSupDistrict(e.target.value)}
                         >
@@ -836,7 +835,7 @@ export default function HrView({ user, lang }: HrViewProps) {
 
                     {/* Phone Number */}
                     <div>
-                      <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1">
+                      <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1">
                         Phone Number
                       </label>
                       <input
@@ -845,21 +844,21 @@ export default function HrView({ user, lang }: HrViewProps) {
                         required
                         maxLength={10}
                         placeholder="eg. 9123456780"
-                        className="w-full px-3 py-2.5 bg-white/[0.03] border-2 border-white/10 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-white font-bold text-sm focus:outline-none transition-all font-mono tracking-wider"
+                        className="w-full px-3 py-2.5 bg-slate-50 border border-slate-900/8 focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20 rounded-xl text-slate-900 font-bold text-sm focus:outline-none transition-all font-mono tracking-wider"
                         value={supPhone}
                         onChange={(e) => setSupPhone(e.target.value.replace(/\D/g, '').slice(0, 10))}
                       />
                     </div>
 
                     {/* ID Proof */}
-                    <div className="bg-white/[0.03] p-3.5 rounded-xl border-2 border-white/10 space-y-3">
+                    <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-900/8 space-y-3">
                       <div className="grid grid-cols-2 gap-2 items-center">
                         <div>
                           <label className="block text-[9px] font-black text-slate-400 uppercase tracking-wider mb-1">
                             ID Proof Type
                           </label>
                           <select
-                            className="w-full px-2 py-2.5 bg-white/5 border border-white/10 rounded-lg text-xs text-slate-100 font-bold focus:outline-none focus:border-emerald-600"
+                            className="w-full px-2 py-2.5 bg-white border border-slate-900/8 rounded-lg text-xs text-slate-900 font-bold focus:outline-none focus:border-emerald-600"
                             value={supIdProofType}
                             onChange={(e) => setSupIdProofType(e.target.value)}
                           >
@@ -886,7 +885,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                           />
                           <button
                             type="button"
-                            className="w-full py-2.5 px-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-[10px] font-black uppercase tracking-wider text-slate-300 flex items-center justify-center gap-1 shadow cursor-pointer"
+                            className="w-full py-2.5 px-2 bg-white hover:bg-slate-100 border border-slate-900/8 rounded-lg text-[10px] font-black uppercase tracking-wider text-slate-600 flex items-center justify-center gap-1 shadow cursor-pointer"
                             onClick={() => supIdFileInputRef.current?.click()}
                           >
                             <Upload className="w-3.5 h-3.5" />
@@ -895,11 +894,11 @@ export default function HrView({ user, lang }: HrViewProps) {
                         </div>
                       </div>
 
-                      <div className="h-20 bg-white/5 border-2 border-white/10 rounded-xl flex items-center justify-center overflow-hidden shadow-inner">
+                      <div className="h-20 bg-white border border-slate-900/8 rounded-xl flex items-center justify-center overflow-hidden ">
                         {supIdProofPhoto ? (
                           <img src={supIdProofPhoto} alt="ID Preview" className="w-full h-full object-contain" />
                         ) : (
-                          <FileText className="w-6 h-6 text-slate-300" />
+                          <FileText className="w-6 h-6 text-slate-600" />
                         )}
                       </div>
                     </div>
@@ -910,13 +909,13 @@ export default function HrView({ user, lang }: HrViewProps) {
                         id="btn-submit-supervisor"
                         type="submit"
                         disabled={supSubmitting}
-                        className="flex-1 py-3 bg-amber-500 hover:bg-amber-600 border-b-4 border-amber-700 text-slate-950 font-black uppercase tracking-wider text-xs rounded-xl shadow-md transition-all active:translate-y-0.5 active:border-b-0 cursor-pointer disabled:opacity-50"
+                        className="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black uppercase tracking-wider text-xs rounded-xl shadow-sm transition-all active:scale-[0.98] cursor-pointer disabled:opacity-50"
                       >
                         {supSubmitting ? 'Saving...' : 'Submit'}
                       </button>
                       <button
                         type="button"
-                        className="px-4 py-3 bg-white/10 hover:bg-white/15 border-2 border-white/10 text-slate-300 font-black uppercase tracking-wider text-xs rounded-xl transition-all cursor-pointer"
+                        className="px-4 py-3 bg-slate-100 hover:bg-slate-200 border border-slate-900/8 text-slate-600 font-black uppercase tracking-wider text-xs rounded-xl transition-all cursor-pointer"
                         onClick={() => { setIsAddingSupervisor(false); setSupFormError(''); }}
                       >
                         Cancel
@@ -931,33 +930,33 @@ export default function HrView({ user, lang }: HrViewProps) {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.25, ease: 'easeOut' }}
-                  className="icon-glow-emerald bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md"
+                  className="bg-white border border-slate-900/8 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md"
                   id="hr-supervisor-detail-pane"
                 >
                   {/* Visual Header */}
-                  <div className="flex items-start gap-3 border-b-2 border-white/5 pb-4">
+                  <div className="flex items-start gap-3 border-b border-slate-900/6 pb-4">
                     <img
                       src={selectedSupervisor.profilePhotoUrl}
                       alt={selectedSupervisor.name}
-                      className="w-16 h-16 rounded-xl object-cover border-2 border-white/10 shadow-md"
+                      className="w-16 h-16 rounded-xl object-cover border border-slate-900/8 shadow-md"
                       referrerPolicy="no-referrer"
                     />
                     <div>
-                      <h2 className="text-base font-black text-white leading-tight">{selectedSupervisor.name}</h2>
-                      <span className="text-xs font-black text-emerald-400 uppercase tracking-widest mt-0.5 block">Area Supervisor</span>
+                      <h2 className="text-base font-black text-slate-900 leading-tight">{selectedSupervisor.name}</h2>
+                      <span className="text-xs font-black text-emerald-600 uppercase tracking-widest mt-0.5 block">Area Supervisor</span>
                       <p className="text-[11px] text-slate-500 mt-0.5 font-bold">Native: {selectedSupervisor.assignedDistrict}, {selectedSupervisor.assignedState}</p>
                     </div>
                   </div>
 
                   {/* Particulars */}
                   <div className="space-y-2 text-xs">
-                    <div className="flex justify-between py-1 border-b-2 border-white/5">
+                    <div className="flex justify-between py-1 border-b border-slate-900/6">
                       <span className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Phone:</span>
-                      <span className="font-extrabold font-mono text-slate-100">+91 {selectedSupervisor.phone}</span>
+                      <span className="font-extrabold font-mono text-slate-900">+91 {selectedSupervisor.phone}</span>
                     </div>
-                    <div className="flex justify-between py-1 border-b-2 border-white/5 font-semibold">
+                    <div className="flex justify-between py-1 border-b border-slate-900/6 font-semibold">
                       <span className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">ID proof verified:</span>
-                      <span className="font-extrabold text-emerald-400 flex items-center gap-1 uppercase tracking-wider text-[10px]">
+                      <span className="font-extrabold text-emerald-600 flex items-center gap-1 uppercase tracking-wider text-[10px]">
                         <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                         {selectedSupervisor.idProofType}
                       </span>
@@ -977,10 +976,10 @@ export default function HrView({ user, lang }: HrViewProps) {
                         ) : (
                           <div className="space-y-2">
                             {assignedProjects.map(proj => (
-                              <div key={proj.id} className="p-3 bg-white/[0.03] rounded-xl border-2 border-white/10">
+                              <div key={proj.id} className="p-3 bg-slate-50 rounded-xl border border-slate-900/8">
                                 <div className="flex items-center justify-between">
-                                  <h4 className="text-xs font-extrabold text-white leading-tight">{proj.name}</h4>
-                                  <span className="text-[9px] bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-full font-black uppercase tracking-wider shrink-0">{proj.status}</span>
+                                  <h4 className="text-xs font-extrabold text-slate-900 leading-tight">{proj.name}</h4>
+                                  <span className="text-[9px] bg-emerald-100 border border-emerald-200 text-emerald-700 px-2 py-0.5 rounded-full font-black uppercase tracking-wider shrink-0">{proj.status}</span>
                                 </div>
                                 <p className="text-[10px] text-slate-500 font-bold flex items-center gap-1 mt-1">
                                   <MapPin className="w-3 h-3 text-slate-400" />
@@ -988,8 +987,8 @@ export default function HrView({ user, lang }: HrViewProps) {
                                 </p>
                                 <div className="flex flex-wrap gap-1 mt-2">
                                   {proj.requiredSkills.map(({ skill, count }) => (
-                                    <span key={skill} className="px-1.5 py-0.5 bg-white/5 border border-white/10 text-[9px] text-slate-300 font-bold uppercase tracking-wider rounded-md">
-                                      {skill} <span className="text-emerald-400">×{count}</span>
+                                    <span key={skill} className="px-1.5 py-0.5 bg-white border border-slate-900/8 text-[9px] text-slate-600 font-bold uppercase tracking-wider rounded-md">
+                                      {skill} <span className="text-emerald-600">×{count}</span>
                                     </span>
                                   ))}
                                 </div>
@@ -1008,9 +1007,9 @@ export default function HrView({ user, lang }: HrViewProps) {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="bg-white/5 border-2 border-dashed border-white/10 rounded-3xl p-8 text-center text-slate-400 shadow-sm"
+                  className="bg-white border border-dashed border-slate-900/8 rounded-3xl p-8 text-center text-slate-400 shadow-sm"
                 >
-                  <UserCog className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+                  <UserCog className="w-10 h-10 text-slate-600 mx-auto mb-2" />
                   <p className="text-xs font-bold leading-relaxed">Select a supervisor from the list to view details, or add a new one.</p>
                 </motion.div>
               )}
@@ -1048,8 +1047,8 @@ export default function HrView({ user, lang }: HrViewProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4" id="hr-projects-grid">
               {projects.length === 0 ? (
-                <div className="md:col-span-2 text-center py-12 bg-white/5 rounded-2xl border-2 border-dashed border-white/10">
-                  <MapPin className="w-8 h-8 text-slate-300 mx-auto mb-2" />
+                <div className="md:col-span-2 text-center py-12 bg-white rounded-2xl border border-dashed border-slate-900/8">
+                  <MapPin className="w-8 h-8 text-slate-600 mx-auto mb-2" />
                   <p className="text-xs font-bold text-slate-400">No projects registered yet.</p>
                 </div>
               ) : (
@@ -1059,14 +1058,14 @@ export default function HrView({ user, lang }: HrViewProps) {
                   return (
                     <div
                       key={proj.id}
-                      className={`p-4 rounded-2xl border-2 cursor-pointer space-y-3 shadow-sm transition-all ${
-                        isSel ? 'icon-glow-emerald bg-emerald-500/10 border-emerald-500' : 'bg-white/5 border-white/10 hover:border-emerald-400'
+                      className={`p-4 rounded-2xl border cursor-pointer space-y-3 shadow-sm transition-all ${
+                        isSel ? 'bg-emerald-50 border-emerald-500' : 'bg-white border-slate-900/8 hover:border-emerald-400'
                       }`}
                       onClick={() => { setSelectedProject(proj); setIsAddingProject(false); }}
                     >
                       <div>
-                        <span className="text-[9px] bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider">{proj.status}</span>
-                        <h4 className="text-sm font-extrabold text-white mt-1.5 leading-tight">{proj.name}</h4>
+                        <span className="text-[9px] bg-emerald-100 border border-emerald-200 text-emerald-700 px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider">{proj.status}</span>
+                        <h4 className="text-sm font-extrabold text-slate-900 mt-1.5 leading-tight">{proj.name}</h4>
                         <p className="text-xs text-slate-500 font-bold flex items-center gap-1 mt-1">
                           <MapPin className="w-3.5 h-3.5 text-slate-400" />
                           {proj.locationDistrict}, {proj.locationState}
@@ -1081,8 +1080,8 @@ export default function HrView({ user, lang }: HrViewProps) {
                         <span className="text-[9px] text-slate-400 uppercase tracking-widest block font-black mb-1.5">Required Skills onsite</span>
                         <div className="flex flex-wrap gap-1.5">
                           {proj.requiredSkills.map(({ skill, count }) => (
-                            <span key={skill} className="px-2 py-1 bg-white/[0.03] border border-white/10 text-[9px] text-slate-300 font-bold uppercase tracking-wider rounded-lg">
-                              {skill} <span className="text-emerald-400">×{count}</span>
+                            <span key={skill} className="px-2 py-1 bg-slate-50 border border-slate-900/8 text-[9px] text-slate-600 font-bold uppercase tracking-wider rounded-lg">
+                              {skill} <span className="text-emerald-600">×{count}</span>
                             </span>
                           ))}
                         </div>
@@ -1097,21 +1096,21 @@ export default function HrView({ user, lang }: HrViewProps) {
           {/* Add Project Form Drawer */}
           <div>
             {isAddingProject ? (
-              <div className="bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-4 shadow-md" id="project-form-container">
-                <h3 className="text-sm font-black text-white border-b-2 border-white/5 pb-2 uppercase tracking-tight">
-                  🏗️ Create IGO Infrastructure Project
+              <div className="bg-white border border-slate-900/8 rounded-3xl p-5 space-y-4 shadow-md" id="project-form-container">
+                <h3 className="text-sm font-black text-slate-900 border-b border-slate-900/6 pb-2 uppercase tracking-tight">
+                  Create IGO Infrastructure Project
                 </h3>
 
                 <form onSubmit={handleCreateProject} className="space-y-4">
                   <div>
-                    <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1">
                       Project Site Name
                     </label>
                     <input
                       type="text"
                       required
                       placeholder="eg. IGO Salem Paddy Mill Phase 3"
-                      className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
+                      className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                       value={newProjectName}
                       onChange={(e) => setNewProjectName(e.target.value)}
                     />
@@ -1119,11 +1118,11 @@ export default function HrView({ user, lang }: HrViewProps) {
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1">
+                      <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1">
                         State Location
                       </label>
                       <select
-                        className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
+                        className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                         value={newProjectState}
                         onChange={(e) => {
                           setNewProjectState(e.target.value);
@@ -1134,11 +1133,11 @@ export default function HrView({ user, lang }: HrViewProps) {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1">
+                      <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1">
                         District Location
                       </label>
                       <select
-                        className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
+                        className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                         value={newProjectDistrict}
                         onChange={(e) => setNewProjectDistrict(e.target.value)}
                       >
@@ -1148,12 +1147,12 @@ export default function HrView({ user, lang }: HrViewProps) {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1">
+                    <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1">
                       Assign Supervisor
                     </label>
                     <select
                       id="input-project-supervisor"
-                      className="w-full p-2.5 bg-white/[0.03] border-2 border-white/10 rounded-xl text-xs font-bold text-slate-100 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
+                      className="w-full p-2.5 bg-slate-50 border border-slate-900/8 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-500/20"
                       value={newProjectSupervisorId}
                       onChange={(e) => setNewProjectSupervisorId(e.target.value)}
                     >
@@ -1165,29 +1164,29 @@ export default function HrView({ user, lang }: HrViewProps) {
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-black text-slate-300 uppercase tracking-wider mb-1.5">
+                    <label className="block text-[10px] font-black text-slate-600 uppercase tracking-wider mb-1.5">
                       Select Required Trades / Skills
                     </label>
-                    <div className="max-h-52 overflow-y-auto space-y-1.5 p-2 bg-white/[0.03] rounded-xl border-2 border-white/10">
+                    <div className="max-h-52 overflow-y-auto space-y-1.5 p-2 bg-slate-50 rounded-xl border border-slate-900/8">
                       {SKILL_CATEGORIES.map(s => {
                         const count = newProjectSkills[s] || 0;
                         const isChecked = count > 0;
                         return (
                           <div
                             key={s}
-                            className={`flex items-center justify-between p-2 px-3 rounded-lg text-xs font-bold transition-colors ${isChecked ? 'bg-emerald-500/15 border-2 border-emerald-400/40 text-emerald-200' : 'text-slate-300'}`}
+                            className={`flex items-center justify-between p-2 px-3 rounded-lg text-xs font-bold transition-colors ${isChecked ? 'bg-emerald-100 border border-emerald-400/40 text-emerald-700' : 'text-slate-600'}`}
                           >
                             <span>{s}</span>
                             {isChecked ? (
                               <div className="flex items-center gap-2">
                                 <button
                                   type="button"
-                                  className="w-6 h-6 flex items-center justify-center rounded-md bg-white/10 hover:bg-white/20 text-white font-black cursor-pointer transition-colors"
+                                  className="w-6 h-6 flex items-center justify-center rounded-md bg-slate-200 hover:bg-slate-300 text-slate-700 font-black cursor-pointer transition-colors"
                                   onClick={() => decrementRequiredSkill(s)}
                                 >
                                   −
                                 </button>
-                                <span className="w-5 text-center font-black text-emerald-200">{count}</span>
+                                <span className="w-5 text-center font-black text-emerald-700">{count}</span>
                                 <button
                                   type="button"
                                   className="w-6 h-6 flex items-center justify-center rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-black cursor-pointer transition-colors"
@@ -1199,7 +1198,7 @@ export default function HrView({ user, lang }: HrViewProps) {
                             ) : (
                               <button
                                 type="button"
-                                className="px-3 py-1 rounded-lg bg-white/10 hover:bg-emerald-600 hover:text-white text-slate-300 font-black cursor-pointer transition-colors"
+                                className="px-3 py-1 rounded-lg bg-slate-100 hover:bg-emerald-600 hover:text-white text-slate-600 font-black cursor-pointer transition-colors"
                                 onClick={() => incrementRequiredSkill(s)}
                               >
                                 +
@@ -1214,13 +1213,13 @@ export default function HrView({ user, lang }: HrViewProps) {
                   <div className="flex gap-2">
                     <button
                       type="submit"
-                      className="flex-1 py-3 bg-amber-500 hover:bg-amber-600 border-b-4 border-amber-700 text-slate-950 font-black uppercase tracking-wider text-xs rounded-xl shadow-md transition-all active:translate-y-0.5 active:border-b-0 cursor-pointer"
+                      className="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black uppercase tracking-wider text-xs rounded-xl shadow-sm transition-all active:scale-[0.98] cursor-pointer"
                     >
                       Save Project Location
                     </button>
                     <button
                       type="button"
-                      className="px-4 py-3 bg-white/10 hover:bg-white/15 border-2 border-white/10 text-slate-300 font-black uppercase tracking-wider text-xs rounded-xl transition-all cursor-pointer"
+                      className="px-4 py-3 bg-slate-100 hover:bg-slate-200 border border-slate-900/8 text-slate-600 font-black uppercase tracking-wider text-xs rounded-xl transition-all cursor-pointer"
                       onClick={() => setIsAddingProject(false)}
                     >
                       Cancel
@@ -1229,10 +1228,10 @@ export default function HrView({ user, lang }: HrViewProps) {
                 </form>
               </div>
             ) : selectedProject ? (
-              <div className="icon-glow-emerald bg-white/5 border-2 border-white/10 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md" id="hr-project-detail-pane">
-                <div className="border-b-2 border-white/5 pb-4">
-                  <span className="text-[9px] bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider">{selectedProject.status}</span>
-                  <h2 className="text-base font-black text-white leading-tight mt-1.5">{selectedProject.name}</h2>
+              <div className="bg-white border border-slate-900/8 rounded-3xl p-5 space-y-5 sticky top-6 shadow-md" id="hr-project-detail-pane">
+                <div className="border-b border-slate-900/6 pb-4">
+                  <span className="text-[9px] bg-emerald-100 border border-emerald-200 text-emerald-700 px-2.5 py-0.5 rounded-full font-black uppercase tracking-wider">{selectedProject.status}</span>
+                  <h2 className="text-base font-black text-slate-900 leading-tight mt-1.5">{selectedProject.name}</h2>
                   <p className="text-[11px] text-slate-500 mt-0.5 font-bold flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5 text-slate-400" />
                     {selectedProject.locationDistrict}, {selectedProject.locationState}
@@ -1243,12 +1242,12 @@ export default function HrView({ user, lang }: HrViewProps) {
                 {(() => {
                   const sup = supervisors.find(s => s.id === selectedProject.assignedSupervisorId);
                   return (
-                    <div className="p-3.5 bg-white/[0.03] rounded-2xl border-2 border-white/10 space-y-1 shadow-inner">
+                    <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-900/8 space-y-1 ">
                       <span className="text-[9px] text-slate-400 uppercase tracking-wider block font-black">Assigned Supervisor</span>
                       {sup ? (
                         <>
-                          <div className="text-xs font-black text-slate-100 flex items-center gap-1">
-                            <UserCog className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                          <div className="text-xs font-black text-slate-900 flex items-center gap-1">
+                            <UserCog className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                             {sup.name}
                           </div>
                           <div className="text-[11px] text-slate-500 flex items-center gap-1 font-mono font-bold">
@@ -1282,8 +1281,8 @@ export default function HrView({ user, lang }: HrViewProps) {
                       ) : (
                         <div className="flex flex-wrap gap-1.5">
                           {entries.map(([skill, count]) => (
-                            <span key={skill} className="px-2 py-1 bg-emerald-500/10 border border-emerald-500/25 text-emerald-300 text-[9px] font-bold uppercase tracking-wider rounded-lg">
-                              {skill} <span className="text-emerald-400">×{count}</span>
+                            <span key={skill} className="px-2 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-[9px] font-bold uppercase tracking-wider rounded-lg">
+                              {skill} <span className="text-emerald-600">×{count}</span>
                             </span>
                           ))}
                         </div>
@@ -1297,16 +1296,16 @@ export default function HrView({ user, lang }: HrViewProps) {
                   <span className="text-[9px] text-slate-400 uppercase tracking-wider block font-black">Required Skills Onsite</span>
                   <div className="flex flex-wrap gap-1.5">
                     {selectedProject.requiredSkills.map(({ skill, count }) => (
-                      <span key={skill} className="px-2 py-1 bg-white/[0.03] border border-white/10 text-[9px] text-slate-300 font-bold uppercase tracking-wider rounded-lg">
-                        {skill} <span className="text-emerald-400">×{count}</span>
+                      <span key={skill} className="px-2 py-1 bg-slate-50 border border-slate-900/8 text-[9px] text-slate-600 font-bold uppercase tracking-wider rounded-lg">
+                        {skill} <span className="text-emerald-600">×{count}</span>
                       </span>
                     ))}
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="bg-white/5 border-2 border-dashed border-white/10 rounded-3xl p-6 text-center text-slate-400 shadow-sm">
-                <MapPin className="w-10 h-10 text-slate-300 mx-auto mb-2" />
+              <div className="bg-white border border-dashed border-slate-900/8 rounded-3xl p-6 text-center text-slate-400 shadow-sm">
+                <MapPin className="w-10 h-10 text-slate-600 mx-auto mb-2" />
                 <p className="text-xs font-bold leading-relaxed">Select a project to view its assigned supervisor and daily worker breakdown, or add a new one.</p>
               </div>
             )}

@@ -32,6 +32,8 @@ async function postJson<T>(url: string, body: unknown): Promise<T> {
   return data as T;
 }
 
+const springTransition = { type: 'spring' as const, stiffness: 100, damping: 20 };
+
 export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: SupervisorLoginViewProps) {
   const [name, setName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -101,8 +103,8 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
       id="supervisor-login-container"
       initial={{ opacity: 0, y: 24, scale: 0.97 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-      className="w-full max-w-md mx-auto glass-card rounded-[28px] shadow-2xl shadow-black/40 overflow-hidden text-slate-100 border border-white/10"
+      transition={springTransition}
+      className="w-full max-w-md mx-auto bento-surface rounded-[2rem] overflow-hidden text-slate-900"
     >
       <div className="p-6 space-y-6">
         <div className="flex items-center gap-2">
@@ -110,12 +112,12 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
             type="button"
             id="btn-back-to-roles"
             onClick={onBack}
-            className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-300 transition-colors cursor-pointer"
+            className="w-8 h-8 rounded-full bg-slate-50 hover:bg-slate-100 border border-slate-900/8 flex items-center justify-center text-slate-500 transition-colors cursor-pointer"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
           </button>
-          <h1 className="text-sm font-black uppercase tracking-widest text-slate-200 flex items-center gap-2">
-            <Phone className="w-4 h-4 text-emerald-400" />
+          <h1 className="text-sm font-black uppercase tracking-widest text-slate-900 flex items-center gap-2">
+            <Phone className="w-4 h-4 text-emerald-600" strokeWidth={1.5} />
             {getTranslation('phoneLogin', lang)}
           </h1>
         </div>
@@ -129,9 +131,9 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25 }}
               id="supervisor-login-error-alert"
-              className="p-3.5 bg-rose-500/10 border border-rose-500/25 rounded-2xl text-rose-300 text-xs flex items-start gap-2.5 font-semibold animate-shake"
+              className="p-3.5 bg-rose-50 border border-rose-200 rounded-2xl text-rose-700 text-xs flex items-start gap-2.5 font-semibold animate-shake"
             >
-              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-rose-400" />
+              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-rose-500" strokeWidth={1.5} />
               <span>{error}</span>
             </motion.div>
           )}
@@ -149,16 +151,16 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
               className="space-y-4"
             >
               <div className="space-y-1.5">
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest">
                   {lang === 'en' ? 'Full Name' : 'முழு பெயர்'}
                 </label>
                 <div className="relative group">
-                  <UserRound className="w-3.5 h-3.5 absolute left-3.5 top-3 text-slate-500 group-focus-within:text-emerald-400 transition-colors" />
+                  <UserRound className="w-3.5 h-3.5 absolute left-3.5 top-3 text-slate-400 group-focus-within:text-emerald-600 transition-colors" strokeWidth={1.5} />
                   <input
                     id="input-supervisor-name"
                     type="text"
                     placeholder={lang === 'en' ? 'eg. Selvam Swamy' : 'எ.கா. செல்வம் சாமி'}
-                    className="w-full pl-9 pr-4 py-2.5 bg-white/5 border border-white/15 focus:border-emerald-500 rounded-xl text-white font-bold text-xs focus:outline-none placeholder-slate-500 focus:ring-4 focus:ring-emerald-500/20 transition-all font-sans"
+                    className="w-full pl-9 pr-4 py-2.5 surface-input rounded-xl text-slate-900 font-bold text-xs focus:outline-none placeholder-slate-400 transition-all font-sans"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
@@ -166,17 +168,17 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest">
                   {getTranslation('mobileNumber', lang)}
                 </label>
                 <div className="relative group">
-                  <span className="absolute left-3 top-3 text-slate-500 text-xs font-black group-focus-within:text-emerald-400 transition-colors">+91</span>
+                  <span className="absolute left-3 top-3 text-slate-400 text-xs font-black group-focus-within:text-emerald-600 transition-colors">+91</span>
                   <input
                     id="input-phone"
                     type="tel"
                     maxLength={10}
                     placeholder={getTranslation('enterPhone', lang)}
-                    className="w-full pl-11 pr-4 py-2.5 bg-white/5 border border-white/15 focus:border-emerald-500 rounded-xl text-white font-bold text-xs focus:outline-none tracking-wider placeholder-slate-500 focus:ring-4 focus:ring-emerald-500/20 transition-all font-sans"
+                    className="w-full pl-11 pr-4 py-2.5 surface-input rounded-xl text-slate-900 font-bold text-xs focus:outline-none tracking-wider placeholder-slate-400 transition-all font-sans"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, '').slice(0, 10))}
                   />
@@ -189,14 +191,14 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
                 disabled={loading}
                 whileHover={{ scale: loading ? 1 : 1.015 }}
                 whileTap={{ scale: loading ? 1 : 0.98 }}
-                className="btn-sheen w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-md cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
+                className="btn-sheen w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-sm cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
               >
                 {loading ? (
                   <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
                 ) : (
                   <>
                     {getTranslation('sendOtp', lang)}
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
                   </>
                 )}
               </motion.button>
@@ -212,7 +214,7 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
               className="space-y-4"
             >
               <div className="space-y-1.5">
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest">
                   {getTranslation('otpCode', lang)}
                 </label>
                 <input
@@ -220,15 +222,15 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
                   type="text"
                   maxLength={6}
                   placeholder={getTranslation('enterOtp', lang)}
-                  className="w-full px-4 py-2.5 bg-white/5 border border-white/15 focus:border-emerald-500 rounded-xl text-center text-white font-bold text-lg focus:outline-none tracking-widest placeholder-slate-500 focus:ring-4 focus:ring-emerald-500/20 transition-all"
+                  className="w-full px-4 py-2.5 surface-input rounded-xl text-center text-slate-900 font-bold text-lg focus:outline-none tracking-widest placeholder-slate-400 transition-all"
                   value={otpCode}
                   onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
                 />
                 <div className="flex justify-between items-center mt-2 px-1">
-                  <span className="text-[10px] text-slate-400 font-bold">SMS sent to +91 {phoneNumber}</span>
+                  <span className="text-[10px] text-slate-500 font-bold">SMS sent to +91 {phoneNumber}</span>
                   <button
                     type="button"
-                    className="text-[10px] text-emerald-400 hover:text-emerald-300 font-black uppercase tracking-wider cursor-pointer"
+                    className="text-[10px] text-emerald-700 hover:text-emerald-600 font-black uppercase tracking-wider cursor-pointer"
                     onClick={() => { setOtpSent(false); setOtpCode(''); setError(''); }}
                   >
                     {lang === 'en' ? 'Change Phone' : 'எண்ணை மாற்றவும்'}
@@ -242,13 +244,13 @@ export default function SupervisorLoginView({ lang, onLoginSuccess, onBack }: Su
                 disabled={loading}
                 whileHover={{ scale: loading ? 1 : 1.015 }}
                 whileTap={{ scale: loading ? 1 : 0.98 }}
-                className="btn-sheen w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-md cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
+                className="btn-sheen w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-black uppercase tracking-wider text-[11px] rounded-xl transition-colors shadow-sm cursor-pointer flex justify-center items-center gap-1.5 disabled:opacity-50"
               >
                 {loading ? (
                   <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></span>
                 ) : (
                   <>
-                    <UserCheck className="w-4 h-4" />
+                    <UserCheck className="w-4 h-4" strokeWidth={1.5} />
                     {getTranslation('verifyLogin', lang)}
                   </>
                 )}
